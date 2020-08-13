@@ -1,25 +1,43 @@
 {
-  "name": "mobile",
-  "version": "0.1.0",
+  "name": "dating-app",
+  "version": "0.0.1",
   "private": true,
+  "homepage": "https://skilldill.github.io/dating-app",
   "dependencies": {
+    "@ionic/react": "^5.0.7",
+    "@ionic/react-router": "^5.0.7",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
-    "typescript": "~3.7.2"
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^8.0.3",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^12.12.24",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router": "^5.1.4",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/redux": "^3.6.0",
+    "classnames": "^2.2.6",
+    "ionicons": "^5.0.0",
+    "moment": "^2.25.3",
+    "react": "^16.13.0",
+    "react-calendar": "^3.1.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
+    "typescript": "3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +53,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/moment": "^2.13.0",
+    "@types/react-calendar": "^3.1.0",
+    "@types/redux-actions": "^2.6.1",
+    "gh-pages": "^2.2.0",
+    "redux-devtools-extension": "^2.13.8",
+    "sass-node": "^4.11.2"
   }
 }

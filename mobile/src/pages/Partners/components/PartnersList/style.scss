@@ -1,0 +1,57 @@
+.partners-list {
+    padding-top: 30px;
+
+    &-controls {
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .btn {
+            outline: none;
+            margin: 0 20px 0 20px;
+            position: relative;
+
+            img {
+                position: absolute;
+                width: 30px;
+            }
+        }
+        
+        .btn-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-middle {
+            width: 100px;
+            height: 100px;
+        }
+
+        .btn-like {
+            background-color: rgb(112, 197, 112);
+        }
+
+        .btn-mark {
+            background-color: #f1d74e;
+        }
+
+        .btn-close {
+            background-color: rgb(247, 95, 95);
+        }
+    }
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    margin-top: 190px;
+
+    img {
+        width: 50px;
+    }
+}

@@ -1,0 +1,19 @@
+.profile {
+    &-avatar {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        width: 180px;
+        height: 180px;
+        border-radius: 100%;
+
+        img {
+            height: 270px;
+        }
+    }
+
+    &-description {
+        display: flex;
+        justify-content: center;
+    }
+}

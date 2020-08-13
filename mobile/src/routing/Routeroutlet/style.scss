@@ -1,0 +1,15 @@
+.routes-holder {
+    height: 100vh;
+    background-color: white;
+    color: black;
+}
+
+.routes {
+    padding: 5px 5px;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.routes-overflow {
+    overflow-y: auto;
+}
