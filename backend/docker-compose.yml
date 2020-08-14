@@ -4,23 +4,24 @@ services:
     image: strapi/strapi
     environment:
       DATABASE_CLIENT: mongo
-      DATABASE_NAME: strapi
+      DATABASE_NAME: icnetworking
       DATABASE_HOST: mongo
       DATABASE_PORT: 27017
-      DATABASE_USERNAME: strapi
-      DATABASE_PASSWORD: strapi
+      DATABASE_USERNAME: icnetworking
+      DATABASE_PASSWORD: icnetworking
+    links:
+      - mongo:mongo
     volumes:
       - ./app:/srv/app
     ports:
       - '1337:1337'
-    depends_on:
-      - mongo
 
   mongo:
     image: mongo
     environment:
-      MONGO_INITDB_DATABASE: strapi
-      MONGO_INITDB_ROOT_USERNAME: strapi
-      MONGO_INITDB_ROOT_PASSWORD: strapi
+      MONGO_INITDB_ROOT_USERNAME: icnetworking
+      MONGO_INITDB_ROOT_PASSWORD: icnetworking
     volumes:
-      - ./data:/data/db
+      - ./data/db:/data/db
+    ports:
+      - '27017:27017'

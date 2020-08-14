@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interests",
+  "info": {
+    "name": "Interests"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "user_infos": {
+      "via": "interests",
+      "collection": "user-info"
+    }
+  }
+}
