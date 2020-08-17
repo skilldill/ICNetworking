@@ -3,6 +3,10 @@ import { ProfileActionsTypes } from "./profile.actions";
 import { Profile } from "../../shared/models";
 
 const initialState: Profile = {
+    // REAL PROPS
+    uid: "",
+
+    // MOCK PROPS
     name: "Гарри",
     surname: "Поттер",
     age: 19,

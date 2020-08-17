@@ -4,11 +4,14 @@ import { useHistory } from "react-router-dom";
 import "./style.scss";
 import { Input } from "../../components";
 import { ApiServise, updateTokenHttpClient } from "shared/api";
+import { useDispatch } from "react-redux";
+import { ProfileActions } from "store/profile/profile.actions";
 
 export const LoginForm = () => {
     const [login, setLogin] = useState("skilldill");
     const [password, setPassword] = useState("7543221");
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const authorization = useCallback(async () => {
         try {
@@ -16,7 +19,12 @@ export const LoginForm = () => {
             const { jwt, user } = response.data;
 
             localStorage.setItem("jwt", jwt);
+
+            // Лучше uid при разработке хранить в storage 
+            // потому что при перезагрузке uid потеряется
+            // dispatch(ProfileActions.setUid(user.uid));
             localStorage.setItem("uid", user.id);
+            
             updateTokenHttpClient(jwt);
 
             history.push('/partners');

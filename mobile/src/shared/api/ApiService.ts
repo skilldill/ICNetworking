@@ -17,4 +17,8 @@ export class ApiServise {
     static getSkills = () => {
         return httpClient.get(API_URLS.skills, { headers: HEADERS });
     }
+
+    static setUserInfo = (data: any) => {
+        return httpClient.post(API_URLS.userInfo, data, { headers: HEADERS });
+    }
 }

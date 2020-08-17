@@ -6,6 +6,10 @@ export type Settings = {
 }
 
 export interface Profile {
+    // REAL PROPS
+    uid: string,
+
+    // MOCK PROPS
     name: string,
     surname: string,
     age: number,

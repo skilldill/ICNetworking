@@ -7,6 +7,7 @@ import { Chat } from "./Chat";
 import { Onboarding } from "./Onboarding";
 import { Settings } from "./Settings";
 import { Authorzation } from "./Authorization";
+import { ProfileSettings } from "./ProfileSettings";
 
 export {
     Profile,
@@ -17,5 +18,6 @@ export {
     Chat,
     Onboarding,
     Settings,
-    Authorzation
+    Authorzation,
+    ProfileSettings
 }
