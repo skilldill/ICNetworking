@@ -5,4 +5,15 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+    find: async () => {
+        const skills = await strapi.services.skills.find();
+        
+        const prepareSkills = skills.map((skill) => {
+            const { _id, name } = skill;
+            return { name, id: _id };
+        }) 
+
+        return prepareSkills;
+    }
+};

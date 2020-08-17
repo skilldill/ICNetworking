@@ -10,3 +10,11 @@ export enum MEETING_STATUSES {
 
 export const DATE_FORMAT = 'DD-MM-YYYY';
 export const KEY_ONBOARDING = 'isShowedOnboarding';
+
+export const API_URLS = {
+    base: process.env.REACT_APP_BASE_API_URL || "",
+    auth: "/auth/local",
+    interests: "/interests",
+    skills: "/skills",
+    userInfo: "/user-infos"
+}
