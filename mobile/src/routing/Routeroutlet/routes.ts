@@ -23,5 +23,5 @@ export const routes: RouteNamedProps[] = [
     { path: "/chat/:id", component: Chat },
     { path: "/onboarding", component: Onboarding },
     { path: "/auth", component: Authorzation },
-    { path: "/profile-settings", component: ProfileSettings }
+    { path: "/profile-settings/:mode", component: ProfileSettings }
 ]

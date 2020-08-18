@@ -17,11 +17,11 @@ export const Partners = () => {
             try {
                 const uid = localStorage.getItem('uid');
                 if (!!uid) {
-                    const data = await ApiServise.getUserInfo(uid)
-                    console.log(data);
+                    // Нужно внести данные в стор
+                    const data = await ApiServise.getUserInfo(uid);
                 }
             } catch (error) {
-                history.push('/profile-settings');
+                history.push('/profile-settings/create');
                 dispatch(NavbarActions.changeTitle("Настройки профиля"))
             }
         }
@@ -30,7 +30,6 @@ export const Partners = () => {
         const jwt = localStorage.getItem('jwt');
         if (!!jwt) {
             dispatch(NavbarActions.changeTitle("Коллеги"))
-
             getUserInfo();
 
             // Тут необходимо выполнить редирект на форму заполнения инфы

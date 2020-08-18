@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Page } from "shared/components";
 import { IonInput, IonButton, IonItem, IonTextarea } from "@ionic/react";
 import { ApiServise } from "shared/api";
+import { useParams } from "react-router";
 
 export const ProfileSettings = () => {
     const [name, setName] = useState('Гарри');
     const [surname, setSurname] = useState('Поттер');
     const [birthday, setBirthday] = useState('2020-11-05');
     const [about, setAbout] = useState('Мальчик который выжил');
+    
+    const { mode } = useParams();
 
     const handleChangeField = (cb: (value: string) => void) => {
         return (event: any) => {
@@ -22,9 +25,12 @@ export const ProfileSettings = () => {
         const uid = localStorage.getItem('uid');
         const userData = { name, surname, birthday, about, userId: uid };
 
-
         try {
-            await ApiServise.setUserInfo(userData);
+            if (mode === "create") {
+                await ApiServise.setUserInfo(userData);
+            } else {
+                !!uid && await ApiServise.updateUserInfo(uid, userData);
+            }
         } catch (error) {
             console.log(error);
         }
