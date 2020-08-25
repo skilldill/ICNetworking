@@ -22,7 +22,7 @@ export const Partners = () => {
                 }
             } catch (error) {
                 history.push('/profile-settings/create');
-                dispatch(NavbarActions.changeTitle("Настройки профиля"))
+                
             }
         }
 

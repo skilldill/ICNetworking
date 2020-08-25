@@ -10,7 +10,7 @@ export const Settings = () => {
     const history = useHistory();
 
     const goToProfileSettings = useCallback(() => {
-        history.push('/profile-settings');
+        history.push('/profile-settings/update');
     }, [history])
 
     return (
