@@ -1,0 +1,1 @@
+export { CollegueAvatar } from "./CollegueAvatar";

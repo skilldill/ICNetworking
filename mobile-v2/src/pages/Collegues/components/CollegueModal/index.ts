@@ -1,0 +1,1 @@
+export { CollegueModal } from "./CollegueModal";
