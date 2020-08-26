@@ -1,3 +1,26 @@
 .avatar-control {
-    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 250px;
+    z-index: 1;
+
+    .avatar {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #E5EFFD;
+
+        .mock {
+            margin: auto;
+            margin-top: 220px;
+        }
+    }
+
+    .avatar-next {
+
+    }
 }
