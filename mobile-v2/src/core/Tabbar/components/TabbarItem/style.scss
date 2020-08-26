@@ -1,5 +1,12 @@
 .tabbar-item {
     small {
         font-size: 10px;
+        line-height: 12px;
+    }
+}
+
+.tabbar-item-active {
+    small {
+        color: #5295F1;
     }
 }

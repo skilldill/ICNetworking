@@ -2,6 +2,8 @@ import React, { FC, useCallback, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import cn from "classnames";
 
+import "./style.scss";
+
 interface TabbarItemProps {
     to: string,
     name: string,
