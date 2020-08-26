@@ -5,7 +5,11 @@ import { Navbar } from "core/Navbar";
 export const Collegues = () => {
     return (
         <div className="collegues">
-            <Navbar title="Коллеги" />
+            <Navbar 
+                title="Коллеги" 
+                onClickBack={() => {}}
+                onCancel={() => {}}
+            />
         </div>
     )
 }

@@ -3,7 +3,8 @@
     right: 0;
     left: 0;
     display: flex;
-    justify-content: space-between;
+
+    justify-content: center;
     align-items: center;
     position: fixed;
     padding: 34px 24px 17px 24px;
@@ -18,5 +19,27 @@
         line-height: 16px;
         text-align: center;
         color: #222222;
+    }
+
+    .back,
+    .cancel {
+        position: absolute;
+        border: none;
+        background-color: white;
+        border-radius: 0;
+        outline: none;
+        padding: 0;
+    }
+
+    .back {
+        left: 24px;
+    }
+
+    .cancel {
+        right: 24px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        color: #5295F1;
     }
 }
