@@ -3,6 +3,10 @@ import "./style.scss";
 
 export const CollegueModal = () => {
     return (
-        <div className="modal-control"></div>
+        <div className="modal-control">
+            <div className="top">
+                <div></div>
+            </div>
+        </div>
     )
 }

@@ -1,3 +1,30 @@
 .btns-controls {
+    position: absolute;
+    bottom: 72px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
 
+    .btn {
+        width: 56px;
+        height: 56px;
+        border: none;
+        outline: none;
+        border-radius: 100%;
+    }
+
+    .btn-skip {
+        background: #FF5F61;
+        box-shadow: 0px 0px 15px rgba(230, 68, 70, 0.2);
+        margin-right: 32px;
+    }
+
+    .btn-like {
+        background: #1ECD8C;
+        box-shadow: 0px 0px 15px rgba(30, 182, 125, 0.2);
+        margin-left: 32px;
+    }
 }
