@@ -58,10 +58,11 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                 setTransition(false);
                 setTranslate(0);
                 setOpacity(1);
+                setCurrentIndex(currentIndex + 1);
 
                 cb();
             })
-    }, [setTransition, setOpacity, setTranslate]);
+    }, [setTransition, setOpacity, setTranslate, currentIndex]);
 
     const handleTouchStart = (event: React.TouchEvent) => {
         setStartX(event.touches[0].clientX);
@@ -73,7 +74,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         setTranslate(diff);
 
         // CALC OPACITY
-        const calcOpacity = 1 - Math.abs(diff) * 0.005;
+        const calcOpacity = 1 - Math.abs(diff) * 0.0008;
         setOpacity(calcOpacity);
     }
 
@@ -89,7 +90,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             if (translate < 0) {
                 swipeToSide(-200, onSwipeLeft);
             }
-            setCurrentIndex(currentIndex + 1);
+
             return;
         }
 
@@ -98,47 +99,23 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     }
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
-        transform: `translateX(${translate}px)`,
+        transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,
         transition : transition ? "all .3s" : "none",
         opacity
     }), [translate, transition, opacity]);
-
-    const renderCollegues = useMemo(() => {
-        return (
-            <>
-                {
-                    !!collegues[currentIndex + 1] ? (
-                        <div className="avatar avatar-next">
-                            <div className="mock">
-                                <img src={UserAltPNG} alt=""/>
-                            </div>
-                        </div>
-                    ) : (
-                        <Empty description="Вы просвайпали всех" />
-                    )
-                }
-                <div className="avatar" 
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    style={dragStyle}
-                >
-                    <div className="mock">
-                        <img src={UserAltPNG} alt=""/>
-                    </div>
-                </div>
-            </>
-        )
-    }, [currentIndex])
 
     return (
         <div className="avatar-control">
             {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
-                        <div className="mock">
-                            <img src={UserAltPNG} alt=""/>
-                        </div>
+                        {!!collegues[currentIndex + 1].avatar ? (
+                            <img className="photo" src={collegues[currentIndex + 1].avatar} alt=""/> 
+                        ) : (
+                            <div className="mock">
+                                <img src={UserAltPNG} alt=""/>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div style={{paddingTop: 150}}>
@@ -154,9 +131,13 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         onTouchEnd={handleTouchEnd}
                         style={dragStyle}
                     >
-                        <div className="mock">
-                            <img src={UserAltPNG} alt=""/>
-                        </div>
+                        {!!collegues[currentIndex].avatar ? (
+                            <img className="photo" src={collegues[currentIndex].avatar} alt=""/> 
+                        ) : (
+                            <div className="mock">
+                                <img src={UserAltPNG} alt=""/>
+                            </div>
+                        )}
                     </div>
                 )
             }
