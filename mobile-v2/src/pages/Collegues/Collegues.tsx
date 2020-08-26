@@ -26,7 +26,7 @@ export const Collegues = () => {
 
             <CollegueAvatar 
                 collegues={mockCollegues}
-                onSwipeLeft={() =>{}}
+                onSwipeLeft={() => {}}
                 onSwipeRight={() => {}}
             />
         </div>
