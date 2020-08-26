@@ -1,7 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './App.css';
+import { Plugins } from "@capacitor/core";
 
+import './App.css';
 import { RouteRoullet } from "./routing";
 
 function App() {
