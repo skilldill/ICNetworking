@@ -1,19 +1,35 @@
 import React from "react";
-import { Button } from "antd";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
+import { ROUTES } from "shared/constants";
+import { Collegues, Matches, Chats, Meetings, Profile } from "pages";
 
 export const RouteRoullet = () => {
     return (
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <>
-                        <h1>Hello custom capacitor</h1>
-                        <Button size="large">CLICK</Button>
-                    </>
+                    <Redirect to={ROUTES.collegues} />
                 </Route>
-                <Route path="/just" exact>
-                    <h1>Hello just capacitor</h1>
+
+                <Route path={ROUTES.collegues} exact>
+                    <Collegues />
+                </Route>
+
+                <Route path={ROUTES.matches} exact>
+                    <Matches />
+                </Route>
+
+                <Route path={ROUTES.matches} exact>
+                    <Chats />
+                </Route>
+
+                <Route path={ROUTES.matches} exact>
+                    <Meetings />
+                </Route>
+
+                <Route path={ROUTES.matches} exact>
+                    <Profile />
                 </Route>
             </Switch>
         </Router>
