@@ -17,7 +17,7 @@ export const Collegues = () => {
             <CollegueModal />
 
             <CollegueAvatar 
-                collegues={[{}, {}]}
+                collegues={[{}, {}, {}, {}, {}]}
                 onSwipeLeft={() =>{}}
                 onSwipeRight={() => {}}
             />

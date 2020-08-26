@@ -5,3 +5,5 @@ export const ROUTES = {
     meetings: "/meetings",
     profile: "/profile"
 }
+
+export const MAX_TOUCH_TRANSLATE = 100;
