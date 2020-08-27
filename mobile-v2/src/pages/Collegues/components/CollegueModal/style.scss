@@ -17,10 +17,45 @@
 
         div {
             width: 48px;
-            height: 5px;
+            height: 4px;
             border-radius: 2px;
             background-color: #E8E8E8;
             margin: auto;
+        }
+    }
+
+    .collegue-info {
+        padding: 30px 24px 10px 24px;
+
+        .top-info {
+            transition: all .3s;
+            overflow: hidden;
+            width: calc(100% - 0px);
+        }
+
+        .top-info-hide {
+            width: 0px;
+        }
+
+        .name {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 21px;
+            color: #222222;
+            text-align: left;
+            min-width: 300px;
+        }
+
+        .position {
+            display: block;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 14px;
+            color: #686868;
+            text-align: left;
+            min-width: 300px;
         }
     }
 }
