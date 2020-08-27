@@ -6,4 +6,4 @@ export const ROUTES = {
     profile: "/profile"
 }
 
-export const MAX_TOUCH_TRANSLATE = 100;
+export const MAX_TOUCH_TRANSLATE = 180;
