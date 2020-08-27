@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useMemo } from "react";
+import React, { FC, useState, useCallback, useMemo, useEffect } from "react";
 import { Empty } from "antd";
 import "./style.scss";
 
@@ -10,10 +10,12 @@ interface CollegueAvatarProps {
     collegues: any[];
     onSwipeRight: () => void;
     onSwipeLeft: () => void;
+    doSwipeToLeft: boolean;
+    doSwipeToRight: boolean;
 }
 
 export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
-    const { onSwipeLeft, onSwipeRight, collegues } = props;
+    const { onSwipeLeft, onSwipeRight, collegues, doSwipeToLeft, doSwipeToRight } = props;
 
     // CALC CURRENT INDEX COLLEGUE
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -97,6 +99,15 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         // ADD TRANSITION FOR ANIMATION
         addTransitionAnimation();
     }
+
+    // SWIPE CONTROLS FOR OUTSIDE COMPONENTS
+    useEffect(() => {
+        doSwipeToLeft && swipeToSide(-200, onSwipeLeft);
+    }, [doSwipeToLeft])
+
+    useEffect(() => {
+        doSwipeToRight && swipeToSide(200, onSwipeRight);
+    }, [doSwipeToRight])
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
         transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,

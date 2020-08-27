@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 
@@ -13,21 +13,70 @@ const mockCollegues = [
 ]
 
 export const Collegues = () => {
+    const [collegueIndex, setCollegueIndex] = useState(0);
+
+    // STATE FOR BUTTONS SWIPE
+    const [doSwipeToLeft, setDoSwipeToLeft] = useState(false);
+    const [doSwipeToRight, setDoSwipeToRight] = useState(false);
+
+    const handleSwipe = useCallback(() => {
+        setCollegueIndex(collegueIndex + 1);
+    }, [collegueIndex])
+
+    // TEST EFFECT
+    useEffect(() => {
+        console.log(collegueIndex);
+    }, [collegueIndex]);
+
+    const handleLike = useCallback(() => {
+        const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
+            setDoSwipeToRight(true);
+
+            const timeout = setTimeout(() => {
+                resolve(timeout);
+            }, 450);
+        })
+
+        swipePromise
+            .then((timeout) => {
+                clearTimeout(timeout);
+                setDoSwipeToRight(false);
+            })
+    }, [collegueIndex, doSwipeToRight])
+
+    const handleSkip = useCallback(() => {
+        const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
+            setDoSwipeToLeft(true);
+
+            const timeout = setTimeout(() => {
+                resolve(timeout);
+            }, 450);
+        })
+
+        swipePromise
+            .then((timeout) => {
+                clearTimeout(timeout);
+                setDoSwipeToLeft(false);
+            })
+    }, [collegueIndex, setDoSwipeToLeft])
+
     return (
         <div className="collegues">
             <Navbar title="Коллеги" />
 
             <ButtonControls 
-                onLike={() => {}}
-                onSkip={() => {}}
+                onLike={handleLike}
+                onSkip={handleSkip}
             />
 
             <CollegueModal />
 
             <CollegueAvatar 
                 collegues={mockCollegues}
-                onSwipeLeft={() => {}}
-                onSwipeRight={() => {}}
+                onSwipeLeft={handleSwipe}
+                onSwipeRight={handleSwipe}
+                doSwipeToLeft={doSwipeToLeft}
+                doSwipeToRight={doSwipeToRight}
             />
         </div>
     )
