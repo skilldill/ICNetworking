@@ -30,11 +30,11 @@
         .top-info {
             transition: all .3s;
             overflow: hidden;
-            width: calc(100% - 0px);
+            opacity: 1;
         }
 
         .top-info-hide {
-            width: 0px;
+            opacity: 0;
         }
 
         .name {

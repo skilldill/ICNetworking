@@ -48,7 +48,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             setTransition(true);
             setTranslate(trans);
             setOpacity(0);
-
+            cb();
             const timeout = setTimeout(() => {
                 resolve(timeout);
             }, 400);
@@ -61,8 +61,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                 setTranslate(0);
                 setOpacity(1);
                 setCurrentIndex(currentIndex + 1);
-
-                cb();
             })
     }, [setTransition, setOpacity, setTranslate, currentIndex]);
 
