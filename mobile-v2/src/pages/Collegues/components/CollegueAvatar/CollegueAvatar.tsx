@@ -12,10 +12,11 @@ interface CollegueAvatarProps {
     onSwipeLeft: () => void;
     doSwipeToLeft: boolean;
     doSwipeToRight: boolean;
+    galleryMode: boolean;
 }
 
 export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
-    const { onSwipeLeft, onSwipeRight, collegues, doSwipeToLeft, doSwipeToRight } = props;
+    const { onSwipeLeft, onSwipeRight, collegues, doSwipeToLeft, doSwipeToRight, galleryMode } = props;
 
     // CALC CURRENT INDEX COLLEGUE
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -135,9 +136,9 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 !!collegues[currentIndex] && (
                     <div className="avatar" 
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
+                        onTouchStart={galleryMode ? handleTouchStart : undefined}
+                        onTouchMove={galleryMode ? handleTouchMove : undefined}
+                        onTouchEnd={galleryMode ? handleTouchEnd : undefined}
                         style={dragStyle}
                     >
                         {!!collegues[currentIndex].avatar ? (

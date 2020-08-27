@@ -59,3 +59,21 @@
         }
     }
 }
+
+.modal-control-show-info {
+    transform: translateY(260px) !important;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+
+    .top {
+        padding-top: 0px;
+
+        div {
+            height: 0px;
+        }
+    }
+
+    .collegue-info {
+        padding-top: 24px; 
+    }
+}

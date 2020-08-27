@@ -6,10 +6,13 @@ import { MAX_TOUCH_TRANSLATE } from "shared/constants";
 
 interface CollegueModalProps {
     collegue: any;
+    onOpen: () => void;
+    onClose: () => void;
+    doClose: boolean
 }
 
 export const CollegueModal: FC<CollegueModalProps> = (props) => {
-    const { collegue } = props;
+    const { collegue, onOpen, onClose, doClose } = props;
 
     // FOR ANIMATION COLLEGUE CHANGE
     const [currentCollegue, setCurrentCollegue] = useState<any>(null);
@@ -19,6 +22,8 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const [startY, setStartY] = useState(0);
     const [translate, setTranslate] = useState(400);
     const [transition, setTransition] = useState(false);
+
+    const [modeShowInfo, setModeShowInfo] = useState(false);
 
     const addTransitionAnimation = useCallback(() => {
         const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
@@ -50,14 +55,27 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const handleTouchEnd = () => {
         if (Math.abs(translate - 400) > (MAX_TOUCH_TRANSLATE)) {
 
-            // DRAG TO UP
+            // DRAG TO DOWN
             if (translate > 400) {
-
+                
             }
 
-            // DRAG TO DOWN
+            // DRAG TO UP
             if (translate < 400) {
+                const dragPromise = new Promise<NodeJS.Timeout>((resolve) => {
+                    setTransition(true);
+                    setModeShowInfo(true);
+                    onOpen();
 
+                    const timeout = setTimeout(() => {
+                        resolve(timeout);
+                    }, 400);
+                })
+
+                dragPromise
+                    .then(() => {
+                        setTransition(false);
+                    })
             }
 
             return;
@@ -89,10 +107,36 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         }
     }, [collegue]);
 
+    // OUTSIDE CLOSE MODAL
+    useEffect(() => {
+        if (!doClose) {
+            const closePromise = new Promise<NodeJS.Timeout>((resolve) => {
+                setTransition(true);
+                setModeShowInfo(false);
+                setTranslate(400);
+
+                const timeout = setTimeout(() => {
+                    resolve(timeout);
+                }, 400);
+            })
+
+            closePromise
+                .then((timeout) => {
+                    clearTimeout(timeout);
+                    setTransition(false);
+                })
+        }
+    }, [doClose])
+
     const topInfoClasses = useMemo(() => cn({
         'top-info': true,
         'top-info-hide': hideInfo
     }), [hideInfo]);
+
+    const modalClasses = useMemo(() => cn({
+        'modal-control': true,
+        'modal-control-show-info': modeShowInfo
+    }), [modeShowInfo])
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
         transform: `translateY(${translate}px)`,
@@ -100,7 +144,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     }), [translate, transition]);
 
     return (
-        <div className="modal-control"
+        <div className={modalClasses}
             style={dragStyle}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}

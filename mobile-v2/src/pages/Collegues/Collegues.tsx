@@ -39,6 +39,9 @@ export const Collegues = () => {
     const [doSwipeToLeft, setDoSwipeToLeft] = useState(false);
     const [doSwipeToRight, setDoSwipeToRight] = useState(false);
 
+    // WORK WITH MODAL
+    const [isOpenModal, setIsOpenModal] = useState(false);
+
     const handleSwipe = useCallback(() => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
@@ -82,14 +85,22 @@ export const Collegues = () => {
 
     return (
         <div className="collegues">
-            <Navbar title="Коллеги" />
+            <Navbar 
+                title="Коллеги" 
+                onClickBack={isOpenModal ? () => { setIsOpenModal(false) } : undefined}
+            />
 
             <ButtonControls 
                 onLike={handleLike}
                 onSkip={handleSkip}
             />
 
-            <CollegueModal collegue={mockCollegues[collegueIndex]} />
+            <CollegueModal 
+                collegue={mockCollegues[collegueIndex]}
+                onOpen={() => { setIsOpenModal(true) }}
+                onClose={() => {}}
+                doClose={isOpenModal}
+            />
 
             <CollegueAvatar 
                 collegues={mockCollegues}
@@ -97,6 +108,7 @@ export const Collegues = () => {
                 onSwipeRight={handleSwipe}
                 doSwipeToLeft={doSwipeToLeft}
                 doSwipeToRight={doSwipeToRight}
+                galleryMode={!isOpenModal}
             />
         </div>
     )
