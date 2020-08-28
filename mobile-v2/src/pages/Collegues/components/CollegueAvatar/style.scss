@@ -23,24 +23,42 @@
             width: 100%;
         }
 
-        .gallery-controls {
+        .gallery {
             position: absolute;
-            top: 240px;
+            top: 0;
             left: 0;
             right: 0;
-            display: flex;
-            padding: 0 16px;
 
-            .gallery-control {
-                height: 3px;
-                background-color: rgba(255, 255, 255, 0.658);
-                border-radius: 2px;
-                flex: 1;
-                margin: 0 4px;
+            .hidden-buttons {
+                display: flex;
+
+                div {
+                    height: 240px;
+                    flex: 1;
+                    background-color: transparent;
+                }
+
             }
 
-            .gallery-control-active {
-                background-color: rgba(73, 73, 73, 0.836);
+            .gallery-controls {
+                position: absolute;
+                top: 240px;
+                left: 0;
+                right: 0;
+                display: flex;
+                padding: 0 16px;
+    
+                .gallery-control {
+                    height: 3px;
+                    background-color: rgba(255, 255, 255, 0.658);
+                    border-radius: 2px;
+                    flex: 1;
+                    margin: 0 4px;
+                }
+    
+                .gallery-control-active {
+                    background-color: rgba(73, 73, 73, 0.836);
+                }
             }
         }
     }

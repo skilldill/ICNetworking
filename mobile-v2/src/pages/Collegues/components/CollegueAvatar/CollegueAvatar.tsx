@@ -53,6 +53,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             setTransition(true);
             setTranslate(trans);
             setOpacity(0);
+            setCurrentAvatar(0);
             cb();
             const timeout = setTimeout(() => {
                 resolve(timeout);
@@ -121,6 +122,19 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         }
     }, [galleryMode])
 
+    // GALLERY CONTROLS
+    const nextAvatar = useCallback(() => {
+        if (currentAvatar < collegues[currentIndex].avatars.length) {
+            setCurrentAvatar(currentAvatar + 1);
+        }
+    }, [currentAvatar])
+
+    const beforeAvatar = useCallback(() => {
+        if (currentAvatar > 0) {
+            setCurrentAvatar(currentAvatar - 1);
+        }
+    }, [currentAvatar])
+
     const dragStyle: React.CSSProperties = useMemo(() => ({
         transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,
         transition : transition ? "all .3s" : "none",
@@ -162,18 +176,26 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                                 <img src={UserAltPNG} alt=""/>
                             </div>
                         )}
-                        
+
                         {!galleryMode && (
-                            <div className="gallery-controls">
-                                {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
-                                    <div 
-                                        key={`${i}_${collegues[currentIndex].name}`} 
-                                        className={cn({
-                                            "gallery-control": collegues[currentIndex].avatars.length > 1,
-                                            "gallery-control-active": i === currentAvatar
-                                        })}
-                                    ></div>
+                            <div className="gallery">
+                                {collegues[currentIndex].avatars.length > 1 && (
+                                    <div className="hidden-buttons">
+                                        <div onClick={beforeAvatar}></div>
+                                        <div onClick={nextAvatar}></div>
+                                    </div>
                                 )}
+                                <div className="gallery-controls">
+                                    {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
+                                        <div 
+                                            key={`${i}_${collegues[currentIndex].name}`} 
+                                            className={cn({
+                                                "gallery-control": collegues[currentIndex].avatars.length > 1,
+                                                "gallery-control-active": i === currentAvatar
+                                            })}
+                                        ></div>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
