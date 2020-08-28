@@ -115,7 +115,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     // ADD OVERFLOW HIDDEN
     useEffect(() => {
         if (!galleryMode) {
-            console.log(123);
             document.body.style.overflowY = "scroll";
         } else {
             document.body.style.overflowY = "hidden";
@@ -127,18 +126,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         transition : transition ? "all .3s" : "none",
         opacity
     }), [translate, transition, opacity]);
-
-    // const avatarElement = useMemo(() => {
-    //     if (galleryMode) {
-    //         return (
-    //             <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
-    //         )
-    //     } else {
-    //         return (
-    //             <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
-    //         )
-    //     }
-    // }, [currentIndex, galleryMode]);
 
     return (
         <div className="avatar-control">
@@ -159,6 +146,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                     </div>
                 )
             }
+
             {
                 !!collegues[currentIndex] && (
                     <div className="avatar" 
@@ -174,6 +162,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                                 <img src={UserAltPNG} alt=""/>
                             </div>
                         )}
+                        
                         {!galleryMode && (
                             <div className="gallery-controls">
                                 {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
