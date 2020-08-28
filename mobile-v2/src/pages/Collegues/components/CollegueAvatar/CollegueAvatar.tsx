@@ -124,7 +124,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
     // GALLERY CONTROLS
     const nextAvatar = useCallback(() => {
-        if (currentAvatar < collegues[currentIndex].avatars.length) {
+        if (currentAvatar < collegues[currentIndex].avatars.length - 1) {
             setCurrentAvatar(currentAvatar + 1);
         }
     }, [currentAvatar])
@@ -147,7 +147,13 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
                         {!!collegues[currentIndex + 1].avatars.length ? (
-                            <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} />
+                            <img 
+                                className={cn({
+                                    "photo": true,
+                                    "photo-gallery": !galleryMode
+                                })}  
+                                src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} 
+                            />
                         ) : (
                             <div className="mock">
                                 <img src={UserAltPNG} alt=""/>
@@ -170,7 +176,14 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         style={dragStyle}
                     >
                         {!!collegues[currentIndex].avatars.length ? (
-                            <img className="photo" src={collegues[currentIndex].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
+                            <img 
+                                className={cn({
+                                    "photo": true,
+                                    "photo-gallery": !galleryMode
+                                })} 
+                                src={collegues[currentIndex].avatars[currentAvatar]} 
+                                alt={collegues[currentIndex].name} 
+                            /> 
                         ) : (
                             <div className="mock">
                                 <img src={UserAltPNG} alt=""/>

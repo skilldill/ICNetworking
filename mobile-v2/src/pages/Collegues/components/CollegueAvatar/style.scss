@@ -21,6 +21,11 @@
 
         .photo {
             width: 100%;
+            transition: all .3s;
+        }
+
+        .photo-gallery {
+            width: 70%;
         }
 
         .gallery {
