@@ -6,29 +6,55 @@ import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
 
 const mockCollegues = [
     { 
-        avatar: 'https://api.time.com/wp-content/uploads/2014/07/daniel-radcliffe-harry-potter.jpg',
+        avatars: [
+            'https://api.time.com/wp-content/uploads/2014/07/daniel-radcliffe-harry-potter.jpg',
+            'https://api.time.com/wp-content/uploads/2014/07/daniel-radcliffe-harry-potter.jpg',
+            'https://api.time.com/wp-content/uploads/2014/07/daniel-radcliffe-harry-potter.jpg',
+        ],
         name: "Гарри Поттер",
         position: "Мракоборец"
     },
     { 
-        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSh5isPNRRrzW4dLeVLNiYj7QlZfsQGapdr2Q&usqp=CAU',
+        avatars: [
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSh5isPNRRrzW4dLeVLNiYj7QlZfsQGapdr2Q&usqp=CAU',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSh5isPNRRrzW4dLeVLNiYj7QlZfsQGapdr2Q&usqp=CAU',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSh5isPNRRrzW4dLeVLNiYj7QlZfsQGapdr2Q&usqp=CAU',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSh5isPNRRrzW4dLeVLNiYj7QlZfsQGapdr2Q&usqp=CAU',
+        ],
         name: "Рон Уизли",
         position: "Домохозяйка"
     },
     { 
-        avatar: 'https://i.pinimg.com/originals/f6/af/8b/f6af8b3e5cd5a1726b002f91885b85e7.png',
+        avatars: [
+            'https://i.pinimg.com/originals/f6/af/8b/f6af8b3e5cd5a1726b002f91885b85e7.png',
+        ],
         name: "Гермиона Гренджер",
         position: "Мракоборец"
     },
     { 
-        avatar: 'https://vignette.wikia.nocookie.net/harrypotter/images/3/30/Harry-potter-and-the-half--blood-prince-Luna.jpg/revision/latest?cb=20140521113232',
+        avatars: [
+            'https://vignette.wikia.nocookie.net/harrypotter/images/3/30/Harry-potter-and-the-half--blood-prince-Luna.jpg/revision/latest?cb=20140521113232',
+            'https://vignette.wikia.nocookie.net/harrypotter/images/3/30/Harry-potter-and-the-half--blood-prince-Luna.jpg/revision/latest?cb=20140521113232',
+        ],
         name: "Полумна Лавгуд",
         position: "Директор газеты 'Придира'"
     },
     { 
-        avatar: 'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+        avatars: [
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+            'https://pm1.narvii.com/7081/27a6042de08e024d9e0eb7ea5b28176c322898d7r1-508-635v2_00.jpg',
+        ],
         name: "Драко Малфой",
         position: "Бизнесмэн"
+    },
+    { 
+        avatars: [],
+        name: "Дамбалдор",
+        position: "Директор школы Хогвартс"
     }
 ]
 

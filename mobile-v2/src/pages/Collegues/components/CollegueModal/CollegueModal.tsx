@@ -57,7 +57,8 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
 
             // DRAG TO DOWN
             if (translate > 400) {
-                
+                 // ADD TRANSITION FOR ANIMATION
+                addTransitionAnimation();
             }
 
             // DRAG TO UP
@@ -154,7 +155,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
                 <div></div>
             </div>
             <div className="collegue-info">
-                { !!currentCollegue && (
+                {!!currentCollegue && (
                     <div className={topInfoClasses}>
                         <h3 className="name">{currentCollegue.name}</h3>
                         <span className="position">{currentCollegue.position}</span>

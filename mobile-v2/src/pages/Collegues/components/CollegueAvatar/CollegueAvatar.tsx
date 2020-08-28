@@ -1,5 +1,6 @@
 import React, { FC, useState, useCallback, useMemo, useEffect } from "react";
 import { Empty } from "antd";
+import cn from "classnames";
 import "./style.scss";
 
 // PICTURES
@@ -26,6 +27,9 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     const [translate, setTranslate] = useState(0);
     const [transition, setTransition] = useState(false);
     const [opacity, setOpacity] = useState(1);
+
+    // GALLERY AVATARS 
+    const [currentAvatar, setCurrentAvatar] = useState(0);
 
     const addTransitionAnimation = useCallback(() => {
         const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
@@ -108,19 +112,41 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         doSwipeToRight && swipeToSide(200, onSwipeRight);
     }, [doSwipeToRight])
 
+    // ADD OVERFLOW HIDDEN
+    useEffect(() => {
+        if (!galleryMode) {
+            console.log(123);
+            document.body.style.overflowY = "scroll";
+        } else {
+            document.body.style.overflowY = "hidden";
+        }
+    }, [galleryMode])
+
     const dragStyle: React.CSSProperties = useMemo(() => ({
         transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,
         transition : transition ? "all .3s" : "none",
         opacity
     }), [translate, transition, opacity]);
 
+    // const avatarElement = useMemo(() => {
+    //     if (galleryMode) {
+    //         return (
+    //             <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
+    //         )
+    //     } else {
+    //         return (
+    //             <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
+    //         )
+    //     }
+    // }, [currentIndex, galleryMode]);
+
     return (
         <div className="avatar-control">
             {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
-                        {!!collegues[currentIndex + 1].avatar ? (
-                            <img className="photo" src={collegues[currentIndex + 1].avatar} alt=""/> 
+                        {!!collegues[currentIndex + 1].avatars.length ? (
+                            <img className="photo" src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} />
                         ) : (
                             <div className="mock">
                                 <img src={UserAltPNG} alt=""/>
@@ -141,11 +167,24 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         onTouchEnd={galleryMode ? handleTouchEnd : undefined}
                         style={dragStyle}
                     >
-                        {!!collegues[currentIndex].avatar ? (
-                            <img className="photo" src={collegues[currentIndex].avatar} alt=""/> 
+                        {!!collegues[currentIndex].avatars.length ? (
+                            <img className="photo" src={collegues[currentIndex].avatars[currentAvatar]} alt={collegues[currentIndex].name} /> 
                         ) : (
                             <div className="mock">
                                 <img src={UserAltPNG} alt=""/>
+                            </div>
+                        )}
+                        {!galleryMode && (
+                            <div className="gallery-controls">
+                                {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
+                                    <div 
+                                        key={`${i}_${collegues[currentIndex].name}`} 
+                                        className={cn({
+                                            "gallery-control": collegues[currentIndex].avatars.length > 1,
+                                            "gallery-control-active": i === currentAvatar
+                                        })}
+                                    ></div>
+                                )}
                             </div>
                         )}
                     </div>
