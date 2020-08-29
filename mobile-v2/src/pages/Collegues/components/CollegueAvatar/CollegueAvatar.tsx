@@ -152,7 +152,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                                     "photo": true,
                                     "photo-gallery": !galleryMode
                                 })}  
-                                src={collegues[currentIndex + 1].avatars[currentAvatar]} alt={collegues[currentIndex].name} 
+                                src={collegues[currentIndex + 1].avatars[0]} alt={collegues[currentIndex].name} 
                             />
                         ) : (
                             <div className="mock">
