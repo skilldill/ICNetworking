@@ -149,7 +149,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     }
 
     const handleEndTouchOnName = () => {
-        if (transitionTouchName >= MAX_TOUCH_TRANSLATE) {
+        if (transitionTouchName >= MAX_TOUCH_TRANSLATE/2) {
             closeModal();
         }
     }
