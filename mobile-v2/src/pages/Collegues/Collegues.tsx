@@ -124,7 +124,7 @@ export const Collegues = () => {
             <CollegueModal 
                 collegue={mockCollegues[collegueIndex]}
                 onOpen={() => { setIsOpenModal(true) }}
-                onClose={() => {}}
+                onClose={() => { setIsOpenModal(false) }}
                 doClose={isOpenModal}
             />
 

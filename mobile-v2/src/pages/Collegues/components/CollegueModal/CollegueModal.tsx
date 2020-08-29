@@ -23,6 +23,10 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const [translate, setTranslate] = useState(400);
     const [transition, setTransition] = useState(false);
 
+    // FOR CLOSE DRAGBLE
+    const [startTouchNameY, setStartTouchNameY] = useState(0);
+    const [transitionTouchName, setTransitionTouchName] = useState(0);
+
     const [modeShowInfo, setModeShowInfo] = useState(false);
 
     const addTransitionAnimation = useCallback(() => {
@@ -108,26 +112,47 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         }
     }, [collegue]);
 
+    const closeModal = useCallback(() => {
+        const closePromise = new Promise<NodeJS.Timeout>((resolve) => {
+            setTransition(true);
+            setModeShowInfo(false);
+            setTranslate(400);
+            onClose();
+            const timeout = setTimeout(() => {
+                resolve(timeout);
+            }, 400);
+        })
+
+        closePromise
+            .then((timeout) => {
+                clearTimeout(timeout);
+                setTransition(false);
+            })
+    }, [transition, modeShowInfo, translate])
+
     // OUTSIDE CLOSE MODAL
     useEffect(() => {
         if (!doClose) {
-            const closePromise = new Promise<NodeJS.Timeout>((resolve) => {
-                setTransition(true);
-                setModeShowInfo(false);
-                setTranslate(400);
-
-                const timeout = setTimeout(() => {
-                    resolve(timeout);
-                }, 400);
-            })
-
-            closePromise
-                .then((timeout) => {
-                    clearTimeout(timeout);
-                    setTransition(false);
-                })
+            closeModal();
         }
     }, [doClose])
+
+    // FOR DRAGBLE CLOSE BINDING ONT NAME ELEMENT
+    const handleStartTouchOnName = (event: React.TouchEvent) => {
+        const y = event.touches[0].clientY;
+        setStartTouchNameY(y);
+    }
+
+    const handleMoveTouchOnName = (event: React.TouchEvent) => {
+        const y = event.touches[0].clientY;
+        setTransitionTouchName(y - startTouchNameY);
+    }
+
+    const handleEndTouchOnName = () => {
+        if (transitionTouchName >= MAX_TOUCH_TRANSLATE) {
+            closeModal();
+        }
+    }
 
     const topInfoClasses = useMemo(() => cn({
         'top-info': true,
@@ -145,7 +170,8 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     }), [translate, transition]);
 
     return (
-        <div className={modalClasses}
+        <div 
+            className={modalClasses}
             style={dragStyle}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -154,7 +180,12 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
             <div className="top">
                 <div></div>
             </div>
-            <div className="collegue-info">
+            <div 
+                className="collegue-info"
+                onTouchStart={modeShowInfo ? handleStartTouchOnName : undefined}
+                onTouchMove={modeShowInfo ? handleMoveTouchOnName: undefined}
+                onTouchEnd={modeShowInfo ? handleEndTouchOnName : undefined}
+            >
                 {!!currentCollegue && (
                     <div className={topInfoClasses}>
                         <h3 className="name">{currentCollegue.name}</h3>
