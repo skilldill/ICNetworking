@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "2.4.0",
     "@capacitor/cli": "^2.4.0",
     "@capacitor/core": "^2.4.0",
     "@capacitor/ios": "2.4.0",
@@ -30,7 +31,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "sync-ios": "npx cap sync ios",
-    "startios": "npx cap open ios"
+    "start-ios": "npx cap open ios",
+    "sync-android": "npx cap sync android",
+    "start-android": "npx cap open android"
   },
   "eslintConfig": {
     "extends": "react-app"
