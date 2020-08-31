@@ -5,7 +5,8 @@
     right: 0;
     bottom: 250px;
     z-index: 1;
-
+    touch-action: none;
+    
     .avatar {
         position: absolute;
         width: 100%;
