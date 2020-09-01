@@ -60,7 +60,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   const handleTouchEnd = () => {
     const calcedTranslate = translate + (displayWidth * currentPhoto);
 
-    if (Math.abs(calcedTranslate) > MAX_TOUCH_TRANSLATE) {
+    if (Math.abs(calcedTranslate) > MAX_TOUCH_TRANSLATE/2) {
 
         // SWIPE TO RIGHT
         if (calcedTranslate > 0 && currentPhoto > 0) {
@@ -118,8 +118,11 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
                 </div>
               )
             }
-          </div>) : 
-          <img src={avatars[0]} />
+          </div>) : (
+          <div className="avatar-holder">
+            <img src={avatars[0]} />
+          </div>
+          )
         }
 
       {singleAvatar && (
