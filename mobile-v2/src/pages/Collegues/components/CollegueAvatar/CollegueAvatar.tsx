@@ -157,12 +157,13 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 <CollegueGallery 
                     collegue={collegues[currentIndex]}
-                    onSwipeLeft={() => {}}
-                    onSwipeRight={() => {}}
+                    onSwipeLeft={() => { setCurrentAvatar(currentAvatar + 1) }}
+                    onSwipeRight={() => { setCurrentAvatar(currentAvatar - 1) }}
+                    currentAvatar={currentAvatar}
                 />
             }
 
-            {
+            {/* {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
                         {!!collegues[currentIndex + 1].avatars.length ? (
@@ -189,9 +190,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 !!collegues[currentIndex] && (
                     <div className="avatar" 
-                        // onTouchStart={galleryMode ? handleTouchStart : undefined}
-                        // onTouchMove={galleryMode ? handleTouchMove : undefined}
-                        // onTouchEnd={galleryMode ? handleTouchEnd : undefined}
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
@@ -214,12 +212,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
                         {!galleryMode && (
                             <div className="gallery">
-                                {/* {collegues[currentIndex].avatars.length > 1 && (
-                                    <div className="hidden-buttons">
-                                        <div onClick={beforeAvatar}></div>
-                                        <div onClick={nextAvatar}></div>
-                                    </div>
-                                )} */}
                                 <div className="gallery-controls">
                                     {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
                                         <div 
@@ -235,7 +227,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         )}
                     </div>
                 )
-            }
+            } */}
         </div>
     )
 }
