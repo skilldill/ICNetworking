@@ -26,6 +26,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
 
   // COMPONENT DID MOUNT
   useEffect(() => {
+    console.log(123);
     setCurrentPhoto(currentAvatar);
   }, [])
 
@@ -66,13 +67,13 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           const nextPhoto = currentPhoto - 1;
           const setedTranslate = displayWidth * -nextPhoto;
 
-          console.log(setedTranslate, nextPhoto);
-
           setCurrentPhoto(nextPhoto);
           onSwipeRight();
 
           // ADD TRANSITION FOR ANIMATION
           addTransitionAnimation(setedTranslate);
+
+          return;
         }
 
         // SWIPE TO LEFT
@@ -80,20 +81,18 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           const nextPhoto = currentPhoto + 1;
           const setedTranslate = displayWidth * -nextPhoto;
 
-          console.log(setedTranslate, nextPhoto);
-
           setCurrentPhoto(nextPhoto);
           onSwipeLeft();
 
           // ADD TRANSITION FOR ANIMATION
           addTransitionAnimation(setedTranslate);
+
+          return;
         }
-
-        // addTransitionAnimation(-currentPhoto * displayWidth);
-
-        return;
     }
 
+    addTransitionAnimation(-currentPhoto * displayWidth);
+    return;
     
   }
 
