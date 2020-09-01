@@ -154,16 +154,16 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
     return (
         <div className="avatar-control">
-            {
+            {!galleryMode && (
                 <CollegueGallery 
                     collegue={collegues[currentIndex]}
                     onSwipeLeft={() => { setCurrentAvatar(currentAvatar + 1) }}
                     onSwipeRight={() => { setCurrentAvatar(currentAvatar - 1) }}
                     currentAvatar={currentAvatar}
                 />
-            }
+            )}
 
-            {/* {
+            {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
                         {!!collegues[currentIndex + 1].avatars.length ? (
@@ -209,25 +209,9 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                                 <img src={UserAltPNG} alt=""/>
                             </div>
                         )}
-
-                        {!galleryMode && (
-                            <div className="gallery">
-                                <div className="gallery-controls">
-                                    {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
-                                        <div 
-                                            key={`${i}_${collegues[currentIndex].name}`} 
-                                            className={cn({
-                                                "gallery-control": collegues[currentIndex].avatars.length > 1,
-                                                "gallery-control-active": i === currentAvatar
-                                            })}
-                                        ></div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
                     </div>
                 )
-            } */}
+            }
         </div>
     )
 }

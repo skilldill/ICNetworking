@@ -66,7 +66,7 @@ export const Collegues = () => {
     const [doSwipeToRight, setDoSwipeToRight] = useState(false);
 
     // WORK WITH MODAL
-    const [isOpenModal, setIsOpenModal] = useState(true);
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     const handleSwipe = useCallback(() => {
         setCollegueIndex(collegueIndex + 1);
