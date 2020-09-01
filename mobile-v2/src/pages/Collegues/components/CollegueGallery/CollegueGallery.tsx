@@ -23,7 +23,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           <div className="avatars-lenta">
             {
               avatars.map((avatar: string, i: number) => 
-                <div className="avatar-holder" key={i} style={{width: `${displayWidth}px`}}>
+                <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
                   <img src={avatar} alt={name} />
                 </div>
               )
