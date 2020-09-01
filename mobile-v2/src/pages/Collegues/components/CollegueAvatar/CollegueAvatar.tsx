@@ -6,6 +6,7 @@ import "./style.scss";
 // PICTURES
 import UserAltPNG from "assets/pictures/user-alt.png";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
+import { CollegueGallery } from "../CollegueGallery";
 
 interface CollegueAvatarProps {
     collegues: any[];
@@ -153,6 +154,14 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
     return (
         <div className="avatar-control">
+            {
+                <CollegueGallery 
+                    collegue={collegues[currentIndex]}
+                    onSwipeLeft={() => {}}
+                    onSwipeRight={() => {}}
+                />
+            }
+
             {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
