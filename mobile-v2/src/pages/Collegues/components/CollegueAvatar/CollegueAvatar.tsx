@@ -31,6 +31,29 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     // GALLERY AVATARS 
     const [currentAvatar, setCurrentAvatar] = useState(0);
 
+     // GALLERY CONTROLS
+     const nextAvatar = useCallback(() => {
+        if (currentAvatar < collegues[currentIndex].avatars.length - 1) {
+            setCurrentAvatar(currentAvatar + 1);
+
+            // RETURN TO DEFAULT
+            setTransition(false);
+            setTranslate(0);
+            setOpacity(1);
+        }
+    }, [currentAvatar])
+
+    const beforeAvatar = useCallback(() => {
+        if (currentAvatar > 0) {
+            setCurrentAvatar(currentAvatar - 1);
+
+            // RETURN TO DEFAULT
+            setTransition(false);
+            setTranslate(0);
+            setOpacity(1);
+        }
+    }, [currentAvatar])
+
     const addTransitionAnimation = useCallback(() => {
         const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
             setTransition(true);
@@ -89,12 +112,12 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
             // SWIPE TO RIGHT
             if (translate > 0) {
-                swipeToSide(200, onSwipeRight);
+                galleryMode ? swipeToSide(200, onSwipeRight) : beforeAvatar();
             }
 
             // SWIPE TO LEFT
             if (translate < 0) {
-                swipeToSide(-200, onSwipeLeft);
+                galleryMode ? swipeToSide(-200, onSwipeLeft) : nextAvatar();
             }
 
             return;
@@ -121,19 +144,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             document.body.style.overflowY = "hidden";
         }
     }, [galleryMode])
-
-    // GALLERY CONTROLS
-    const nextAvatar = useCallback(() => {
-        if (currentAvatar < collegues[currentIndex].avatars.length - 1) {
-            setCurrentAvatar(currentAvatar + 1);
-        }
-    }, [currentAvatar])
-
-    const beforeAvatar = useCallback(() => {
-        if (currentAvatar > 0) {
-            setCurrentAvatar(currentAvatar - 1);
-        }
-    }, [currentAvatar])
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
         transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,
@@ -170,10 +180,13 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 !!collegues[currentIndex] && (
                     <div className="avatar" 
-                        onTouchStart={galleryMode ? handleTouchStart : undefined}
-                        onTouchMove={galleryMode ? handleTouchMove : undefined}
-                        onTouchEnd={galleryMode ? handleTouchEnd : undefined}
-                        style={dragStyle}
+                        // onTouchStart={galleryMode ? handleTouchStart : undefined}
+                        // onTouchMove={galleryMode ? handleTouchMove : undefined}
+                        // onTouchEnd={galleryMode ? handleTouchEnd : undefined}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        style={galleryMode ? dragStyle : undefined}
                     >
                         {!!collegues[currentIndex].avatars.length ? (
                             <img 
@@ -192,12 +205,12 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
                         {!galleryMode && (
                             <div className="gallery">
-                                {collegues[currentIndex].avatars.length > 1 && (
+                                {/* {collegues[currentIndex].avatars.length > 1 && (
                                     <div className="hidden-buttons">
                                         <div onClick={beforeAvatar}></div>
                                         <div onClick={nextAvatar}></div>
                                     </div>
-                                )}
+                                )} */}
                                 <div className="gallery-controls">
                                     {collegues[currentIndex].avatars.map((avatar: string, i: number) => 
                                         <div 
