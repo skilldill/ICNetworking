@@ -164,63 +164,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         opacity
     }), [translate, transition, opacity]);
 
-    // RENDER AVATARS
-    const renderAvatars = () => {
-        return (
-            <>
-                {
-                    !!collegues[currentIndex + 1] ? (
-                        <div className="avatar avatar-next">
-                            {!!collegues[currentIndex + 1].avatars.length ? (
-                                <img 
-                                    className={cn({
-                                        "photo": true,
-                                        "photo-gallery": !galleryMode
-                                    })}  
-                                    src={collegues[currentIndex + 1].avatars[0]} alt={collegues[currentIndex].name} 
-                                />
-                            ) : (
-                                <div className="mock">
-                                    <img src={UserAltPNG} alt=""/>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <div style={{paddingTop: 150}}>
-                            <Empty description="Вы просвайпали всех" />
-                        </div>
-                    )
-                }
-
-                {
-                    !!collegues[currentIndex] && !showGallery && (
-                        <div className="avatar" 
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handleTouchEnd}
-                            style={galleryMode ? dragStyle : undefined}
-                        >
-                            {!!collegues[currentIndex].avatars.length ? (
-                                <img 
-                                    className={cn({
-                                        "photo": true,
-                                        "photo-gallery": !galleryMode
-                                    })} 
-                                    src={collegues[currentIndex].avatars[currentAvatar]} 
-                                    alt={collegues[currentIndex].name} 
-                                /> 
-                            ) : (
-                                <div className="mock">
-                                    <img src={UserAltPNG} alt=""/>
-                                </div>
-                            )}
-                        </div>
-                    )
-                }
-            </>
-        )
-    }
-
     return (
         <div className="avatar-control">
             {showGallery && (
