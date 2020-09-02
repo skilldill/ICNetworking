@@ -8,8 +8,8 @@ interface useTouchConfig {
   transition?: boolean,
 }
 
-export const useTouch = (config: useTouchConfig = { startX: 0, startY: 0, translateX: 0, translateY: 0, transition: false }) => {
-  const { startX, startY, translateX, translateY, transition } = config;
+export const useTouch = (config: useTouchConfig) => {
+  const { startX = 0, startY = 0, translateX = 0, translateY = 0, transition = false } = config;
 
   const [stateStartX, setStateStartX] = useState(startX);
   const [stateStartY, setStateStartY] = useState(startY);
@@ -55,8 +55,8 @@ export const useTouch = (config: useTouchConfig = { startX: 0, startY: 0, transl
     const { touches } = event;
     const { clientX, clientY } = touches[0];
 
-    const diffX = clientX - stateStartX;
-    const diffY = clientY - stateStartY;
+    const diffX = clientX - stateStartX!;
+    const diffY = clientY - stateStartY!;
 
     setStateTranslateX(diffX);
     setStateTranslateY(diffY);
@@ -78,6 +78,8 @@ export const useTouch = (config: useTouchConfig = { startX: 0, startY: 0, transl
     setStateTranslateY,
     setStateTransition,
 
+    stateStartX,
+    stateStartY,
     stateTranslateX,
     stateTranslateY,
     stateTransition

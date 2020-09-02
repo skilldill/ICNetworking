@@ -16,7 +16,6 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const { collegue, onOpen, onClose, doClose } = props;
 
     // TEST USE TOUCH HOOK
-    // const { stateTranslateY } = useTouch({ translateY: 400 })
 
     // FOR ANIMATION COLLEGUE CHANGE
     const [currentCollegue, setCurrentCollegue] = useState<any>(null);
