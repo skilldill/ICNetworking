@@ -3,6 +3,7 @@ import cn from "classnames";
 
 import "./style.scss";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
+import { useTouch } from "shared/hooks";
 
 interface CollegueModalProps {
     collegue: any;
@@ -13,6 +14,9 @@ interface CollegueModalProps {
 
 export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const { collegue, onOpen, onClose, doClose } = props;
+
+    // TEST USE TOUCH HOOK
+    // const { stateTranslateY } = useTouch({ translateY: 400 })
 
     // FOR ANIMATION COLLEGUE CHANGE
     const [currentCollegue, setCurrentCollegue] = useState<any>(null);
