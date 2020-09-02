@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 
@@ -68,6 +68,8 @@ export const Collegues = () => {
     // WORK WITH MODAL
     const [isOpenModal, setIsOpenModal] = useState(false);
 
+    const canSelectCollegue = useMemo(() => collegueIndex < mockCollegues.length, [collegueIndex]);
+
     const handleSwipe = useCallback(() => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
@@ -116,10 +118,12 @@ export const Collegues = () => {
                 onClickBack={isOpenModal ? () => { setIsOpenModal(false) } : undefined}
             />
 
-            <ButtonControls 
-                onLike={handleLike}
-                onSkip={handleSkip}
-            />
+            {canSelectCollegue && (
+                <ButtonControls 
+                    onLike={handleLike}
+                    onSkip={handleSkip}
+                />
+            )}
 
             <CollegueModal 
                 collegue={mockCollegues[collegueIndex]}

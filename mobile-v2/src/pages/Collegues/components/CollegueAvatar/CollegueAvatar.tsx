@@ -166,7 +166,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
     return (
         <div className="avatar-control">
-            {showGallery && (
+            {showGallery && !!collegues[currentIndex] && (
                 <CollegueGallery 
                     collegue={collegues[currentIndex]}
                     onSwipeLeft={() => { setCurrentAvatar(currentAvatar + 1) }}
