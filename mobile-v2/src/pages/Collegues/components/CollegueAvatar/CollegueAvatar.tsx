@@ -7,6 +7,7 @@ import "./style.scss";
 import UserAltPNG from "assets/pictures/user-alt.png";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
 import { CollegueGallery } from "../CollegueGallery";
+import { useTouch } from "shared/hooks";
 
 interface CollegueAvatarProps {
     collegues: any[];
@@ -23,10 +24,21 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     // CALC CURRENT INDEX COLLEGUE
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const {
+        stateTransition,
+        stateTranslateX,
+
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
+
+        setStateTransition,
+        setStateTranslateX,
+
+        addTransitionAnimation
+    } = useTouch();
+
     // FOR ANIMATION SWIPE
-    const [startX, setStartX] = useState(0);
-    const [translate, setTranslate] = useState(0);
-    const [transition, setTransition] = useState(false);
     const [opacity, setOpacity] = useState(1);
 
     // GALLERY AVATARS 
@@ -50,8 +62,8 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             setCurrentAvatar(currentAvatar + 1);
 
             // RETURN TO DEFAULT
-            setTransition(false);
-            setTranslate(0);
+            setStateTransition(false);
+            setStateTranslateX(0);
             setOpacity(1);
         }
     }, [currentAvatar])
@@ -61,33 +73,16 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             setCurrentAvatar(currentAvatar - 1);
 
             // RETURN TO DEFAULT
-            setTransition(false);
-            setTranslate(0);
+            setStateTransition(false);
+            setStateTranslateX(0);
             setOpacity(1);
         }
     }, [currentAvatar])
 
-    const addTransitionAnimation = useCallback(() => {
-        const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
-            setTransition(true);
-            setTranslate(0);
-            setOpacity(1);
-            const timeout = setTimeout(() => {
-                resolve(timeout);
-            }, 400);
-        })
-
-        promiseAnimation
-            .then((timeout) => {
-                clearTimeout(timeout);
-                setTransition(false);
-            })
-    }, [setTransition]);
-
     const swipeToSide = useCallback((trans: number, cb: () => void) => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
-            setTransition(true);
-            setTranslate(trans);
+            setStateTransition(true);
+            setStateTranslateX(trans);
             setOpacity(0);
             setCurrentAvatar(0);
             cb();
@@ -99,37 +94,23 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         swipePromise
             .then((timeout) => {
                 clearTimeout(timeout);
-                setTransition(false);
-                setTranslate(0);
+                setStateTransition(false);
+                setStateTranslateX(0);
                 setOpacity(1);
                 setCurrentIndex(currentIndex + 1);
             })
-    }, [setTransition, setOpacity, setTranslate, currentIndex]);
+    }, [setStateTransition, setOpacity, setStateTranslateX, currentIndex]);
 
-    const handleTouchStart = (event: React.TouchEvent) => {
-        setStartX(event.touches[0].clientX);
-    }
-
-    const handleTouchMove = (event: React.TouchEvent) => {
-        const currentX = event.touches[0].clientX;
-        const diff = currentX - startX;
-        setTranslate(diff);
-
-        // CALC OPACITY
-        const calcOpacity = 1 - Math.abs(diff) * 0.0008;
-        setOpacity(calcOpacity);
-    }
-
-    const handleTouchEnd = () => {
-        if (Math.abs(translate) > MAX_TOUCH_TRANSLATE) {
+    const onTouchEnd = () => {
+        if (Math.abs(stateTranslateX) > MAX_TOUCH_TRANSLATE) {
 
             // SWIPE TO RIGHT
-            if (translate > 0) {
+            if (stateTranslateX > 0) {
                 galleryMode ? swipeToSide(200, onSwipeRight) : beforeAvatar();
             }
 
             // SWIPE TO LEFT
-            if (translate < 0) {
+            if (stateTranslateX < 0) {
                 galleryMode ? swipeToSide(-200, onSwipeLeft) : nextAvatar();
             }
 
@@ -138,6 +119,11 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
         // ADD TRANSITION FOR ANIMATION
         addTransitionAnimation();
+    }
+
+    const handleChangeOpacity = () => {
+        const calcOpacity = 1 - Math.abs(stateTranslateX) * 0.0008; 
+        setOpacity(calcOpacity);
     }
 
     // SWIPE CONTROLS FOR OUTSIDE COMPONENTS
@@ -159,10 +145,10 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     }, [galleryMode])
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
-        transform: `translateX(${translate}px) rotate(${translate * 0.1}deg)`,
-        transition : transition ? "all .3s" : "none",
+        transform: `translateX(${stateTranslateX}px) rotate(${stateTranslateX * 0.1}deg)`,
+        transition : stateTransition ? "all .3s" : "none",
         opacity
-    }), [translate, transition, opacity]);
+    }), [stateTranslateX, stateTransition, opacity]);
 
     return (
         <div className="avatar-control">
@@ -203,9 +189,9 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 !!collegues[currentIndex] && (
                     <div className="avatar" 
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
+                        onTouchStart={handleTouchStart()}
+                        onTouchMove={handleTouchMove(handleChangeOpacity)}
+                        onTouchEnd={handleTouchEnd(onTouchEnd)}
                         style={galleryMode ? dragStyle : undefined}
                     >
                         {showGallery && <div className="backdrop" />}
