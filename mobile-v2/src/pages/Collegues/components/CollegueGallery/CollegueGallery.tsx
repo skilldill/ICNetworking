@@ -3,6 +3,7 @@ import cn from "classnames";
 
 import "./style.scss";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
+import { useTouch } from "shared/hooks";
 
 interface CollegueGalleryProps {
   collegue: any;
@@ -18,10 +19,17 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   const singleAvatar = useMemo(() => avatars.length > 1, [collegue]);
   const displayWidth = window.innerWidth;
 
-  // STATE FOR CHANGE PHOTO
-  const [startX, setStartX] = useState(0);
-  const [translate, setTranslate] = useState(0);
-  const [transition, setTransition] = useState(false);
+  const {
+    stateTranslateX,
+    stateTransition,
+
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+
+    addTransitionAnimation,
+  } = useTouch();
+
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
   // COMPONENT DID MOUNT
@@ -30,35 +38,8 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
     setCurrentPhoto(currentAvatar);
   }, [])
 
-  const addTransitionAnimation = useCallback((trans: number) => {
-    const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
-      setTransition(true);
-      setTranslate(trans);
-
-      const timeout = setTimeout(() => {
-          resolve(timeout);
-      }, 400);
-    })
-
-    promiseAnimation
-      .then((timeout) => {
-          clearTimeout(timeout);
-          setTransition(false);
-      })
-  }, [setTransition]);
-
-  const handleTouchStart = (event: React.TouchEvent) => {
-    setStartX(event.touches[0].clientX - translate);
-  }
-
-  const handleTouchMove = (event: React.TouchEvent) => {
-    const currentX = event.touches[0].clientX;
-    const diff = currentX - startX;
-    setTranslate(diff);
-  }
-
-  const handleTouchEnd = () => {
-    const calcedTranslate = translate + (displayWidth * currentPhoto);
+  const onTouchEnd = () => {
+    const calcedTranslate = stateTranslateX + (displayWidth * currentPhoto);
 
     if (Math.abs(calcedTranslate) > MAX_TOUCH_TRANSLATE/2) {
 
@@ -71,7 +52,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           onSwipeRight();
 
           // ADD TRANSITION FOR ANIMATION
-          addTransitionAnimation(setedTranslate);
+          addTransitionAnimation(undefined, setedTranslate);
 
           return;
         }
@@ -85,30 +66,29 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           onSwipeLeft();
 
           // ADD TRANSITION FOR ANIMATION
-          addTransitionAnimation(setedTranslate);
+          addTransitionAnimation(undefined, setedTranslate);
 
           return;
         }
     }
 
-    addTransitionAnimation(-currentPhoto * displayWidth);
+    addTransitionAnimation(undefined, -currentPhoto * displayWidth);
     return;
-    
   }
 
   const dragStyle: React.CSSProperties = useMemo(() => ({
-    transform: `translateX(${translate}px)`,
-    transition : transition ? "all .3s" : "none"
-  }), [translate, transition]);
+    transform: `translateX(${stateTranslateX}px)`,
+    transition : stateTransition ? "all .3s" : "none"
+  }), [stateTranslateX, stateTransition]);
 
   return (
     <div className="collegue-gallery">
       { singleAvatar ? (
           <div 
             className="avatars-lenta"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+            onTouchStart={handleTouchStart()}
+            onTouchMove={handleTouchMove()}
+            onTouchEnd={handleTouchEnd(onTouchEnd)}
             style={dragStyle}
           >
             {
