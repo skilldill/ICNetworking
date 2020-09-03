@@ -53,8 +53,8 @@ export const useTouch = (config?: useTouchConfig) => {
     const { touches } = event;
     const { clientX, clientY } = touches[0];
 
-    const diffX = clientX - stateStartX!;
-    const diffY = clientY - stateStartY!;
+    const diffX = clientX - stateStartX;
+    const diffY = clientY - stateStartY;
 
     setStateTranslateX(stateTranslateX + diffX);
     setStateTranslateY(stateTranslateY + diffY);
