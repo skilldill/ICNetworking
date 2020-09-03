@@ -8,8 +8,10 @@ interface useTouchConfig {
   transition?: boolean,
 }
 
-export const useTouch = (config: useTouchConfig) => {
-  const { startX = 0, startY = 0, translateX = 0, translateY = 0, transition = false } = config;
+export const useTouch = (config?: useTouchConfig) => {
+  let initialConfig = { startX: 0, startY: 0, translateX: 0, translateY: 0, transition: false };
+  if (!!config) initialConfig = { ...initialConfig, ...config };
+  const { startX, startY, translateX, translateY, transition } = initialConfig;
 
   const [stateStartX, setStateStartX] = useState(startX);
   const [stateStartY, setStateStartY] = useState(startY);
@@ -17,15 +19,11 @@ export const useTouch = (config: useTouchConfig) => {
   const [stateTranslateY, setStateTranslateY] = useState(translateY);
   const [stateTransition, setStateTransition] = useState(transition);
 
-  const addTransitionAnimation = (
-    config: { cb?: () => void, transX: number, transY: number, delay: number } = { cb: undefined, transX: 0, transY: 0, delay: 400 }
-  ) => {
-    const { cb, transX, transY, delay } = config;
-
+  const addTransitionAnimation = useCallback((cb?: () => void, transX: number = translateX, transY: number = translateY, delay = 400) => {
     const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
       setStateTransition(true);
-        setStateStartY(transY);
-        setStateStartX(transX)
+        setStateTranslateY(transY);
+        setStateTranslateX(transX);
 
         !!cb && cb();
 
@@ -39,9 +37,9 @@ export const useTouch = (config: useTouchConfig) => {
             clearTimeout(timeout);
             setStateTransition(false);
         })
-  }
+  }, [])
 
-  const handleTouchStart = (cb?: () => void) => (event: TouchEvent) => {
+  const handleTouchStart = useCallback((cb?: () => void) => (event: TouchEvent) => {
     const { touches } = event;
     const { clientX, clientY } = touches[0];
 
@@ -49,20 +47,20 @@ export const useTouch = (config: useTouchConfig) => {
 
     setStateStartX(clientX);
     setStateStartY(clientY);
-  }
+  }, [setStateStartX, setStateStartY])
 
-  const handleTouchMove = (cb?: () => void) => (event: TouchEvent) => {
+  const handleTouchMove = useCallback((cb?: () => void) => (event: TouchEvent) => {
     const { touches } = event;
     const { clientX, clientY } = touches[0];
 
     const diffX = clientX - stateStartX!;
     const diffY = clientY - stateStartY!;
 
-    setStateTranslateX(diffX);
-    setStateTranslateY(diffY);
+    setStateTranslateX(stateTranslateX + diffX);
+    setStateTranslateY(stateTranslateY + diffY);
 
     !!cb && cb();
-  }
+  }, [stateStartX, stateStartY, setStateTranslateX, setStateTranslateY])
 
   const handleTouchEnd = (cb?: () => void) => (event: TouchEvent) => {
     !!cb && cb();

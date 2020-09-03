@@ -15,16 +15,23 @@ interface CollegueModalProps {
 export const CollegueModal: FC<CollegueModalProps> = (props) => {
     const { collegue, onOpen, onClose, doClose } = props;
 
-    // TEST USE TOUCH HOOK
+    // FOR DRAGGBLE EFFECT
+    const { 
+        stateTranslateY, 
+        stateTransition,
+        
+        setStateTranslateY,
+        setStateTransition,
+        addTransitionAnimation,
+
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd
+    } = useTouch({ translateY: 400 })
 
     // FOR ANIMATION COLLEGUE CHANGE
     const [currentCollegue, setCurrentCollegue] = useState<any>(null);
     const [hideInfo, setHideInfo] = useState(false);
-
-    // FOR DRAGABLE EFFECT
-    const [startY, setStartY] = useState(0);
-    const [translate, setTranslate] = useState(400);
-    const [transition, setTransition] = useState(false);
 
     // FOR CLOSE DRAGBLE
     const [startTouchNameY, setStartTouchNameY] = useState(0);
@@ -32,46 +39,19 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
 
     const [modeShowInfo, setModeShowInfo] = useState(false);
 
-    const addTransitionAnimation = useCallback(() => {
-        const promiseAnimation = new Promise<NodeJS.Timeout>((resolve) => {
-            setTransition(true);
-            setTranslate(400);
-
-            const timeout = setTimeout(() => {
-                resolve(timeout);
-            }, 400);
-        })
-
-        promiseAnimation
-            .then((timeout) => {
-                clearTimeout(timeout);
-                setTransition(false);
-            })
-    }, [setTransition]);
-    
-    const handleTouchStart = (event: React.TouchEvent) => {
-        setStartY(event.touches[0].clientY);
-    }
-
-    const handleTouchMove = (event: React.TouchEvent) => {
-        const currentX = event.touches[0].clientY;
-        const diff = currentX - startY;
-        setTranslate(400 + diff);
-    }
-
-    const handleTouchEnd = () => {
-        if (Math.abs(translate - 400) > (MAX_TOUCH_TRANSLATE)) {
+    const onTouchEnd = () =>{
+        if (Math.abs(stateTranslateY - 400) > (MAX_TOUCH_TRANSLATE)) {
 
             // DRAG TO DOWN
-            if (translate > 400) {
+            if (stateTranslateY > 400) {
                  // ADD TRANSITION FOR ANIMATION
                 addTransitionAnimation();
             }
 
             // DRAG TO UP
-            if (translate < 400) {
+            if (stateTranslateY < 400) {
                 const dragPromise = new Promise<NodeJS.Timeout>((resolve) => {
-                    setTransition(true);
+                    setStateTransition(true);
                     setModeShowInfo(true);
                     onOpen();
 
@@ -82,7 +62,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
 
                 dragPromise
                     .then(() => {
-                        setTransition(false);
+                        setStateTransition(false);
                     })
             }
 
@@ -90,7 +70,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         }
 
         // ADD TRANSITION FOR ANIMATION
-        addTransitionAnimation();
+        addTransitionAnimation(undefined, 0, 400);
     }
 
     useEffect(() => {
@@ -111,15 +91,14 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
                     setCurrentCollegue(collegue);
                     setHideInfo(false);
                 })
-            
         }
     }, [collegue]);
 
     const closeModal = useCallback(() => {
         const closePromise = new Promise<NodeJS.Timeout>((resolve) => {
-            setTransition(true);
+            setStateTransition(true);
             setModeShowInfo(false);
-            setTranslate(400);
+            setStateTranslateY(400);
             onClose();
             const timeout = setTimeout(() => {
                 resolve(timeout);
@@ -129,9 +108,9 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         closePromise
             .then((timeout) => {
                 clearTimeout(timeout);
-                setTransition(false);
+                setStateTransition(false);
             })
-    }, [transition, modeShowInfo, translate])
+    }, [stateTransition, modeShowInfo, stateTranslateY])
 
     // OUTSIDE CLOSE MODAL
     useEffect(() => {
@@ -168,17 +147,17 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
     }), [modeShowInfo])
 
     const dragStyle: React.CSSProperties = useMemo(() => ({
-        transform: `translateY(${translate}px)`,
-        transition : transition ? "all .3s" : "none",
-    }), [translate, transition]);
+        transform: `translateY(${stateTranslateY}px)`,
+        transition : stateTransition ? "all .3s" : "none",
+    }), [stateTranslateY, stateTransition]);
 
     return (
         <div 
             className={modalClasses}
             style={dragStyle}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
+            onTouchStart={handleTouchStart()}
+            onTouchMove={handleTouchMove()}
+            onTouchEnd={handleTouchEnd(onTouchEnd)}
         >
             <div className="top">
                 <div></div>
