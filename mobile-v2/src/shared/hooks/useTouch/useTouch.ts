@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, TouchEvent } from "react";
+import { useState, useCallback, TouchEvent } from "react";
 
 interface useTouchConfig {
   startX?: number,
