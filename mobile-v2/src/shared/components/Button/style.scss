@@ -1,0 +1,26 @@
+.control-button {
+  border: none;
+  border-radius: 6px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 450;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+  display: block;
+  width: 100%;
+  padding: 13px;
+}
+
+.control-button-primary {
+  background: #5295F1;
+}
+
+.control-button-success {
+  background: #1ECD8C;;
+}
+
+.control-button-dangerous {
+  background: rgba(255, 77, 79, 0.9);;;
+}
+
