@@ -20,7 +20,7 @@ export const LoginForm: FC = () => {
         <Item name="password">
           <Input placeholder="Пароль" type="password" />
         </Item>
-        <Button colorType="primary" type="submit">Войти</Button>
+        <Button type="submit">Войти</Button>
       </Form>
     </div>
   )

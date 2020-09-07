@@ -28,7 +28,7 @@ export const RegistrationForm: FC = () => {
         <Item name="passwordRepeat">
           <Input placeholder="Повторите пароль" type="password" />
         </Item>
-        <Button colorType="primary" type="submit">Зарегистрироваться</Button>
+        <Button type="submit">Зарегистрироваться</Button>
       </Form>
     </div>
   )

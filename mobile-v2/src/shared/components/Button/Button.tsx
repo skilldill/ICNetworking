@@ -9,6 +9,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: FC<ButtonProps> = (props) => {
   const { children, colorType, ...rest } = props;
-  const classes = useMemo(() => `control-button control-button-${!!colorType ? "primary" : colorType}`, [colorType]);
+  const classes = useMemo(() => `control-button control-button-${!!colorType ? colorType : "primary"}`, [colorType]);
   return <button className={classes} {...rest}>{children}</button>
 }
