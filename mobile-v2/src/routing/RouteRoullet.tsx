@@ -13,7 +13,7 @@ export const RouteRoullet = () => {
                     <Redirect to={ROUTES.authorization} />
                 </Route>
 
-                <Route >
+                <Route path={ROUTES.authorization} exact>
                     <Authorization />
                 </Route>
 

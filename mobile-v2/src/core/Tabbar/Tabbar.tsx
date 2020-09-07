@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
 import "./style.scss";
 import { TabbarItem } from "./components";
@@ -21,8 +22,11 @@ import ProfileActiveSVG from "assets/icons/profile-active.svg";
 export const Tabbar = () => {
     const [activeTab, setActiveTab] = useState(ROUTES.collegues);
 
+    const location = useLocation();
+    const isAuthorization = useMemo(() => location.pathname === ROUTES.authorization, [location.pathname]);
+
     return (
-        <div className="tabbar">
+        <div className="tabbar" style={{ display: isAuthorization ? "none" : "flex" }}>
             <TabbarItem 
                 to={ROUTES.collegues} 
                 name="Коллеги" 
