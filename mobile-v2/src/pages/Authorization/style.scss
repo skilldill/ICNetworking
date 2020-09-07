@@ -1,12 +1,28 @@
 .authorization {
   padding: 24px;
+  position: relative;
+
+  h3 {
+    font-weight: 500;
+    font-size: 24px;
+    color: #5295F1;
+    margin-bottom: 15px;
+  }
+
+  .logo {
+    margin-bottom: 24px;
+  }
 
   &-changer-form {
     font-size: 14px;
     color: #919191; 
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    right: 0;
 
     a {
-      
+      color: #5295F1;
     }
   }
 }

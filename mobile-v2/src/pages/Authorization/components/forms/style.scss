@@ -1,9 +1,11 @@
 .form {
-  .ant-form .ant-form-horizontal {
-    .ant-form-item {
-      // Не получается задать margin надо разобраться
-      margin-bottom: 14px;
-    }
+  .ant-form-item {
+    // Не получается задать margin надо разобраться
+    margin-bottom: 12px;
+  }
+
+  .control-button {
+    margin-top: 20px;
   }
 }
 

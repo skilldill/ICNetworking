@@ -2,12 +2,16 @@ import React, { FC } from "react";
 import "../style.scss";
 import { Form } from "antd";
 import { Input, Button } from "shared/components";
+import { useHistory } from "react-router-dom";
+import { ROUTES } from "shared/constants";
 
 export const RegistrationForm: FC = () => {
   const { Item } = Form;
+  const history = useHistory();
 
   const handleSubmit = (values: any) => {
     console.log(values);
+    history.push(ROUTES.collegues);
   }
 
   return (
