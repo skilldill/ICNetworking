@@ -6,8 +6,8 @@ import { LoginForm, RegistrationForm } from "./components";
 export const Authorization: FC = (props) => {
   return (
     <div className="authorization">
-      {/* <LoginForm /> */}
-      <RegistrationForm />
+      <LoginForm />
+      {/* <RegistrationForm /> */}
     </div>
   )
 }

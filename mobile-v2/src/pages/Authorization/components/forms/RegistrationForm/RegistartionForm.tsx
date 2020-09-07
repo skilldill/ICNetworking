@@ -6,9 +6,13 @@ import { Input, Button } from "shared/components";
 export const RegistrationForm: FC = () => {
   const { Item } = Form;
 
+  const handleSubmit = (values: any) => {
+    console.log(values);
+  }
+
   return (
     <div className="form form-registration">
-      <Form>
+      <Form onFinish={handleSubmit}>
         <Item name="email">
           <Input placeholder="Эл. адрес" autoComplete="off" />
         </Item>
@@ -24,7 +28,7 @@ export const RegistrationForm: FC = () => {
         <Item name="passwordRepeat">
           <Input placeholder="Повторите пароль" type="password" />
         </Item>
-        <Button colorType="primary">Зарегистрироваться</Button>
+        <Button colorType="primary" type="submit">Зарегистрироваться</Button>
       </Form>
     </div>
   )
