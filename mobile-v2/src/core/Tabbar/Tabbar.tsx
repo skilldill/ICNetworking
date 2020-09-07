@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import cn from "classnames";
 
 import "./style.scss";
 import { TabbarItem } from "./components";
 import { ROUTES } from "shared/constants";
-import cn from "classnames";
 
 // ICONS
 import ColleguesSVG from "assets/icons/collegues.svg";
