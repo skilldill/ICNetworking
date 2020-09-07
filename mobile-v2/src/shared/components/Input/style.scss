@@ -1,3 +1,20 @@
 .control-input {
-  
+  .ant-input {
+    background: #F8F8F8;
+    border: 1px solid #E8E8E8;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 0;
+    
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .ant-input::placeholder {
+    font-family: Roboto;
+    font-size: 14px;
+    color: #919191;
+  }
 }

@@ -1,5 +1,9 @@
 .form {
-
+  .ant-form .ant-form-horizontal {
+    .ant-row .ant-form-item {
+      margin-bottom: 14px;
+    }
+  }
 }
 
 .form-login {
@@ -7,5 +11,5 @@
 }
 
 .form-registration {
-  
+
 }
