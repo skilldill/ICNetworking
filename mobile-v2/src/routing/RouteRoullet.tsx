@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 import { ROUTES } from "shared/constants";
-import { Collegues, Matches, Chats, Meetings, Profile } from "pages";
+import { Collegues, Matches, Chats, Meetings, Profile, Authorization } from "pages";
 import { Tabbar } from "core/Tabbar";
 
 export const RouteRoullet = () => {
@@ -10,7 +10,11 @@ export const RouteRoullet = () => {
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <Redirect to={ROUTES.collegues} />
+                    <Redirect to={ROUTES.authorization} />
+                </Route>
+
+                <Route >
+                    <Authorization />
                 </Route>
 
                 <Route path={ROUTES.collegues} exact>

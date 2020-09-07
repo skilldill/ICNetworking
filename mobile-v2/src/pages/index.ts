@@ -6,6 +6,7 @@ import { Profile } from "./Profile";
 import { Authorization } from "./Authorization";
 
 export {
+    Authorization,
     Collegues,
     Matches,
     Chats,
