@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import "./style.scss";
 import { TabbarItem } from "./components";
 import { ROUTES } from "shared/constants";
+import cn from "classnames";
 
 // ICONS
 import ColleguesSVG from "assets/icons/collegues.svg";
@@ -26,7 +27,7 @@ export const Tabbar = () => {
     const isAuthorization = useMemo(() => location.pathname === ROUTES.authorization, [location.pathname]);
 
     return (
-        <div className="tabbar" style={{ display: isAuthorization ? "none" : "flex" }}>
+        <div className={cn({ "tabbar": true, "tabbar-hide": isAuthorization })}>
             <TabbarItem 
                 to={ROUTES.collegues} 
                 name="Коллеги" 
