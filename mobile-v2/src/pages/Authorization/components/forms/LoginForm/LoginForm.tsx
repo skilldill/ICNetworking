@@ -11,7 +11,7 @@ export const LoginForm: FC = () => {
     <div className="form form-login">
       <Form>
         <Item name="email">
-          <Input placeholder="Эл. адрес" />
+          <Input placeholder="Эл. адрес" autoComplete="off" />
         </Item>
         <Item name="password">
           <Input placeholder="Пароль" type="password" />
