@@ -4,6 +4,9 @@ import "./style.scss";
 import { LoginForm, RegistrationForm } from "./components";
 import MainLogoSVG from "assets/pictures/main-logo.svg";
 
+//ICONS
+import { ArrowBackSVG } from "assets/icons";
+
 enum AuthFormNames {
   login,
   registration
