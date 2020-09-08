@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useEffect } from "react";
+import React, { FC, useState, useMemo, useEffect, CSSProperties } from "react";
 import { Plugins } from "@capacitor/core";
 import cn from "classnames";
 
@@ -48,9 +48,16 @@ export const Authorization: FC = (props) => {
     "authorization-navbar-show-title": showKeyboard
   }), [showKeyboard])
 
+  const styleButtonBack: CSSProperties = useMemo(() => ({
+    opacity: activeForm === AuthFormNames.registration ? '1' : '0'
+  }), [activeForm])
+
   return (
     <div className="authorization">
       <div className={classesNavbar}>
+        <button style={styleButtonBack} onClick={() => setActiveForm(AuthFormNames.login)}>
+          <img src={ArrowBackSVG} alt="Назад"/>
+        </button>
         <h4>ICNetworking</h4>
       </div>
       <div className={logoClasses}>

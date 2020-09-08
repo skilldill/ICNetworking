@@ -50,6 +50,19 @@
       line-height: 16px;
       padding-left: 22px;
     }
+
+    button {
+      z-index: 1;
+      transition: all .3s ease-out;
+      opacity: 0;
+      position: absolute;
+      left: 24px;
+      top: 29px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+    }
   }
 
   &-navbar-show-title {
