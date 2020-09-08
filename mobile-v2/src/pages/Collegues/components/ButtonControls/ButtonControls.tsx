@@ -2,8 +2,7 @@ import React, { FC, useCallback } from "react";
 import "./style.scss";
 
 // ICONS
-import CrossSVG from "assets/icons/cross.svg";
-import SmileSVG from "assets/icons/smile.svg";
+import { CrossSVG, SmileSVG } from "assets/icons";
 
 interface ButtonControlsProps {
     onLike: () => void;

@@ -2,8 +2,7 @@ import React, { FC, useMemo, useEffect } from "react";
 import "./style.scss";
 
 // ICONS
-import ArrowBackSVG from "assets/icons/arrow-back.svg";
-import OptionsDotsSVG from "assets/icons/options-dots.svg";
+import { ArrowBackSVG, OptionsDotsSVG } from "assets/icons";
 
 interface NavbarProps {
     title: string,

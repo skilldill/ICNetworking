@@ -1,5 +1,6 @@
 .authorization {
   padding: 24px;
+  padding-top: 36px;
   position: relative;
 
   h3 {
@@ -7,6 +8,10 @@
     font-size: 24px;
     color: #5295F1;
     margin-bottom: 15px;
+  }
+
+  a {
+    color: #5295F1;
   }
 
   .logo {
@@ -21,9 +26,14 @@
     // bottom: 40px;
     // left: 0;
     // right: 0;
+  }
 
-    a {
-      color: #5295F1;
+  &-navbar {
+    h4 {
+      // opacity: 0;
+      color: #B1CEF9;
+      font-size: 18px;
+      line-height: 16px;
     }
   }
 }

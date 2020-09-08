@@ -5,8 +5,8 @@ import { LoginForm, RegistrationForm } from "./components";
 import MainLogoSVG from "assets/pictures/main-logo.svg";
 
 enum AuthFormNames {
-  login = "login",
-  registration = "registration"
+  login,
+  registration
 }
 
 export const Authorization: FC = (props) => {
@@ -27,6 +27,9 @@ export const Authorization: FC = (props) => {
 
   return (
     <div className="authorization">
+      <div className="authorization-navbar">
+        <h4>ICNetworking</h4>
+      </div>
       <div className="logo">
         <img src={MainLogoSVG} alt="IC Networking"/>
       </div>

@@ -6,19 +6,21 @@ import "./style.scss";
 import { TabbarItem } from "./components";
 import { ROUTES } from "shared/constants";
 
-// ICONS
-import ColleguesSVG from "assets/icons/collegues.svg";
-import MatchesSVG from "assets/icons/matches.svg";
-import ChatsSVG from "assets/icons/chats.svg";
-import MeetingsSVG from "assets/icons/meetings.svg";
-import ProfileSVG from "assets/icons/profile.svg";
+import {
+    // ICONS
+    ColleguesSVG,
+    MatchesSVG,
+    ChatsSVG,
+    MeetingsSVG,
+    ProfileSVG,
 
-// ACTIVE ICONS
-import ColleguesActiveSVG from "assets/icons/collegues-active.svg";
-import MatchesActiveSVG from "assets/icons/matches-active.svg";
-import ChatsActiveSVG from "assets/icons/chats-active.svg";
-import MeetingsActiveSVG from "assets/icons/meetings-active.svg";
-import ProfileActiveSVG from "assets/icons/profile-active.svg";
+    // ACTIVE ICONS
+    ColleguesActiveSVG,
+    MatchesActiveSVG,
+    ChatsActiveSVG,
+    MeetingsActiveSVG,
+    ProfileActiveSVG
+} from "assets/icons";
 
 export const Tabbar = () => {
     const [activeTab, setActiveTab] = useState(ROUTES.collegues);
