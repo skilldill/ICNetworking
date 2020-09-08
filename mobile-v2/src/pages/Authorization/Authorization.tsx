@@ -1,4 +1,6 @@
-import React, { FC, useState, useMemo } from "react";
+import React, { FC, useState, useMemo, useEffect } from "react";
+import { Plugins } from "@capacitor/core";
+import cn from "classnames";
 
 import "./style.scss";
 import { LoginForm, RegistrationForm } from "./components";
@@ -14,7 +16,15 @@ enum AuthFormNames {
 
 export const Authorization: FC = (props) => {
   const [activeForm, setActiveForm] = useState(AuthFormNames.login);
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const isLogin = activeForm === AuthFormNames.login;
+  const { Keyboard } = Plugins;
+
+  // COMPONENT DID MOUNT
+  useEffect(() => {
+    Keyboard.addListener('keyboardWillShow', () => setShowKeyboard(true));
+    Keyboard.addListener('keyboardWillHide', () => setShowKeyboard(false));
+  }, [])
 
   const handleClickChanger = () => {
     const nextForm = isLogin ? AuthFormNames.registration : AuthFormNames.login;
@@ -28,12 +38,22 @@ export const Authorization: FC = (props) => {
   [isLogin]);
   const title = useMemo(() => isLogin ? "Вход" : "Регистрация", [isLogin]);
 
+  const logoClasses = useMemo(() => cn({
+    "logo": true, 
+    "logo-small": showKeyboard
+  }), [showKeyboard])
+
+  const classesNavbar = useMemo(() => cn({
+    "authorization-navbar": true,
+    "authorization-navbar-show-title": showKeyboard
+  }), [showKeyboard])
+
   return (
     <div className="authorization">
-      <div className="authorization-navbar">
+      <div className={classesNavbar}>
         <h4>ICNetworking</h4>
       </div>
-      <div className="logo">
+      <div className={logoClasses}>
         <img src={MainLogoSVG} alt="IC Networking"/>
       </div>
       <h3>{title}</h3>

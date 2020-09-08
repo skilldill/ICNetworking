@@ -45,10 +45,17 @@
   &-navbar {
     h4 {
       opacity: 0;
+      transition: all .3s ease-out;
       color: #B1CEF9;
       font-size: 18px;
       line-height: 16px;
       padding-left: 22px;
+    }
+  }
+
+  &-navbar-show-title {
+    h4 {
+      opacity: 1;
     }
   }
 }
