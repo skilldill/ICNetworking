@@ -7,7 +7,8 @@ import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 
 export const LoginForm: FC = () => {
-  const { Item } = Form;
+  const { Item, useForm } = Form;
+  const [form] = useForm();
   const history = useHistory();
 
   const handleSubmit = (values: any) => {
@@ -17,7 +18,7 @@ export const LoginForm: FC = () => {
 
   return (
     <div className="form form-login">
-      <Form onFinish={handleSubmit}>
+      <Form onFinish={handleSubmit} form={form}>
         <Item name="email">
           <Input placeholder="Эл. адрес" autoComplete="off" />
         </Item>

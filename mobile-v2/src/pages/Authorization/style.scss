@@ -16,6 +16,20 @@
 
   .logo {
     margin-bottom: 24px;
+    transition: all .3s ease-out;
+
+    img {
+      transition: all .3s ease-out;
+      width: 72px;
+    }
+  }
+
+  .logo-small {
+    transform: translate(-60px, -30px);
+    margin-bottom: 0px;
+    img {
+      width: 22px;
+    }
   }
 
   &-changer-form {
@@ -30,10 +44,11 @@
 
   &-navbar {
     h4 {
-      // opacity: 0;
+      opacity: 0;
       color: #B1CEF9;
       font-size: 18px;
       line-height: 16px;
+      padding-left: 22px;
     }
   }
 }
