@@ -58,9 +58,11 @@ export const Authorization: FC = (props) => {
       </div>
       <h3>{title}</h3>
       {authForm}
-      <div className="authorization-changer-form" onClick={handleClickChanger}>
-        {formChanger}
-      </div>
+      {!showKeyboard && (
+        <div className="authorization-changer-form" onClick={handleClickChanger}>
+          {formChanger}
+        </div>
+      )}
     </div>
   )
 }
