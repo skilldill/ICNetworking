@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState, useCallback } from "react";
 import { Form } from "antd";
 
 import "../style.scss";
@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 
 export const LoginForm: FC = () => {
+  const [touchedFields, setTouchedFields] = useState(false);
   const { Item, useForm } = Form;
   const [form] = useForm();
   const history = useHistory();
@@ -16,16 +17,20 @@ export const LoginForm: FC = () => {
     history.push(ROUTES.collegues);
   }
 
+  const handleFieldsChange = () => {
+    setTouchedFields(true);
+  }
+
   return (
     <div className="form form-login">
-      <Form onFinish={handleSubmit} form={form}>
+      <Form onFinish={handleSubmit} form={form} onFieldsChange={handleFieldsChange}>
         <Item name="email">
           <Input placeholder="Эл. адрес" autoComplete="off" />
         </Item>
         <Item name="password">
           <Input placeholder="Пароль" type="password" />
         </Item>
-        <Button type="submit">Войти</Button>
+        <Button type="submit" disabled={!touchedFields}>Войти</Button>
       </Form>
     </div>
   )
