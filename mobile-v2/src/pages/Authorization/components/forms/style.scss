@@ -14,5 +14,10 @@
 }
 
 .form-registration {
+  transform: translateX(400px);
+  transition: all .3s ease-out;
+}
 
+.form-registration-show {
+  transform: translateX(0px);
 }

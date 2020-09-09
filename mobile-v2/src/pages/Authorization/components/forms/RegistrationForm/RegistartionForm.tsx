@@ -1,4 +1,6 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useMemo, useState, useEffect } from "react";
+import cn from "classnames";
+
 import "../style.scss";
 import { Form } from "antd";
 import { Input, Button } from "shared/components";
@@ -11,10 +13,16 @@ enum FormParts {
 }
 
 export const RegistrationForm: FC = () => {
+  const [touchedFields, setTouchedFields] = useState(false);
+  
   const { Item } = Form;
   const history = useHistory();
   const [partForm, setPartForm] = useState(FormParts.first);
   const [firstValues, setFirstValues] = useState({});
+
+  const handleTouchFields = () => {
+    setTouchedFields(true);
+  }
 
   const firstPart = (
     <>
@@ -48,6 +56,7 @@ export const RegistrationForm: FC = () => {
     if (isFirstPart) {
       setFirstValues({...values});
       setPartForm(FormParts.second);
+      setTouchedFields(false);
       return;
     }
 
@@ -55,11 +64,26 @@ export const RegistrationForm: FC = () => {
     return;
   }
 
+  // TEST ANIMATION SHOW
+  const [showForm, setShowForm] = useState(false);
+  const classes = useMemo(() => cn({
+    "form": true,
+    "form-registration": true,
+    "form-registration-show": showForm
+  }), [showForm])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      setShowForm(true);
+    }, 100)
+  }, [])
+
   return (
-    <div className="form form-registration">
-      <Form onFinish={handleSubmit}>
+    <div className={classes}>
+      <Form onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
         {currentPart}
-        <Button type="submit">{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
+        <Button type="submit" disabled={!touchedFields}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
       </Form>
     </div>
   )
