@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useEffect } from "react";
+import React, { FC, useMemo, useEffect, CSSProperties } from "react";
 import "./style.scss";
 
 // ICONS
@@ -7,12 +7,13 @@ import { ArrowBackSVG, OptionsDotsSVG } from "assets/icons";
 interface NavbarProps {
     title: string,
     options?: any,
+    positionAbsolute?: boolean,
     onClickBack?: () => void,
-    onCancel?: () => void
+    onCancel?: () => void,
 }
 
 export const Navbar: FC<NavbarProps> = (props) => {
-    const { title, options, onClickBack, onCancel } = props;
+    const { title, options, onClickBack, onCancel, positionAbsolute } = props;
 
     const btnBack = useMemo(() => {
         return !!onClickBack ? (
@@ -30,8 +31,12 @@ export const Navbar: FC<NavbarProps> = (props) => {
         ) : <div></div>
     }, [onCancel]);
 
+    const style = useMemo(():CSSProperties => ({
+        position: !!positionAbsolute ? "absolute" : "fixed"
+    }), [positionAbsolute])
+
     return (
-        <div className="navbar">
+        <div className="navbar" style={style}>
             {btnBack}
             <h3>{title}</h3>
             {btnCancel}
