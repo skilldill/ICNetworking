@@ -12,7 +12,9 @@ enum FormParts {
   second
 }
 
-export const RegistrationForm: FC = () => {
+export const RegistrationForm: FC<{show: boolean}> = (props) => {
+  const { show } = props;
+
   const [touchedFields, setTouchedFields] = useState(false);
   
   const { Item } = Form;
@@ -65,22 +67,15 @@ export const RegistrationForm: FC = () => {
   }
 
   // TEST ANIMATION SHOW
-  const [showForm, setShowForm] = useState(false);
   const classes = useMemo(() => cn({
     "form": true,
     "form-registration": true,
-    "form-registration-show": showForm
-  }), [showForm])
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      clearTimeout(timeout);
-      setShowForm(true);
-    }, 100)
-  }, [])
+    "form-registration-show": show
+  }), [show])
 
   return (
     <div className={classes}>
+      <h3>Регистрация</h3>
       <Form onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
         {currentPart}
         <Button type="submit" disabled={!touchedFields}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>

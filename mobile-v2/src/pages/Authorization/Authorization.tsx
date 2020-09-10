@@ -31,12 +31,10 @@ export const Authorization: FC = (props) => {
     setActiveForm(nextForm);
   }
 
-  const authForm = useMemo(() => isLogin ? <LoginForm /> : <RegistrationForm />, [isLogin]);
   const formChanger = useMemo(() => isLogin ? 
     <a onClick={(e) => e.preventDefault()}>Регистрация</a> :
     <>У вас есть аккаунт? <a onClick={(e) => e.preventDefault()}>Вход</a></>, 
   [isLogin]);
-  const title = useMemo(() => isLogin ? "Вход" : "Регистрация", [isLogin]);
 
   const logoClasses = useMemo(() => cn({
     "logo": true, 
@@ -63,8 +61,8 @@ export const Authorization: FC = (props) => {
       <div className={logoClasses}>
         <img src={MainLogoSVG} alt="IC Networking"/>
       </div>
-      <h3>{title}</h3>
-      {authForm}
+      <LoginForm />
+      <RegistrationForm show={!isLogin} />
       {!showKeyboard && (
         <div className="authorization-changer-form" onClick={handleClickChanger}>
           {formChanger}

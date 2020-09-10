@@ -23,6 +23,7 @@ export const LoginForm: FC = () => {
 
   return (
     <div className="form form-login">
+      <h3>Вход</h3>
       <Form onFinish={handleSubmit} form={form} onFieldsChange={handleFieldsChange}>
         <Item name="email">
           <Input placeholder="Эл. адрес" autoComplete="off" />

@@ -1,4 +1,6 @@
 .form {
+  background-color: white;
+
   .ant-form-item {
     // Не получается задать margin надо разобраться
     margin-bottom: 12px;
@@ -14,8 +16,13 @@
 }
 
 .form-registration {
+  position: absolute;
+  left: 0;
+  top: 157px;
+  width: 100%;
+  padding: 0 24px;
   transform: translateX(400px);
-  transition: all .3s ease-out;
+  transition: all .4s cubic-bezier(0, 0, 0, 0.99);
 }
 
 .form-registration-show {
