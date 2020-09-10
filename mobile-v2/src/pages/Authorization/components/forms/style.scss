@@ -28,3 +28,12 @@
 .form-registration-show {
   transform: translateX(0px);
 }
+
+.form-login {
+  opacity: 0;
+  transition: all .4s cubic-bezier(0, 0, 0, 0.99);
+}
+
+.form-login-show {
+  opacity: 1;
+}

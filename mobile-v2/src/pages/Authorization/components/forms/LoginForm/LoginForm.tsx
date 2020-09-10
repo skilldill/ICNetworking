@@ -1,12 +1,15 @@
-import React, { FC, useEffect, useState, useCallback } from "react";
+import React, { FC, useEffect, useState, useCallback, useMemo } from "react";
 import { Form } from "antd";
+import cn from "classnames";
 
 import "../style.scss";
 import { Input, Button } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 
-export const LoginForm: FC = () => {
+export const LoginForm: FC<{show: boolean}> = (props) => {
+  const { show } = props;
+
   const [touchedFields, setTouchedFields] = useState(false);
   const { Item, useForm } = Form;
   const [form] = useForm();
@@ -21,8 +24,15 @@ export const LoginForm: FC = () => {
     setTouchedFields(true);
   }
 
+  // TEST ANIMATION SHOW
+  const classes = useMemo(() => cn({
+    "form": true,
+    "form-login": true,
+    "form-login-show": show
+  }), [show])
+
   return (
-    <div className="form form-login">
+    <div className={classes}>
       <h3>Вход</h3>
       <Form onFinish={handleSubmit} form={form} onFieldsChange={handleFieldsChange}>
         <Item name="email">

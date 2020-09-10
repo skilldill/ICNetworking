@@ -61,8 +61,11 @@ export const Authorization: FC = (props) => {
       <div className={logoClasses}>
         <img src={MainLogoSVG} alt="IC Networking"/>
       </div>
-      <LoginForm />
+      
+      {/* SHOW-свойства которые необходимы только для анимирования появления */}
+      <LoginForm show={isLogin} />
       <RegistrationForm show={!isLogin} />
+
       {!showKeyboard && (
         <div className="authorization-changer-form" onClick={handleClickChanger}>
           {formChanger}
