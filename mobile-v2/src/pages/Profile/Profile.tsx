@@ -7,10 +7,10 @@ import { ProfileForm } from "pages/ProfileForm";
 import { Button } from "shared/components";
 
 export const Profile = () => {
-    const [showProfileForm, setShowProfileForm] = useState(true);
+    const [showProfileForm, setShowProfileForm] = useState(false);
 
     const handleClick = () => {
-        setShowProfileForm(true);
+        setShowProfileForm(!showProfileForm);
     }
 
     return (
@@ -18,7 +18,7 @@ export const Profile = () => {
             <Navbar title="Профиль" />
             <Button onClick={handleClick}>Открыть форму</Button>
             <FadePage show={showProfileForm} direction="vertical">
-                <ProfileForm />
+                <ProfileForm onClose={handleClick} />
             </FadePage>
         </div>
     )

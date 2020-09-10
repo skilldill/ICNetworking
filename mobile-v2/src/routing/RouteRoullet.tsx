@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { Plugins } from "@capacitor/core";
 
 import { ROUTES } from "shared/constants";
 import { Collegues, Matches, Chats, Meetings, Profile, Authorization } from "pages";
 import { Tabbar } from "core/Tabbar";
 
 export const RouteRoullet = () => {
+    const { Keyboard } = Plugins;
+    const [showTabbar, setShowTabbar] = useState(true);
+
+    useEffect(() => {
+        Keyboard.addListener("keyboardWillShow", () => setShowTabbar(false));
+        Keyboard.addListener("keyboardWillHide", () =>  setShowTabbar(true));
+    }, [])
+
     return (
         <Router>
             <Switch>
@@ -37,7 +46,7 @@ export const RouteRoullet = () => {
                     <Profile />
                 </Route>
             </Switch>
-            <Tabbar />
+            {showTabbar && <Tabbar />}
         </Router>
     )
 }
