@@ -64,7 +64,7 @@ export const Authorization: FC = (props) => {
       
       {/* SHOW-свойства которые необходимы только для анимирования появления */}
       <LoginForm show={isLogin} />
-      <RegistrationForm show={!isLogin} />
+      <RegistrationForm show={!isLogin} keyboardOpened={showKeyboard} />
 
       {!showKeyboard && (
         <div className="authorization-changer-form" onClick={handleClickChanger}>

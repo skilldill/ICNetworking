@@ -12,8 +12,8 @@ enum FormParts {
   second
 }
 
-export const RegistrationForm: FC<{show: boolean}> = (props) => {
-  const { show } = props;
+export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (props) => {
+  const { show, keyboardOpened } = props;
 
   const [touchedFields, setTouchedFields] = useState(false);
   
@@ -70,8 +70,9 @@ export const RegistrationForm: FC<{show: boolean}> = (props) => {
   const classes = useMemo(() => cn({
     "form": true,
     "form-registration": true,
-    "form-registration-show": show
-  }), [show])
+    "form-registration-show": show,
+    "form-registration-up": keyboardOpened,
+  }), [show, keyboardOpened])
 
   return (
     <div className={classes}>
