@@ -4,7 +4,13 @@ import { Camera, CameraResultType, CameraPhoto } from "@capacitor/core";
 import "./style.scss";
 import { ProfileAvatarSVG } from "assets/icons";
 
-export const AvatarField: FC = () => {
+interface AvatarFieldProps {
+    onChangePhoto?: (photo: CameraPhoto) => void;
+}
+
+export const AvatarField: FC<AvatarFieldProps> = (props) => {
+    const { onChangePhoto } = props;
+
     const [currentPhoto, setCurrentPhoto] = useState<CameraPhoto | null>(null);
 
     const handlePhoto = async () => {
@@ -12,16 +18,17 @@ export const AvatarField: FC = () => {
             const photo = await Camera.getPhoto({
                 quality: 90,
                 allowEditing: true,
-                resultType: CameraResultType.Base64
+                resultType: CameraResultType.DataUrl
             })
             setCurrentPhoto(photo);
+            !!onChangePhoto && onChangePhoto(photo);
         } catch(error) {
             console.log(error);
         }
     }
 
     const imageElement = useMemo(() => !!currentPhoto ? 
-        <img src={currentPhoto.base64String} alt="avatar field" /> : 
+        <img className="avatar-img" src={currentPhoto.dataUrl} alt="avatar field" /> : 
         <img src={ProfileAvatarSVG} alt="avatar field" />    
     , [currentPhoto])
 
@@ -30,7 +37,7 @@ export const AvatarField: FC = () => {
             <div className="photo">
                 {imageElement}
             </div>
-            <a href="#">Добавить фото</a>
+            <span onClick={handlePhoto}>Добавить фото</span>
         </div>
     )
 }

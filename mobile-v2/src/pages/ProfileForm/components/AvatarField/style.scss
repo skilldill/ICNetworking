@@ -14,10 +14,16 @@
         display: flex;
         justify-content: center;
         margin-bottom: 10px;
+        overflow: hidden;
+
+        .avatar-img {
+            width: 84px;
+        }
     }
 
-    a {
+    span {
         text-decoration: none;
         color: #5295F1;
+        font-size: 14px;
     }
 }
