@@ -3,6 +3,7 @@ import { Form } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
+import { AvatarField } from "./components";
 
 export const ProfileForm: FC = () => {
   const { useForm } = Form;
@@ -11,9 +12,7 @@ export const ProfileForm: FC = () => {
   return (
     <div className="profile-form">
       <Navbar title="Профиль123" positionAbsolute/>
-      <h2>
-        Профиль форм
-      </h2>
+      <AvatarField />
     </div>
   )
 }

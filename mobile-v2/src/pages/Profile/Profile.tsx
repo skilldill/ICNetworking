@@ -7,7 +7,7 @@ import { ProfileForm } from "pages/ProfileForm";
 import { Button } from "shared/components";
 
 export const Profile = () => {
-    const [showProfileForm, setShowProfileForm] = useState(false);
+    const [showProfileForm, setShowProfileForm] = useState(true);
 
     const handleClick = () => {
         setShowProfileForm(true);
