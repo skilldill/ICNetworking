@@ -4,7 +4,7 @@ import { Form } from "antd";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { AvatarField } from "./components";
-import { Input } from "shared/components";
+import { Input, Text } from "shared/components";
 
 interface ProfileFormProps {
   onClose?: () => void
