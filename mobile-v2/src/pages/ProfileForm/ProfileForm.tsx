@@ -5,9 +5,10 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { AvatarField, InterestsField } from "./components";
 import { Input } from "shared/components";
+import { useScrolling } from "shared/hooks";
 
 interface ProfileFormProps {
-  onClose?: () => void
+  onClose?: () => void;
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
@@ -17,7 +18,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
 
   return (
     <div className="profile-form">
-      <Navbar onClickBack={onClose} title="Профиль" positionAbsolute/>
+      <Navbar onClickBack={onClose} title="Профиль" position="sticky" />
       <AvatarField />
       <div className="form-holder">
         <Form form={form}>

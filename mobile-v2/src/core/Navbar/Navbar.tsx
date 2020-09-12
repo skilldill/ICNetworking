@@ -7,13 +7,13 @@ import { ArrowBackSVG, OptionsDotsSVG } from "assets/icons";
 interface NavbarProps {
     title: string,
     options?: any,
-    positionAbsolute?: boolean,
+    position?: "fixed" | "absolute" | "sticky",
     onClickBack?: () => void,
     onCancel?: () => void,
 }
 
 export const Navbar: FC<NavbarProps> = (props) => {
-    const { title, options, onClickBack, onCancel, positionAbsolute } = props;
+    const { title, options, onClickBack, onCancel, position } = props;
 
     const btnBack = useMemo(() => {
         return !!onClickBack ? (
@@ -32,8 +32,9 @@ export const Navbar: FC<NavbarProps> = (props) => {
     }, [onCancel]);
 
     const style = useMemo(():CSSProperties => ({
-        position: !!positionAbsolute ? "absolute" : "fixed"
-    }), [positionAbsolute])
+        position: !!position ? position : "fixed",
+        top: "0px"
+    }), [position])
 
     return (
         <div className="navbar" style={style}>

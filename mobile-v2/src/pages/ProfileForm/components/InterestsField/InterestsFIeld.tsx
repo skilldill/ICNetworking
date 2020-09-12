@@ -7,7 +7,7 @@ export const InterestsField: FC = (props) => {
     return (
         <div className="interests-field">
             <h3>Мои интересы</h3>
-            <Input />
+            <Input placeholder="Введите интересы" />
         </div>
     )
 }

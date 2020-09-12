@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -12,6 +12,11 @@ export const Profile = () => {
     const handleClick = () => {
         setShowProfileForm(!showProfileForm);
     }
+
+    // ADD SCROLLING TO BODY
+    useEffect(() => {
+        document.body.style.overflowY = showProfileForm ? "auto" : "hidden";
+    }, [showProfileForm]);
 
     return (
         <div className="profile">
