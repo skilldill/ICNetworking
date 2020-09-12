@@ -15,7 +15,19 @@ export const Profile = () => {
 
     // ADD SCROLLING TO BODY
     useEffect(() => {
-        document.body.style.overflowY = showProfileForm ? "auto" : "hidden";
+        if (showProfileForm) {
+            document.body.style.overflowY = "auto";
+            return;
+        }
+
+        document.body.style.overflowY = "hidden";
+        window.scrollTo(0, 0);
+        
+        return () => {
+            document.body.style.overflowY = "hidden";
+            window.scrollTo(0, 0);
+        }
+        
     }, [showProfileForm]);
 
     return (
