@@ -1,4 +1,6 @@
 .control-input {
+  position: relative;
+
   small {
     display: block;
     text-align: start;
@@ -23,5 +25,18 @@
     font-family: Roboto;
     font-size: 14px;
     color:#919191;
+  }
+
+  .clear-btn {
+    position: absolute;
+    display: inline-block;
+    height: 38px;
+    width: 38px;
+    background: #F8F8F8;
+    bottom: 1px;
+    right: 1px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
   }
 }

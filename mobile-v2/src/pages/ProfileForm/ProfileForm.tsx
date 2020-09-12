@@ -5,7 +5,6 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { AvatarField, InterestsField } from "./components";
 import { Input } from "shared/components";
-import { useScrolling } from "shared/hooks";
 
 interface ProfileFormProps {
   onClose?: () => void;
