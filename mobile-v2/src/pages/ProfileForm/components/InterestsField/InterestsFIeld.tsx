@@ -26,8 +26,8 @@ export const InterestsField: FC = (props) => {
         if (value === "") {
             return setFoundInterests([]);
         }
-        
-        const prepareFoundInterests = INTERESTS_MOCK.filter((interest) => interest.name.toLowerCase().includes(value));
+
+        const prepareFoundInterests = INTERESTS_MOCK.filter((interest) => interest.name.toLowerCase().includes(value.toLowerCase()));
         return setFoundInterests(prepareFoundInterests);
     }
 
