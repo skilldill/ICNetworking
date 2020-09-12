@@ -1,4 +1,5 @@
 import React, { FC, useState, useCallback } from "react";
+import cn from "classnames";
 
 import "./style.scss";
 import { Input } from "shared/components";
@@ -17,14 +18,23 @@ export const InterestsField: FC = (props) => {
     const [foundIterests, setFoundInterests] = useState<{name: string}[]>([]);
     const [selectedInterests, setSelectedInterests] = useState([]);
 
-    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
         setCurrentValue(value);
 
         // TEST
-        const prepareFoundInterests = INTERESTS_MOCK.filter((interest) => interest.name.includes(value));
-        setFoundInterests(prepareFoundInterests);
-    }, [currentValue])
+        if (value === "") {
+            return setFoundInterests([]);
+        }
+        
+        const prepareFoundInterests = INTERESTS_MOCK.filter((interest) => interest.name.toLowerCase().includes(value));
+        return setFoundInterests(prepareFoundInterests);
+    }
+
+    const handleClear = useCallback(() => {
+        setCurrentValue("");
+        setFoundInterests([]);
+    }, [currentValue, foundIterests])
 
     return (
         <div className="interests-field">
@@ -37,11 +47,20 @@ export const InterestsField: FC = (props) => {
                         placeholder="Введите интересы" 
                         value={currentValue}
                         onChange={handleChange}
-                        onClear={() => { setCurrentValue("") }}
+                        onClear={handleClear}
                     />
                     {!!foundIterests.length && (
                         <ul className="found-interests">
-
+                            {foundIterests.map((interest, i) => 
+                                <li 
+                                    key={i}
+                                    className={cn({
+                                        "found-interest": true,
+                                        "first-found-interest": i === 0,
+                                        "last-found-interest": i === (foundIterests.length - 1)
+                                    })}
+                                >{interest.name}</li>
+                            )}
                         </ul>
                     )}
                 </>
