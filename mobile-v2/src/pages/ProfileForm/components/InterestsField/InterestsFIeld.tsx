@@ -18,6 +18,7 @@ export const InterestsField: FC = (props) => {
     const [currentValue, setCurrentValue] = useState("");
     const [foundIterests, setFoundInterests] = useState<{name: string}[]>([]);
     const [selectedInterests, setSelectedInterests] = useState<{name: string}[]>([]);
+    const [showFieldTags, setShowFieldTags] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
@@ -37,11 +38,22 @@ export const InterestsField: FC = (props) => {
         setFoundInterests([]);
     }, [currentValue, foundIterests])
 
+    const handleSelectInterest = useCallback((interest: {name: string}) => {
+        setSelectedInterests([...selectedInterests, interest]);
+        setShowFieldTags(true);
+        
+        // CLEAR FIELDS AND SELECT
+        handleClear();
+    }, [showFieldTags, selectedInterests])
+
     return (
         <div className="interests-field">
             <h3>Мои интересы</h3>
-            {!!selectedInterests.length ? (
-                <div className="selected-interests">
+            {(!!selectedInterests.length && showFieldTags) ? (
+                <div 
+                    className="selected-interests"
+                    onClick={() => setShowFieldTags(false)}
+                >
                     {selectedInterests.map((interest, i) => 
                         <div
                             key={i} 
@@ -67,7 +79,7 @@ export const InterestsField: FC = (props) => {
                             {foundIterests.map((interest, i) => 
                                 <li 
                                     key={i}
-                                    onClick={() => setSelectedInterests([...selectedInterests, interest])}
+                                    onClick={() => handleSelectInterest(interest)}
                                     className={cn({
                                         "found-interest": true,
                                         "first-found-interest": i === 0,
