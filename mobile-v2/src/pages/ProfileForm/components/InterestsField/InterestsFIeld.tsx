@@ -3,6 +3,7 @@ import cn from "classnames";
 
 import "./style.scss";
 import { Input } from "shared/components";
+import { SmallBlueCrossSVG } from "assets/icons";
 
 const INTERESTS_MOCK = [
     { name: "Футбол" },
@@ -16,7 +17,7 @@ const INTERESTS_MOCK = [
 export const InterestsField: FC = (props) => {
     const [currentValue, setCurrentValue] = useState("");
     const [foundIterests, setFoundInterests] = useState<{name: string}[]>([]);
-    const [selectedInterests, setSelectedInterests] = useState([]);
+    const [selectedInterests, setSelectedInterests] = useState<{name: string}[]>([]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
@@ -40,7 +41,19 @@ export const InterestsField: FC = (props) => {
         <div className="interests-field">
             <h3>Мои интересы</h3>
             {!!selectedInterests.length ? (
-                <div></div>
+                <div className="selected-interests">
+                    {selectedInterests.map((interest, i) => 
+                        <div
+                            key={i} 
+                            className="selected-interest"
+                        >
+                            {interest.name}
+                            <button>
+                                <img src={SmallBlueCrossSVG} alt="clear"/>
+                            </button>
+                        </div>
+                    )}
+                </div>
             ) : (
                 <>
                     <Input 
@@ -54,6 +67,7 @@ export const InterestsField: FC = (props) => {
                             {foundIterests.map((interest, i) => 
                                 <li 
                                     key={i}
+                                    onClick={() => setSelectedInterests([...selectedInterests, interest])}
                                     className={cn({
                                         "found-interest": true,
                                         "first-found-interest": i === 0,

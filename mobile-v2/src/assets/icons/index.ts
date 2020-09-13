@@ -21,6 +21,7 @@ import OptionsDotsSVG from "./options-dots.svg";
 
 import ProfileAvatarSVG from "./profile-avatar.svg";
 import CrossInputSVG from "./cross-input.svg";
+import SmallBlueCrossSVG from "./small-blue-cross.svg";
 
 export {
   ColleguesSVG,
@@ -38,5 +39,6 @@ export {
   ArrowBackSVG,
   OptionsDotsSVG,
   ProfileAvatarSVG,
-  CrossInputSVG
+  CrossInputSVG,
+  SmallBlueCrossSVG
 }

@@ -41,4 +41,35 @@
             border-bottom-left-radius: 6px;
         }
     }
+
+    .selected-interests {
+        display: flex;
+        flex-wrap: wrap;
+        background: #F8F8F8;
+        border: 1px solid #E8E8E8;
+        border-radius: 6px;
+        width: 100%;
+        min-height: 88px;
+        padding: 12px;
+
+        .selected-interest {
+            display: flex;
+            background: #FFFFFF;
+            border: 1px solid #B1CEF9;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #222222;
+            height: 28px;
+            align-items: center;
+
+            button {
+                background-color: white;
+                border: none;
+                outline: none;
+                margin-left: 12px;
+                padding: 0;
+            }
+        }
+    }
 }

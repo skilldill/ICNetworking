@@ -13,24 +13,6 @@ export const Profile = () => {
         setShowProfileForm(!showProfileForm);
     }
 
-    // ADD SCROLLING TO BODY
-    useEffect(() => {
-        
-        if (showProfileForm) {
-            document.body.style.overflowY = "auto";
-            return;
-        }
-        
-        document.body.style.overflowY = "hidden";
-        window.scrollTo(0, 0);
-        
-        return () => {
-            document.body.style.overflowY = "hidden";
-            window.scrollTo(0, 0);
-        }
-        
-    }, [showProfileForm]);
-
     return (
         <div className="profile">
             <Navbar title="Профиль" />
