@@ -1,6 +1,8 @@
 .fade-page {
   overflow-y: auto;
   position: absolute;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
   z-index: 1001;
   top: 0;
   left: 0;
