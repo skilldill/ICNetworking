@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from "react";
+import React, { FC, useState, useCallback, useRef } from "react";
 import cn from "classnames";
 
 import "./style.scss";
@@ -46,6 +46,12 @@ export const InterestsField: FC = (props) => {
         handleClear();
     }, [showFieldTags, selectedInterests])
 
+    const handleRemoveFromSelected = useCallback((index: number) => {
+        const prepareSelectedInterests = [...selectedInterests];
+        prepareSelectedInterests.splice(index, 1);
+        setSelectedInterests(prepareSelectedInterests);
+    }, [selectedInterests])
+
     return (
         <div className="interests-field">
             <h3>Мои интересы</h3>
@@ -60,7 +66,7 @@ export const InterestsField: FC = (props) => {
                             className="selected-interest"
                         >
                             {interest.name}
-                            <button>
+                            <button onClick={(event) => {event.stopPropagation(); handleRemoveFromSelected(i)}}>
                                 <img src={SmallBlueCrossSVG} alt="clear"/>
                             </button>
                         </div>
