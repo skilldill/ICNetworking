@@ -4,7 +4,7 @@ import { Form } from "antd";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { AvatarField, InterestsField } from "./components";
-import { Input } from "shared/components";
+import { Input, Text } from "shared/components";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -33,6 +33,10 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         </Form>
       </div>
      <InterestsField />
+     <div className="about-field">
+      <h3>Мои интересы</h3>
+      <Text />
+     </div>
     </div>
   )
 }

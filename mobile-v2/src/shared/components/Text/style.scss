@@ -1,4 +1,6 @@
 .control-textarea {
+    position: relative;
+
     small {
         display: block;
         text-align: start;
@@ -23,5 +25,17 @@
         font-family: Roboto;
         font-size: 14px;
         color:#919191;
+    }
+
+    .hide-resize {
+        position: absolute;
+        background: #F8F8F8;
+        bottom: 0;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        border-bottom: 1px solid #E8E8E8;
+        border-right: 1px solid #E8E8E8;
+        border-radius: 6px;
     }
 }

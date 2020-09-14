@@ -12,6 +12,7 @@ export const Text: FC<TextAreaProps & { label?: string }> = (props) => {
         <div className="control-textarea">
             {!!label && <small>{label}</small>}
             <TextArea {...props} />
+            <div className="hide-resize"></div>
         </div>
     )
 }
