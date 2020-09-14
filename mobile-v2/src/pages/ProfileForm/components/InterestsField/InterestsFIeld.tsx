@@ -98,6 +98,8 @@ export const InterestsField: FC = (props) => {
                     {!!foundIterests.length && (
                         <ul className="found-interests">
                             {foundIterests.map((interest, i) => 
+                                // IF INTEREST ALREDY IN SELECTED INTERESTS, 
+                                // THEN REMOVE FROM DROPDOWM
                                 !selectedInterests.includes(interest) && (
                                 <li 
                                     key={i}
