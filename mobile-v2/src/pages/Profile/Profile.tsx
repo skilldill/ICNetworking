@@ -5,15 +5,27 @@ import { Navbar } from "core/Navbar";
 import { FadePage } from "core/FadePage";
 import { ProfileForm } from "pages/ProfileForm";
 import { OptionsDotsSVG } from "assets/icons";
-import { AvatarField } from "./components";
+
+// PARTS
+import { AvatarField, InterestsField } from "./components";
 
 const MOCK_USER = {
     name: "Сергей",
     secondname: "Валашович",
     photo: null,
     position: "Руководитель отдела разработки",
-    experience: 3
+    experience: 3,
+    interests: [
+        {name: 'Футбол'},
+        {name: 'Бизнес-литература'},
+        {name: 'Теннис'},
+        {name: 'Дизайн'},
+        {name: 'Искусство'},
+        {name: 'Работа'}
+    ]
 }
+
+const { interests, ...avatarData } = MOCK_USER;
 
 export const Profile = () => {
     const [showProfileForm, setShowProfileForm] = useState(false);
@@ -33,7 +45,8 @@ export const Profile = () => {
                 }
             />
 
-            <AvatarField {...MOCK_USER} />
+            <AvatarField {...avatarData} />
+            <InterestsField interests={interests} />
 
             <FadePage show={showProfileForm} direction="vertical">
                 <ProfileForm onClose={handleClick} />
