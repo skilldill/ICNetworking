@@ -6,14 +6,15 @@ import { ArrowBackSVG, OptionsDotsSVG } from "assets/icons";
 
 interface NavbarProps {
     title: string,
-    options?: any,
     position?: "fixed" | "absolute" | "sticky",
     onClickBack?: () => void,
     onCancel?: () => void,
+    leftButton?: JSX.Element
+    rightButton?: JSX.Element
 }
 
 export const Navbar: FC<NavbarProps> = (props) => {
-    const { title, options, onClickBack, onCancel, position } = props;
+    const { title, onClickBack, onCancel, position, leftButton, rightButton } = props;
 
     const btnBack = useMemo(() => {
         return !!onClickBack ? (
@@ -31,6 +32,9 @@ export const Navbar: FC<NavbarProps> = (props) => {
         ) : <div></div>
     }, [onCancel]);
 
+    const currentLeftButton = useMemo(() => !!leftButton ? <div className="back">{leftButton}</div> : btnBack, [leftButton]);
+    const currentRightButton = useMemo(() => !!rightButton ? <div className="cancel">{rightButton}</div> : btnCancel, [rightButton]);
+
     const style = useMemo(():CSSProperties => ({
         position: !!position ? position : "fixed",
         top: "0px"
@@ -38,9 +42,9 @@ export const Navbar: FC<NavbarProps> = (props) => {
 
     return (
         <div className="navbar" style={style}>
-            {btnBack}
+            {currentLeftButton}
             <h3>{title}</h3>
-            {btnCancel}
+            {currentRightButton}
         </div>
     )
 }

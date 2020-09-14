@@ -17,7 +17,12 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
 
   return (
     <div className="profile-form">
-      <Navbar onClickBack={onClose} title="Профиль" position="sticky" />
+      <Navbar 
+        title="Профиль" 
+        position="sticky"
+        leftButton={<span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>}
+        rightButton={<span onClick={onClose} className="nav-button nav-button-ready">Готово</span>}
+      />
       <AvatarField />
       <div className="form-holder">
         <Form form={form}>
