@@ -98,6 +98,7 @@ export const InterestsField: FC = (props) => {
                     {!!foundIterests.length && (
                         <ul className="found-interests">
                             {foundIterests.map((interest, i) => 
+                                !selectedInterests.includes(interest) && (
                                 <li 
                                     key={i}
                                     onClick={() => handleSelectInterest(interest)}
@@ -107,7 +108,7 @@ export const InterestsField: FC = (props) => {
                                         "last-found-interest": i === (foundIterests.length - 1)
                                     })}
                                 >{interest.name}</li>
-                            )}
+                            ))}
                         </ul>
                     )}
                 </>
