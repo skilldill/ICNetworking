@@ -34,8 +34,8 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       </div>
      <InterestsField />
      <div className="about-field">
-      <h3>Мои интересы</h3>
-      <Text />
+      <h3>Информация о себе</h3>
+      <Text placeholder="Введите текст" />
      </div>
     </div>
   )
