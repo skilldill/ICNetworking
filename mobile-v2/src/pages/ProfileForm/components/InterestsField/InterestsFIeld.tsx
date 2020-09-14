@@ -92,6 +92,7 @@ export const InterestsField: FC = (props) => {
                         value={currentValue}
                         onChange={handleChange}
                         onClear={handleClear}
+                        showClear={!!currentValue.length}
                         onBlur={handleBlurInput}
                         isFocus={inputFocus}
                     />

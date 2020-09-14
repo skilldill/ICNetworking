@@ -8,11 +8,12 @@ import { CrossInputSVG } from "assets/icons";
 export interface CustomInputProps extends InputProps {
   label?: string,
   onClear?: () => void,
-  isFocus?: boolean;
+  isFocus?: boolean,
+  showClear?: boolean
 }
 
 export const Input: FC<CustomInputProps> = (props) => {
-  const { label, onClear, isFocus, ...rest } = props;
+  const { label, onClear, isFocus, showClear, ...rest } = props;
   const input = useRef<AntInput>(null);
 
   const handleClear = () => {
@@ -30,7 +31,7 @@ export const Input: FC<CustomInputProps> = (props) => {
     <div className="control-input">
       {!!label && <small>{label}</small>}
       <AntInput {...rest} ref={input} />
-      {!!onClear && (
+      {(!!onClear && showClear) && (
         <button className="clear-btn" onClick={handleClear}>
           <img src={CrossInputSVG} alt="clear"/>
         </button>
