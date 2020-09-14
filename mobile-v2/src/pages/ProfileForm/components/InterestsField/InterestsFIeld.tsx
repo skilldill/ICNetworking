@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useRef } from "react";
+import React, { FC, useState, useCallback, useEffect } from "react";
 import cn from "classnames";
 
 import "./style.scss";
@@ -19,12 +19,12 @@ export const InterestsField: FC = (props) => {
     const [foundIterests, setFoundInterests] = useState<{name: string}[]>([]);
     const [selectedInterests, setSelectedInterests] = useState<{name: string}[]>([]);
     const [showFieldTags, setShowFieldTags] = useState(false);
+    const [inputFocus, setInputFocus] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.currentTarget;
         setCurrentValue(value);
 
-        // TEST
         if (value === "") {
             return setFoundInterests([]);
         }
@@ -52,13 +52,26 @@ export const InterestsField: FC = (props) => {
         setSelectedInterests(prepareSelectedInterests);
     }, [selectedInterests])
 
+    const handleClickFieldTags = useCallback(() => {
+        setShowFieldTags(false);
+
+        // FOR AT ONCE SHOW KEYBOARD
+        setInputFocus(true);
+    }, [showFieldTags, inputFocus])
+
+    const handleBlurInput = useCallback(() => {
+        if (currentValue.length === 0) {
+            setShowFieldTags(true);
+        }
+    }, [showFieldTags, currentValue]);
+
     return (
         <div className="interests-field">
             <h3>Мои интересы</h3>
             {(!!selectedInterests.length && showFieldTags) ? (
                 <div 
                     className="selected-interests"
-                    onClick={() => setShowFieldTags(false)}
+                    onClick={handleClickFieldTags}
                 >
                     {selectedInterests.map((interest, i) => 
                         <div
@@ -79,6 +92,8 @@ export const InterestsField: FC = (props) => {
                         value={currentValue}
                         onChange={handleChange}
                         onClear={handleClear}
+                        onBlur={handleBlurInput}
+                        isFocus={inputFocus}
                     />
                     {!!foundIterests.length && (
                         <ul className="found-interests">
