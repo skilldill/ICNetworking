@@ -18,9 +18,12 @@ export const Profile = () => {
         <div className="profile">
             <Navbar 
                 title="Профиль" 
-                rightButton={<button><img src={OptionsDotsSVG} alt="options"/></button>}
+                rightButton={
+                    <button onClick={handleClick}>
+                        <img src={OptionsDotsSVG} alt="options"/>
+                    </button>
+                }
             />
-            <Button onClick={handleClick}>Открыть форму</Button>
             <FadePage show={showProfileForm} direction="vertical">
                 <ProfileForm onClose={handleClick} />
             </FadePage>
