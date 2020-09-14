@@ -4,8 +4,16 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { FadePage } from "core/FadePage";
 import { ProfileForm } from "pages/ProfileForm";
-import { Button } from "shared/components";
 import { OptionsDotsSVG } from "assets/icons";
+import { AvatarField } from "./components";
+
+const MOCK_USER = {
+    name: "Сергей",
+    secondname: "Валашович",
+    photo: null,
+    position: "Руководитель отдела разработки",
+    experience: 3
+}
 
 export const Profile = () => {
     const [showProfileForm, setShowProfileForm] = useState(false);
@@ -24,6 +32,9 @@ export const Profile = () => {
                     </button>
                 }
             />
+
+            <AvatarField {...MOCK_USER} />
+
             <FadePage show={showProfileForm} direction="vertical">
                 <ProfileForm onClose={handleClick} />
             </FadePage>
