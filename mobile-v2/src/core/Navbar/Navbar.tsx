@@ -1,8 +1,8 @@
-import React, { FC, useMemo, useEffect, CSSProperties } from "react";
+import React, { FC, useMemo, CSSProperties } from "react";
 import "./style.scss";
 
 // ICONS
-import { ArrowBackSVG, OptionsDotsSVG } from "assets/icons";
+import { ArrowBackSVG } from "assets/icons";
 
 interface NavbarProps {
     title: string,
