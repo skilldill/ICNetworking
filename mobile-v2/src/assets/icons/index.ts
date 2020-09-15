@@ -23,6 +23,11 @@ import ProfileAvatarSVG from "./profile-avatar.svg";
 import CrossInputSVG from "./cross-input.svg";
 import SmallBlueCrossSVG from "./small-blue-cross.svg";
 
+/* ACHIEVEMENTS */
+import AchievementMeetingsHeldSVG from "./achievement-meetings-held.svg";
+import AchievementMeetingsSheduledSVG from "./achievement-meetings-sheduled.svg";
+import AchievementMeetingsAppointmentsSVG from "./achievement-meetings-appointments.svg";
+
 export {
   ColleguesSVG,
   MatchesSVG,
@@ -40,5 +45,8 @@ export {
   OptionsDotsSVG,
   ProfileAvatarSVG,
   CrossInputSVG,
-  SmallBlueCrossSVG
+  SmallBlueCrossSVG,
+  AchievementMeetingsHeldSVG,
+  AchievementMeetingsSheduledSVG,
+  AchievementMeetingsAppointmentsSVG
 }

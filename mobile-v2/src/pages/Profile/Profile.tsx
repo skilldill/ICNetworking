@@ -7,7 +7,7 @@ import { ProfileForm } from "pages/ProfileForm";
 import { OptionsDotsSVG } from "assets/icons";
 
 // PARTS
-import { AvatarField, InterestsField } from "./components";
+import { AchievementsField, AvatarField, InterestsField } from "./components";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -47,6 +47,7 @@ export const Profile = () => {
 
             <AvatarField {...avatarData} />
             <InterestsField interests={interests} />
+            <AchievementsField />
 
             <FadePage show={showProfileForm} direction="vertical">
                 <ProfileForm onClose={handleClick} />
