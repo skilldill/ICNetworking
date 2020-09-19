@@ -23,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "sass-node": "^4.11.2",
+    "swagger-axios-codegen": "^0.11.8",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -33,7 +34,8 @@
     "sync-ios": "npx cap sync ios",
     "start-ios": "npx cap open ios",
     "sync-android": "npx cap sync android",
-    "start-android": "npx cap open android"
+    "start-android": "npx cap open android",
+    "api-gen": "node swagger-codegen.js"
   },
   "eslintConfig": {
     "extends": "react-app"
