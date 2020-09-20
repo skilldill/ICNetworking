@@ -9,7 +9,7 @@ export const ROUTES = {
 
 export const MAX_TOUCH_TRANSLATE = 100;
 
-export const API_URLS = {
-    login: "/api/users/login",
-    logout: "/api/users/logout"
+export enum StorageKeys {
+    uid = "uid",
+    token = "token"
 }

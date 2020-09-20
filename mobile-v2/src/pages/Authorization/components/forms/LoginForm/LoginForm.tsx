@@ -20,7 +20,7 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
     try {
       const data = values;
       const { token } = await UsersService.usersLogin({ data });
-
+      
       history.push(ROUTES.collegues);
     } catch (error) {
       console.log(error.messgae);
