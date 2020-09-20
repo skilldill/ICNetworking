@@ -26,10 +26,17 @@ export const Tabbar = () => {
     const [activeTab, setActiveTab] = useState(ROUTES.collegues);
 
     const location = useLocation();
+
     const isAuthorization = useMemo(() => location.pathname === ROUTES.authorization, [location.pathname]);
+    const isLoadingPage = useMemo(() => location.pathname === ROUTES.loadingPage, [location.pathname]);
+
+    const classes = useMemo(() => cn({
+        "tabbar": true,
+        "tabbar-hide": isAuthorization || isLoadingPage
+    }), [isAuthorization, isLoadingPage])
 
     return (
-        <div className={cn({ "tabbar": true, "tabbar-hide": isAuthorization })}>
+        <div className={classes}>
             <TabbarItem 
                 to={ROUTES.collegues} 
                 name="Коллеги" 

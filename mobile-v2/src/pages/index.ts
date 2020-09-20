@@ -5,6 +5,7 @@ import { Meetings } from "./Meetings";
 import { Profile } from "./Profile";
 import { Authorization } from "./Authorization";
 import { ProfileForm } from "./ProfileForm";
+import { LoadingPage } from "./LoadingPage";
 
 export {
     Authorization,
@@ -13,5 +14,6 @@ export {
     Chats,
     Meetings,
     Profile,
-    ProfileForm
+    ProfileForm,
+    LoadingPage
 }

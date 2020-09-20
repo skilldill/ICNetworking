@@ -4,7 +4,8 @@ export const ROUTES = {
     chats: "/chats",
     meetings: "/meetings",
     profile: "/profile",
-    authorization: "/authorization"
+    authorization: "/authorization",
+    loadingPage: "/loading_page"
 }
 
 export const MAX_TOUCH_TRANSLATE = 100;

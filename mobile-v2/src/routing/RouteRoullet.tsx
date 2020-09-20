@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import { Plugins } from "@capacitor/core";
 
 import { ROUTES } from "shared/constants";
-import { Collegues, Matches, Chats, Meetings, Profile, Authorization } from "pages";
+import { Collegues, Matches, Chats, Meetings, Profile, Authorization, LoadingPage } from "pages";
 import { Tabbar } from "core/Tabbar";
 
 export const RouteRoullet = () => {
@@ -19,7 +19,11 @@ export const RouteRoullet = () => {
         <Router>
             <Switch>
                 <Route path="/" exact>
-                    <Redirect to={ROUTES.authorization} />
+                    <Redirect to={ROUTES.loadingPage} />
+                </Route>
+
+                <Route path={ROUTES.loadingPage} exact>
+                    <LoadingPage />
                 </Route>
 
                 <Route path={ROUTES.authorization} exact>
