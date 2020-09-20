@@ -13,13 +13,18 @@ enum FormParts {
   second
 }
 
-export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (props) => {
-  const { show, keyboardOpened } = props;
+interface RegistrationFormProps {
+  show: boolean, 
+  keyboardOpened: boolean,
+  onBack: () => void
+}
+
+export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
+  const { show, keyboardOpened, onBack } = props;
 
   const [touchedFields, setTouchedFields] = useState(false);
   
   const { Item } = Form;
-  const history = useHistory();
   const [partForm, setPartForm] = useState(FormParts.first);
   const [firstValues, setFirstValues] = useState({});
 
@@ -57,7 +62,7 @@ export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (p
   
   const handleSubmit = async (values: any) => {
     if (isFirstPart) {
-      setFirstValues({...values});
+      setFirstValues({ ...values });
       setPartForm(FormParts.second);
       setTouchedFields(false);
       return;
@@ -71,8 +76,9 @@ export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (p
     data["username"] = data["first_name"];
     
     try {
-      const response = await UsersService.usersCreate({ data });
-      console.log(response);
+      // TODO: Необходимо добавить загрузку
+      await UsersService.usersCreate({ data });
+      onBack();
     } catch (error) {
       console.log(error.message);
     }

@@ -5,8 +5,9 @@ import cn from "classnames";
 import "../style.scss";
 import { Input, Button } from "shared/components";
 import { useHistory } from "react-router-dom";
-import { ROUTES } from "shared/constants";
+import { ROUTES, StorageKeys } from "shared/constants";
 import { UsersService } from "shared/http/api";
+import { initApi } from "shared/http";
 
 export const LoginForm: FC<{show: boolean}> = (props) => {
   const { show } = props;
@@ -19,7 +20,10 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
   const handleSubmit = async (values: any) => {
     try {
       const data = values;
+      
       const { token } = await UsersService.usersLogin({ data });
+      localStorage.setItem(StorageKeys.token, token);
+      initApi(token);
       
       history.push(ROUTES.collegues);
     } catch (error) {

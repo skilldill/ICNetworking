@@ -4,9 +4,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { initApi } from "shared/http";
+import { StorageKeys } from 'shared/constants';
 
-// FOR API GENERATION
-initApi();
+function initialApp() {
+  // FOR API GENERATION
+  const token = localStorage.getItem(StorageKeys.token);
+
+  if (!!token) {
+    initApi(token);
+  } else {
+    initApi()
+  }
+}
+
+initialApp();
 
 ReactDOM.render(
   <React.StrictMode>
