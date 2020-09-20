@@ -3,6 +3,7 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
+import { UsersService } from "shared/http/api";
 
 const mockCollegues = [
     { 
@@ -76,8 +77,18 @@ export const Collegues = () => {
 
     // TEST EFFECT
     useEffect(() => {
-        console.log(collegueIndex);
-    }, [collegueIndex]);
+        console.log('fetchUsers');
+        const fetchUsers = async () => {
+            try {
+                const { data } = await UsersService.usersList();
+                console.log(data);
+            } catch(error) {
+                console.log(error.message);
+            }
+        }
+        
+        fetchUsers();
+    }, []);
 
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {

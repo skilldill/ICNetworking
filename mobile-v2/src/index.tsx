@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { initApi } from "shared/http";
+
+// FOR API GENERATION
+initApi();
 
 ReactDOM.render(
   <React.StrictMode>
