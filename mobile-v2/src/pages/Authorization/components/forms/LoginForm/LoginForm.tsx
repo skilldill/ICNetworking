@@ -6,6 +6,7 @@ import "../style.scss";
 import { Input, Button } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
+import { UsersService } from "shared/http/api";
 
 export const LoginForm: FC<{show: boolean}> = (props) => {
   const { show } = props;
@@ -15,9 +16,15 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
   const [form] = useForm();
   const history = useHistory();
 
-  const handleSubmit = (values: any) => {
-    console.log(values);
-    history.push(ROUTES.collegues);
+  const handleSubmit = async (values: any) => {
+    try {
+      const data = values;
+      const { token } = await UsersService.usersLogin({ data });
+
+      history.push(ROUTES.collegues);
+    } catch (error) {
+      console.log(error.messgae);
+    }
   }
 
   const handleFieldsChange = () => {

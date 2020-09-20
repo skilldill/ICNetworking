@@ -6,6 +6,7 @@ import { Form } from "antd";
 import { Input, Button } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
+import { UsersService } from "shared/http/api";
 
 enum FormParts {
   first,
@@ -42,10 +43,10 @@ export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (p
 
   const secondPart = (
     <>
-      <Item name="name">
+      <Item name="first_name">
         <Input placeholder="Имя" autoComplete="off" />
       </Item>
-      <Item name="secondName">
+      <Item name="last_name">
         <Input placeholder="Фамилия" autoComplete="off" />
       </Item>
     </>
@@ -54,7 +55,7 @@ export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (p
   const isFirstPart = useMemo(() => partForm === FormParts.first, [partForm]);
   const currentPart = useMemo(() => isFirstPart ? firstPart : secondPart, [isFirstPart]);
   
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     if (isFirstPart) {
       setFirstValues({...values});
       setPartForm(FormParts.second);
@@ -62,7 +63,20 @@ export const RegistrationForm: FC<{show: boolean, keyboardOpened: boolean}> = (p
       return;
     }
 
-    console.log({...firstValues, ...values});
+    // REMOVE PASSWORD REPEAT FROM FORM VALUES
+    const formValues = { ...firstValues, ...values };
+    const { passwordRepeat, ...data } = formValues;
+    
+    // CHURMS FOR USERNAME
+    data["username"] = data["first_name"];
+    
+    try {
+      const response = await UsersService.usersCreate({ data });
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
+
     return;
   }
 

@@ -371,10 +371,10 @@ export class UsersService {
   static usersDeactivateUser(
     params: {
       /**  */
-      data: User;
+      data: LogoutRequestBody;
     } = {} as any,
     options: IRequestOptions = {}
-  ): Promise<User> {
+  ): Promise<LogoutResponse> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/users/deactivate_user/';
 
@@ -624,10 +624,10 @@ export class UsersService {
   static usersLogin(
     params: {
       /**  */
-      data: User;
+      data: LoginRequestBody;
     } = {} as any,
     options: IRequestOptions = {}
-  ): Promise<User> {
+  ): Promise<LoginResponse> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/users/login/';
 
@@ -645,10 +645,10 @@ export class UsersService {
   static usersLogout(
     params: {
       /**  */
-      data: User;
+      data: LogoutRequestBody;
     } = {} as any,
     options: IRequestOptions = {}
-  ): Promise<User> {
+  ): Promise<LogoutResponse> {
     return new Promise((resolve, reject) => {
       let url = basePath + '/users/logout/';
 
@@ -800,7 +800,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * Кастомная фильтрация профилей для тиндер-функционала.
    */
   static usersProfilesCreate(
     params: {
@@ -821,7 +821,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesList(
     params: {
@@ -844,7 +844,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesCreate(
     params: {
@@ -865,7 +865,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesRead(options: IRequestOptions = {}): Promise<ProfilePicture> {
     return new Promise((resolve, reject) => {
@@ -880,7 +880,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesUpdate(
     params: {
@@ -901,7 +901,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesPartialUpdate(
     params: {
@@ -922,7 +922,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * POST /api/users/profiles/profile_pictures/
    */
   static usersProfilesProfilePicturesDelete(options: IRequestOptions = {}): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -937,7 +937,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * Кастомная фильтрация профилей для тиндер-функционала.
    */
   static usersProfilesRead(options: IRequestOptions = {}): Promise<UserProfile> {
     return new Promise((resolve, reject) => {
@@ -952,7 +952,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * Кастомная фильтрация профилей для тиндер-функционала.
    */
   static usersProfilesUpdate(
     params: {
@@ -973,7 +973,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * Кастомная фильтрация профилей для тиндер-функционала.
    */
   static usersProfilesPartialUpdate(
     params: {
@@ -994,7 +994,7 @@ export class UsersService {
     });
   }
   /**
-   *
+   * Кастомная фильтрация профилей для тиндер-функционала.
    */
   static usersProfilesDelete(options: IRequestOptions = {}): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -1160,6 +1160,13 @@ export interface User {
   last_login: Date;
 }
 
+export interface LogoutRequestBody {}
+
+export interface LogoutResponse {
+  /**  */
+  result: string;
+}
+
 export interface Department {
   /**  */
   id: number;
@@ -1174,6 +1181,19 @@ export interface Interest {
 
   /**  */
   name: string;
+}
+
+export interface LoginRequestBody {
+  /**  */
+  email: string;
+
+  /**  */
+  password: string;
+}
+
+export interface LoginResponse {
+  /**  */
+  token: string;
 }
 
 export interface Position {
