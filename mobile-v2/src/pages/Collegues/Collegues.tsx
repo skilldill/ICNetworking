@@ -4,6 +4,7 @@ import { Navbar } from "core/Navbar";
 
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
 import { UsersService } from "shared/http/api";
+import { http } from "shared/http";
 
 const mockCollegues = [
     { 
@@ -77,7 +78,7 @@ export const Collegues = () => {
 
     // TEST EFFECT
     useEffect(() => {
-        console.log('fetchUsers');
+        console.log('fetchProfiles');
         const fetchUsers = async () => {
             try {
                 const { data } = await UsersService.usersList();
