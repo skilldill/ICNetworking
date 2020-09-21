@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -10,6 +11,9 @@ import { OptionsDotsSVG } from "assets/icons";
 import { AchievementsField, AvatarField, InterestsField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
+import { UsersService } from "shared/http/api";
+import { ROUTES, StorageKeys } from "shared/constants";
+import { initApi } from "shared/http";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -32,8 +36,24 @@ const { interests, ...avatarData } = MOCK_USER;
 export const Profile = () => {
     const [showProfileForm, setShowProfileForm] = useState(false);
 
+    const history = useHistory();
+
     const handleClick = () => {
         setShowProfileForm(!showProfileForm);
+    }
+    
+    const handlLogout = async () => {
+        try {
+            await UsersService.usersLogout();
+
+            localStorage.removeItem(StorageKeys.token);
+            localStorage.removeItem(StorageKeys.uid);
+            history.push(ROUTES.loadingPage);
+
+            initApi();
+        } catch (error) {
+            console.log(error.massage);
+        }
     }
 
     return (
@@ -55,7 +75,12 @@ export const Profile = () => {
 
                 {/* TEST BUTTON */}
                 <div style={{marginTop: "40px", paddingBottom: "100px"}}>
-                    <Button type="link" danger size="large">Выйти</Button>
+                    <Button 
+                        type="link" 
+                        danger 
+                        size="large"
+                        onClick={handlLogout}    
+                    >Выйти</Button>
                 </div>
             </Scrollable>
             

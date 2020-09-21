@@ -12,6 +12,10 @@ export const initApi = (token?: string) => {
         http = axios.create({
             headers: { "Authorization": token }
         })
+    } else {
+        http = axios.create({
+            headers: {}
+        })
     }
 
     serviceOptions.axios = http;

@@ -1194,6 +1194,14 @@ export interface LoginRequestBody {
 export interface LoginResponse {
   /**  */
   token: string;
+
+  /**  */
+  profile_id: number;
+}
+
+export interface LoginError {
+  /**  */
+  error: string;
 }
 
 export interface Position {
