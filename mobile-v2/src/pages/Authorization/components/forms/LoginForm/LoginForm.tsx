@@ -21,11 +21,13 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
     try {
       const data = values;
       
-      const { token, profile_id } = await UsersService.usersLogin({ data });
+      const { token, profile_id, user_id } = await UsersService.usersLogin({ data });
       localStorage.setItem(StorageKeys.token, token);
+      localStorage.setItem(StorageKeys.userId, `${user_id}`);
       initApi(token);
       
       if (!!profile_id) {
+        localStorage.setItem(StorageKeys.profileId, `${profile_id}`);
         history.push(ROUTES.collegues);
       } else {  
         const path = ROUTES.profileEdit;

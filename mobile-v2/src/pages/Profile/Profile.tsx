@@ -55,7 +55,9 @@ export const Profile = () => {
             await UsersService.usersLogout();
 
             localStorage.removeItem(StorageKeys.token);
-            localStorage.removeItem(StorageKeys.uid);
+            localStorage.removeItem(StorageKeys.userId);
+            localStorage.removeItem(StorageKeys.profileId);
+            
             history.push(ROUTES.loadingPage);
 
             initApi();
@@ -65,7 +67,7 @@ export const Profile = () => {
     }
 
     return (
-        <div className="profile" style={{ overflow: "scroll" }}>
+        <div className="profile">
             <Navbar 
                 title="Профиль" 
                 rightButton={

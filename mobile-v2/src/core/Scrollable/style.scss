@@ -1,7 +1,11 @@
-.scrollable {
+.scrollabel {
     // 70 - top padding (Navbar)
     // 55 - bottom padding (Tabbar)
     // 55 + 70 = 125px SUM
     max-height: calc(100vh - 125px);
     overflow: scroll;
+}
+
+.hide-tabbar {
+    max-height: calc(100vh - 70px);
 }

@@ -1197,6 +1197,9 @@ export interface LoginResponse {
 
   /**  */
   profile_id: number;
+
+  /**  */
+  user_id: number;
 }
 
 export interface LoginError {

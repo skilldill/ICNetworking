@@ -7,7 +7,9 @@ import { AvatarField, InterestsField } from "./components";
 import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
-import { ROUTES } from "shared/constants";
+import { ROUTES, StorageKeys } from "shared/constants";
+import { UsersService } from "shared/http/api";
+import { http } from "shared/http";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -17,25 +19,45 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { onClose } = props;
   const { useForm } = Form;
   const [form] = useForm();
-  const { location } = useHistory();
+  const { location, push } = useHistory();
 
   const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
+
+  const cancelButton = useMemo(() => !initialForm ? (
+    <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
+  ): undefined, [onClose, initialForm])
+  
+  const handltSubmitForm = async () => {
+    const userId = localStorage.getItem(StorageKeys.userId);
+    if (initialForm) {
+      try {
+        // Потому что сваггер тупит
+        await http.post('/users/profiles/', { user: parseInt(userId!) });
+        push(ROUTES.collegues);
+        return;
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
+    onClose && onClose();
+  }
 
   return (
     <div className="profile-form">
       <Navbar 
         title="Профиль"
-        leftButton={<span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>}
-        rightButton={<span onClick={onClose} className="nav-button nav-button-ready">Готово</span>}
+        leftButton={cancelButton}
+        rightButton={<span onClick={handltSubmitForm} className="nav-button nav-button-ready">Готово</span>}
       />
 
-      <Scrollable>
+      <Scrollable hideTabbar={initialForm}>
         <AvatarField />
         <div className="form-holder">
           <Form form={form}>
-            <Input placeholder="Введите имя" label="Имя" />
-            <Input placeholder="Введите фамилию" label="Фамилия" />
-            <Input placeholder="Введите должность" label="Должность" />
+            <Input name="name" placeholder="Введите имя" label="Имя" />
+            <Input name="lastname" placeholder="Введите фамилию" label="Фамилия" />
+            <Input name="position" placeholder="Введите должность" label="Должность" />
             <Input placeholder="Введите стаж" label="Стаж работы в компании" />
           </Form>
         </div>

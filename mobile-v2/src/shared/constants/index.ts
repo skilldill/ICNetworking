@@ -15,6 +15,7 @@ export const ROUTES = {
 export const MAX_TOUCH_TRANSLATE = 100;
 
 export enum StorageKeys {
-    uid = "uid",
+    userId = "user_id",
+    profileId = "profile_id",
     token = "token"
 }
