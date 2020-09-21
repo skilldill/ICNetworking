@@ -8,6 +8,8 @@ import { OptionsDotsSVG } from "assets/icons";
 
 // PARTS
 import { AchievementsField, AvatarField, InterestsField } from "./components";
+import { Button } from "antd";
+import { Scrollable } from "core/Scrollable";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -33,9 +35,9 @@ export const Profile = () => {
     const handleClick = () => {
         setShowProfileForm(!showProfileForm);
     }
-
+    
     return (
-        <div className="profile">
+        <div className="profile" style={{ overflow: "scroll" }}>
             <Navbar 
                 title="Профиль" 
                 rightButton={
@@ -45,13 +47,21 @@ export const Profile = () => {
                 }
             />
 
-            <AvatarField {...avatarData} />
-            <InterestsField interests={interests} />
-            <AchievementsField />
+            <Scrollable>
+                <AvatarField {...avatarData} />
+                <InterestsField interests={interests} />
+                <AchievementsField />
 
-            <FadePage show={showProfileForm} direction="vertical">
-                <ProfileForm onClose={handleClick} />
-            </FadePage>
+                <FadePage show={showProfileForm} direction="vertical">
+                    <ProfileForm onClose={handleClick} />
+                </FadePage>
+
+                {/* TEST BUTTON */}
+                <div style={{marginTop: "40px", paddingBottom: "100px"}}>
+                    <Button type="link" danger size="large">Выйти</Button>
+                </div>
+            </Scrollable>
+
         </div>
     )
 }
