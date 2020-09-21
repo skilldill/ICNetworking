@@ -35,7 +35,7 @@ export const Profile = () => {
     const handleClick = () => {
         setShowProfileForm(!showProfileForm);
     }
-    
+
     return (
         <div className="profile" style={{ overflow: "scroll" }}>
             <Navbar 
@@ -52,16 +52,16 @@ export const Profile = () => {
                 <InterestsField interests={interests} />
                 <AchievementsField />
 
-                <FadePage show={showProfileForm} direction="vertical">
-                    <ProfileForm onClose={handleClick} />
-                </FadePage>
 
                 {/* TEST BUTTON */}
                 <div style={{marginTop: "40px", paddingBottom: "100px"}}>
                     <Button type="link" danger size="large">Выйти</Button>
                 </div>
             </Scrollable>
-
+            
+            <FadePage show={showProfileForm} direction="vertical">
+                <ProfileForm onClose={handleClick} />
+            </FadePage>
         </div>
     )
 }
