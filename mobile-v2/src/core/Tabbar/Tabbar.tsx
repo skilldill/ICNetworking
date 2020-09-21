@@ -34,7 +34,7 @@ export const Tabbar = () => {
     const classes = useMemo(() => cn({
         "tabbar": true,
         "tabbar-hide": isAuthorization || isLoadingPage || isInitialForm
-    }), [isAuthorization, isLoadingPage])
+    }), [isAuthorization, isLoadingPage, isInitialForm])
 
     return (
         <div className={classes}>

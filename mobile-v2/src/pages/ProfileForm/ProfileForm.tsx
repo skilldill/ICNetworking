@@ -32,11 +32,13 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     if (initialForm) {
       try {
         // Потому что сваггер тупит
-        await http.post('/users/profiles/', { user: parseInt(userId!) });
-        push(ROUTES.collegues);
+        await http.post('http://45.154.74.54/api/users/profiles', {user: parseInt(userId!)});
+        
         return;
       } catch(error) {
         console.log(error);
+      } finally {
+        push(ROUTES.collegues);
       }
     }
 
