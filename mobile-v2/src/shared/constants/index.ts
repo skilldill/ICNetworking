@@ -3,9 +3,13 @@ export const ROUTES = {
     matches: "/matches",
     chats: "/chats",
     meetings: "/meetings",
-    profile: "/profile",
+    profile: "/profile/:edit",
     authorization: "/authorization",
-    loadingPage: "/loading_page"
+    loadingPage: "/loading_page",
+
+    // WITH PARAMS
+    profileEdit: "/profile/edit",
+    profileDefault: "/profile/default"
 }
 
 export const MAX_TOUCH_TRANSLATE = 100;

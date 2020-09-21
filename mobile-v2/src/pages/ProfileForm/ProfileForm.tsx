@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { Form } from "antd";
 
 import "./style.scss";
@@ -6,6 +6,8 @@ import { Navbar } from "core/Navbar";
 import { AvatarField, InterestsField } from "./components";
 import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
+import { useHistory } from "react-router-dom";
+import { ROUTES } from "shared/constants";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -15,6 +17,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { onClose } = props;
   const { useForm } = Form;
   const [form] = useForm();
+  const { location } = useHistory();
+
+  const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
 
   return (
     <div className="profile-form">

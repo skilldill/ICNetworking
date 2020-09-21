@@ -29,10 +29,11 @@ export const Tabbar = () => {
 
     const isAuthorization = useMemo(() => location.pathname === ROUTES.authorization, [location.pathname]);
     const isLoadingPage = useMemo(() => location.pathname === ROUTES.loadingPage, [location.pathname]);
+    const isInitialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname])
 
     const classes = useMemo(() => cn({
         "tabbar": true,
-        "tabbar-hide": isAuthorization || isLoadingPage
+        "tabbar-hide": isAuthorization || isLoadingPage || isInitialForm
     }), [isAuthorization, isLoadingPage])
 
     return (
@@ -74,11 +75,11 @@ export const Tabbar = () => {
             />
 
             <TabbarItem 
-                to={ROUTES.profile} 
+                to={ROUTES.profileDefault} 
                 name="Профиль" 
                 icon={ProfileSVG}
                 iconActive={ProfileActiveSVG}
-                isActive={activeTab === ROUTES.profile} 
+                isActive={activeTab === ROUTES.profileDefault} 
                 onClick={setActiveTab}
             />
         </div>

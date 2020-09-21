@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -36,12 +36,20 @@ const { interests, ...avatarData } = MOCK_USER;
 export const Profile = () => {
     const [showProfileForm, setShowProfileForm] = useState(false);
 
+    const { edit } = useParams<{ edit: string }>();
     const history = useHistory();
 
     const handleClick = () => {
         setShowProfileForm(!showProfileForm);
     }
     
+    useEffect(() => {
+        console.log(edit);
+        if (edit === "edit") {
+            setShowProfileForm(true);
+        }
+    }, [])
+
     const handlLogout = async () => {
         try {
             await UsersService.usersLogout();
