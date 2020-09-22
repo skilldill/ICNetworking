@@ -7,6 +7,7 @@ import { Input, Button } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { UsersService } from "shared/http/api";
+import { isFilled } from "shared/utils";
 
 enum FormParts {
   first,
@@ -22,14 +23,15 @@ interface RegistrationFormProps {
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   const { show, keyboardOpened, onBack } = props;
 
-  const [touchedFields, setTouchedFields] = useState(false);
+  const [filledForm, setFilledForm] = useState(false);
   
-  const { Item } = Form;
+  const { Item, useForm } = Form;
+  const [form] = useForm();
   const [partForm, setPartForm] = useState(FormParts.first);
   const [firstValues, setFirstValues] = useState({});
 
   const handleTouchFields = () => {
-    setTouchedFields(true);
+    setFilledForm(isFilled(form.getFieldsValue()));
   }
 
   const firstPart = (
@@ -64,7 +66,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     if (isFirstPart) {
       setFirstValues({ ...values });
       setPartForm(FormParts.second);
-      setTouchedFields(false);
+      setFilledForm(false);
       return;
     }
 
@@ -97,9 +99,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   return (
     <div className={classes}>
       <h3>Регистрация</h3>
-      <Form onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
+      <Form form={form} onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
         {currentPart}
-        <Button type="submit" disabled={!touchedFields}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
+        <Button type="submit" disabled={!filledForm}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
       </Form>
     </div>
   )
