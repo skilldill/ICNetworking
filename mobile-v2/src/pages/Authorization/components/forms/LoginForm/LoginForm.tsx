@@ -40,7 +40,6 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
           const path = ROUTES.profileEdit;
           history.push(path);
         }
-  
       } catch (error) {
         console.log(error.messgae);
       }

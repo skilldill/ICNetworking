@@ -80,6 +80,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     try {
       // TODO: Необходимо добавить загрузку
       await UsersService.usersCreate({ data });
+
+              
+      // drop form data
+      setPartForm(FormParts.first);
+      setFilledForm(false);
+      form.resetFields();
+
       onBack();
     } catch (error) {
       console.log(error.message);
