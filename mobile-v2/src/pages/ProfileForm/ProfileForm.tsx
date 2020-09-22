@@ -33,7 +33,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     if (initialForm) {
       try {
         // Потому что сваггер тупит
-        await http.post('http://45.154.74.54/api/users/profiles', {user: parseInt(userId!)});
+        await http.post('/api/users/profiles/', {user: parseInt(userId!)});
         
         return;
       } catch(error) {
