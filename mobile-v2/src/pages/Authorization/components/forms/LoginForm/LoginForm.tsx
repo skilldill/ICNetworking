@@ -3,7 +3,7 @@ import { Form } from "antd";
 import cn from "classnames";
 
 import "../style.scss";
-import { Input, Button } from "shared/components";
+import { Input, Button, Loading } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
 import { UsersService } from "shared/http/api";
@@ -12,6 +12,7 @@ import { isFilled } from "shared/utils";
 
 export const LoginForm: FC<{show: boolean}> = (props) => {
   const [formFilled, setFormFilled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { show } = props;
 
@@ -25,6 +26,8 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
 
   const handleSubmit = async (values: any) => {
     if (formFilled) {
+      setLoading(true);
+
       try {
         const data = values;
         
@@ -42,6 +45,8 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
         }
       } catch (error) {
         console.log(error.messgae);
+      } finally {
+        setLoading(false);
       }
     }
   }
@@ -58,17 +63,20 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
   }), [show])
 
   return (
-    <div className={classes}>
-      <h3>Вход</h3>
-      <Form onFinish={handleSubmit} form={form} onFieldsChange={handleFieldsChange}>
-        <Item name="email">
-          <Input placeholder="Эл. адрес" autoComplete="off" />
-        </Item>
-        <Item name="password">
-          <Input placeholder="Пароль" type="password" />
-        </Item>
-        <Button type="submit" disabled={!formFilled}>Войти</Button>
-      </Form>
-    </div>
+    <>
+      <div className={classes}>
+        <h3>Вход</h3>
+        <Form onFinish={handleSubmit} form={form} onFieldsChange={handleFieldsChange}>
+          <Item name="email">
+            <Input placeholder="Эл. адрес" autoComplete="off" />
+          </Item>
+          <Item name="password">
+            <Input placeholder="Пароль" type="password" />
+          </Item>
+          <Button type="submit" disabled={!formFilled}>Войти</Button>
+        </Form>
+      </div>
+      {loading && <Loading />}
+    </>
   )
 }

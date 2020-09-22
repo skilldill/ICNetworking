@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import "../style.scss";
 import { Form } from "antd";
-import { Input, Button } from "shared/components";
+import { Input, Button, Loading } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { UsersService } from "shared/http/api";
@@ -23,12 +23,13 @@ interface RegistrationFormProps {
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   const { show, keyboardOpened, onBack } = props;
 
+  const [loading, setLoading] = useState(false);
   const [filledForm, setFilledForm] = useState(false);
-  
-  const { Item, useForm } = Form;
-  const [form] = useForm();
   const [partForm, setPartForm] = useState(FormParts.first);
   const [firstValues, setFirstValues] = useState({});
+
+  const { Item, useForm } = Form;
+  const [form] = useForm();
 
   const handleTouchFields = () => {
     setFilledForm(isFilled(form.getFieldsValue()));
@@ -71,6 +72,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     }
 
     // REMOVE PASSWORD REPEAT FROM FORM VALUES
+    setLoading(true);
     const formValues = { ...firstValues, ...values };
     const { passwordRepeat, ...data } = formValues;
     
@@ -89,6 +91,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
       onBack();
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
 
     return;
@@ -103,12 +107,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   }), [show, keyboardOpened])
 
   return (
-    <div className={classes}>
-      <h3>Регистрация</h3>
-      <Form form={form} onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
-        {currentPart}
-        <Button type="submit" disabled={!filledForm}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
-      </Form>
-    </div>
+    <>
+      <div className={classes}>
+        <h3>Регистрация</h3>
+        <Form form={form} onFinish={handleSubmit} onFieldsChange={handleTouchFields}>
+          {currentPart}
+          <Button type="submit" disabled={!filledForm}>{isFirstPart ? 'Далее' : 'Зарегистрироваться'}</Button>
+        </Form>
+      </div>
+      {loading && <Loading />}
+    </>
   )
 }
