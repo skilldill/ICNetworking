@@ -8,39 +8,47 @@ import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
 import { UsersService } from "shared/http/api";
 import { initApi } from "shared/http";
+import { isFilled } from "shared/utils";
 
 export const LoginForm: FC<{show: boolean}> = (props) => {
+  const [formFilled, setFormFilled] = useState(false);
+
   const { show } = props;
 
-  const [touchedFields, setTouchedFields] = useState(false);
   const { Item, useForm } = Form;
   const [form] = useForm();
   const history = useHistory();
 
-  const handleSubmit = async (values: any) => {
-    try {
-      const data = values;
-      
-      const { token, profile_id, user_id } = await UsersService.usersLogin({ data });
-      localStorage.setItem(StorageKeys.token, token);
-      localStorage.setItem(StorageKeys.userId, `${user_id}`);
-      initApi(token);
-      
-      if (!!profile_id) {
-        localStorage.setItem(StorageKeys.profileId, `${profile_id}`);
-        history.push(ROUTES.collegues);
-      } else {  
-        const path = ROUTES.profileEdit;
-        history.push(path);
-      }
+  useEffect(() => {
+    console.log(isFilled(form.getFieldsValue()));
+  }, [form.getFieldsValue()])
 
-    } catch (error) {
-      console.log(error.messgae);
+  const handleSubmit = async (values: any) => {
+    if (formFilled) {
+      try {
+        const data = values;
+        
+        const { token, profile_id, user_id } = await UsersService.usersLogin({ data });
+        localStorage.setItem(StorageKeys.token, token);
+        localStorage.setItem(StorageKeys.userId, `${user_id}`);
+        initApi(token);
+        
+        if (!!profile_id) {
+          localStorage.setItem(StorageKeys.profileId, `${profile_id}`);
+          history.push(ROUTES.collegues);
+        } else {  
+          const path = ROUTES.profileEdit;
+          history.push(path);
+        }
+  
+      } catch (error) {
+        console.log(error.messgae);
+      }
     }
   }
 
   const handleFieldsChange = () => {
-    setTouchedFields(true);
+    setFormFilled(isFilled(form.getFieldsValue()));
   }
 
   // TEST ANIMATION SHOW
@@ -60,7 +68,7 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
         <Item name="password">
           <Input placeholder="Пароль" type="password" />
         </Item>
-        <Button type="submit" disabled={!touchedFields}>Войти</Button>
+        <Button type="submit" disabled={!formFilled}>Войти</Button>
       </Form>
     </div>
   )
