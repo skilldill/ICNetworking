@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { CSSProperties, FC, useMemo } from "react";
 import { Form } from "antd";
 
 import "./style.scss";
@@ -21,6 +21,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const [form] = useForm();
   const { location, push } = useHistory();
 
+  // Проверяем запускается форма первый ли раз
   const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
 
   const cancelButton = useMemo(() => !initialForm ? (
@@ -45,6 +46,10 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     onClose && onClose();
   }
 
+  const scrollabelStyle: CSSProperties = useMemo(() => ({
+    maxHeight: initialForm ? "calc(100vh - 70px)" : "calc(100vh - 125px)"
+  }), [initialForm])
+
   return (
     <div className="profile-form">
       <Navbar 
@@ -53,7 +58,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         rightButton={<span onClick={handltSubmitForm} className="nav-button nav-button-ready">Готово</span>}
       />
 
-      <Scrollable hideTabbar={initialForm}>
+      <Scrollable style={scrollabelStyle}>
         <AvatarField />
         <div className="form-holder">
           <Form form={form}>
@@ -69,7 +74,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           <Text placeholder="Введите текст" />
         </div>
       </Scrollable>
-      
+
     </div>
   )
 }

@@ -1,18 +1,13 @@
-import React, { FC, useMemo } from "react";
+import React, { CSSProperties, FC, useMemo } from "react";
 import cn from "classnames";
 import "./style.scss";
 
-export const Scrollable: FC<{ hideTabbar?: boolean }> = (props) => {
-    const { hideTabbar } = props;
+export const Scrollable: FC<{ style?: CSSProperties }> = (props) => {
+    const { style } = props;
     const { children } = props;
 
-    const classes = useMemo(() => cn({
-        "scrollabel": true,
-        "hide-tabbar": hideTabbar
-    }), [hideTabbar])
-
     return (
-        <div className={classes}>
+        <div className="scrollabel" style={style}>
             { children }
         </div>
     )
