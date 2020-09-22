@@ -81,7 +81,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
       // TODO: Необходимо добавить загрузку
       await UsersService.usersCreate({ data });
 
-              
       // drop form data
       setPartForm(FormParts.first);
       setFilledForm(false);
