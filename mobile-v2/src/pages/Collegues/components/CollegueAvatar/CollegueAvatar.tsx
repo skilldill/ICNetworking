@@ -194,7 +194,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         onTouchEnd={handleTouchEnd(onTouchEnd)}
                         style={galleryMode ? dragStyle : undefined}
                     >
-                        {showGallery && <div className="backdrop" />}
+                        {showGallery && <div className="avatar-control-backdrop" />}
                         {!!collegues[currentIndex].avatars.length ? (
                             <img 
                                 className={cn({
