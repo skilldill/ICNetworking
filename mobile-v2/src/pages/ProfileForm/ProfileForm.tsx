@@ -1,5 +1,6 @@
-import React, { CSSProperties, FC, useMemo } from "react";
+import React, { CSSProperties, FC, useEffect, useMemo } from "react";
 import { Form } from "antd";
+import { Input as AInput } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -17,9 +18,25 @@ interface ProfileFormProps {
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { onClose } = props;
-  const { useForm } = Form;
+  const { useForm, Item } = Form;
   const [form] = useForm();
   const { location, push } = useHistory();
+
+  // SET INITIAL VALUE FORMS
+  useEffect(() => {
+    const userId = localStorage.getItem(StorageKeys.userId);
+    
+    const fetchUser = async () => {
+      try {
+        const { data } = await http.get(`/api/users/${userId}/`);
+        form.setFieldsValue({ ...data });
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
+    fetchUser();
+  }, [form])
 
   // Проверяем запускается форма первый ли раз
   const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
@@ -30,11 +47,14 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   
   const handltSubmitForm = async () => {
     const userId = localStorage.getItem(StorageKeys.userId);
+
     if (initialForm) {
       try {
+        const profileData = form.getFieldsValue();
+        console.log(profileData);
         // Потому что сваггер тупит
-        await http.post('/api/users/profiles/', {user: parseInt(userId!)});
-        
+        // await http.post('/api/users/profiles/', { user: parseInt(userId!), ...profileData });
+        // UsersService.usersProfilesCreate({ data: {} })
         return;
       } catch(error) {
         console.log(error);
@@ -62,19 +82,31 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         <AvatarField />
         <div className="form-holder">
           <Form form={form}>
-            <Input name="name" placeholder="Введите имя" label="Имя" />
-            <Input name="lastname" placeholder="Введите фамилию" label="Фамилия" />
-            <Input name="position" placeholder="Введите должность" label="Должность" />
-            <Input placeholder="Введите стаж" label="Стаж работы в компании" />
+            <Item name="first_name">
+              <Input placeholder="Введите имя" label="Имя" />
+            </Item>
+            <Item name="last_name">
+              <Input placeholder="Введите фамилию" label="Фамилия" />
+            </Item>
+            <Item name="position">
+              <Input placeholder="Введите должность" label="Должность" />
+            </Item>
+            <Item name="position">
+              <Input placeholder="Введите стаж" label="Стаж работы в компании" />
+            </Item>
           </Form>
         </div>
         <InterestsField />
         <div className="about-field">
           <h3>Информация о себе</h3>
-          <Text placeholder="Введите текст" />
+          <Text 
+            placeholder="Введите текст" 
+            value={form.getFieldValue('bio')}
+            // SIMPLAE CRUTCH :)
+            onChange={({ currentTarget }) => { form.setFieldsValue({ bio: currentTarget.value }) }}
+          />
         </div>
       </Scrollable>
-
     </div>
   )
 }
