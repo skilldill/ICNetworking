@@ -6,7 +6,7 @@ import "../style.scss";
 import { Input, Button, Loading } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { UsersService } from "shared/http/api";
+import { ApiService } from "shared/http";
 import { initApi } from "shared/http";
 import { isFilled } from "shared/utils";
 
@@ -29,9 +29,11 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
       setLoading(true);
 
       try {
-        const data = values;
+        const loginData = values;
         
-        const { token, profile_id, user_id } = await UsersService.usersLogin({ data });
+        const { data } = await ApiService.login(loginData);
+        const { token, profile_id, user_id } = data;
+        
         localStorage.setItem(StorageKeys.token, token);
         localStorage.setItem(StorageKeys.userId, `${user_id}`);
         initApi(token);

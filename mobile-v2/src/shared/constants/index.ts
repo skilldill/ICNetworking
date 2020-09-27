@@ -19,3 +19,14 @@ export enum StorageKeys {
     profileId = "profile_id",
     token = "token"
 }
+
+export const API_URLS = {
+    // USERS
+    users: "/api/users/",
+    login: "/api/users/login/",
+    logout: "/api/users/logout/",
+
+    // PROFILES
+    profiles: "/api/profiles/",
+    
+}

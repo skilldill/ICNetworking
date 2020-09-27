@@ -8,8 +8,7 @@ import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { UsersService } from "shared/http/api";
-import { http } from "shared/http";
+import { ApiService, http } from "shared/http";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -32,8 +31,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const data = UsersService.usersRead()
-        // const { data } = await http.get(`/api/users/${userId}/`);
+        const data = ApiService.getUser(parseInt(userId!));
         form.setFieldsValue({ ...data });
       } catch(error) {
         console.log(error);

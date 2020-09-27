@@ -1,31 +1,42 @@
 import { http } from "./http";
+import { API_URLS } from "shared/constants";
+
+interface CommonType {
+    [key: string]: any
+}
 
 export class ApiService {
     // Users part
-    static login = () => {
+    static registartion = (data: CommonType) => {
+        return http.post(API_URLS.users, data);
+    }
 
+    static login = (data: CommonType) => {
+        return http.post(API_URLS.login, data);
     }
 
     static logout = () => {
-
+        return http.post(API_URLS.logout);
     }
 
-    static getUser = () => {
-
+    static getUser = (id: number) => {
+        const url = `${API_URLS.users}/${id}/`;
+        return http.get(url);
     }
 
 
     // Profile part
-    static getProfile = () => {
-
+    static getProfile = (id: number) => {
+        const url = `${API_URLS.profiles}/${id}/`;
+        return http.get(url);
     }
 
-    static createProfile = () => {
-
+    static createProfile = (data: CommonType) => {
+        return http.post(API_URLS.profiles, data);
     }
 
-    static updateProfile = () => {
-
+    static updateProfile = (data: CommonType) => {
+        return http.patch(API_URLS.profiles, data);
     }
 
     static getPosition = () => {
@@ -33,6 +44,6 @@ export class ApiService {
     }
 
     static createPosition = () => {
-        
+
     }
 }

@@ -6,8 +6,8 @@ import { Form } from "antd";
 import { Input, Button, Loading } from "shared/components";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
-import { UsersService } from "shared/http/api";
 import { isFilled } from "shared/utils";
+import { ApiService } from "shared/http";
 
 enum FormParts {
   first,
@@ -51,7 +51,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
 
   const secondPart = (
     <>
-      <Item name="first_name">
+      <Item name="username">
         <Input placeholder="Имя" autoComplete="off" />
       </Item>
       <Item name="last_name">
@@ -76,12 +76,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const formValues = { ...firstValues, ...values };
     const { passwordRepeat, ...data } = formValues;
     
-    // CHURMS FOR USERNAME
-    data["username"] = data["first_name"];
-    
     try {
       // TODO: Необходимо добавить загрузку
-      await UsersService.usersCreate({ data });
+      await ApiService.registartion(data);
 
       // drop form data
       setPartForm(FormParts.first);

@@ -3,7 +3,6 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
-import { UsersService } from "shared/http/api";
 import { http } from "shared/http";
 
 const mockCollegues = [
@@ -81,8 +80,8 @@ export const Collegues = () => {
         console.log('fetchProfiles');
         const fetchUsers = async () => {
             try {
-                const { data } = await UsersService.usersList();
-                console.log(data);
+                // const { data } = await UsersService.usersList();
+                // console.log(data);
             } catch(error) {
                 console.log(error.message);
             }

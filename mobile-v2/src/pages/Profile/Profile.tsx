@@ -11,9 +11,8 @@ import { OptionsDotsSVG } from "assets/icons";
 import { AchievementsField, AvatarField, InterestsField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
-import { UsersService } from "shared/http/api";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { initApi } from "shared/http";
+import { ApiService, initApi } from "shared/http";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -52,7 +51,7 @@ export const Profile = () => {
 
     const handlLogout = async () => {
         try {
-            await UsersService.usersLogout();
+            await ApiService.logout();
 
             localStorage.removeItem(StorageKeys.token);
             localStorage.removeItem(StorageKeys.userId);
