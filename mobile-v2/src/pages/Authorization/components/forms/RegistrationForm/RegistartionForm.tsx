@@ -76,6 +76,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const formValues = { ...firstValues, ...values };
     const { passwordRepeat, ...data } = formValues;
     
+    // CRUTCH FOR FIRST_NAME
+    data["first_name"] = data["username"];
+
     try {
       // TODO: Необходимо добавить загрузку
       await ApiService.registartion(data);

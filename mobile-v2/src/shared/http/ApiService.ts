@@ -1,5 +1,6 @@
 import { http } from "./http";
 import { API_URLS } from "shared/constants";
+import { b64toBlob } from "shared/utils";
 
 interface CommonType {
     [key: string]: any
@@ -20,14 +21,13 @@ export class ApiService {
     }
 
     static getUser = (id: number) => {
-        const url = `${API_URLS.users}/${id}/`;
+        const url = `${API_URLS.users}${id}/`;
         return http.get(url);
     }
 
-
     // Profile part
     static getProfile = (id: number) => {
-        const url = `${API_URLS.profiles}/${id}/`;
+        const url = `${API_URLS.profiles}${id}/`;
         return http.get(url);
     }
 
@@ -35,8 +35,9 @@ export class ApiService {
         return http.post(API_URLS.profiles, data);
     }
 
-    static updateProfile = (data: CommonType) => {
-        return http.patch(API_URLS.profiles, data);
+    static updateProfile = (id: number, data: CommonType) => {
+        const url = `${API_URLS.profiles}${id}/`;
+        return http.patch(url, data);
     }
 
     static getPosition = () => {
@@ -45,5 +46,16 @@ export class ApiService {
 
     static createPosition = () => {
 
+    }
+
+    static addPhoto = (id: number, uri: string) => {
+        const url = `${API_URLS.profilePhoto}`;
+        const formData = new FormData();
+        const blob = b64toBlob(uri);
+
+        formData.append("profile", id.toString());
+        formData.append("picture", blob);
+
+        return http.post(url, formData);
     }
 }

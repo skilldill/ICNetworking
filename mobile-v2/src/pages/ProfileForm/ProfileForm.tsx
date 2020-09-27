@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useEffect, useMemo, useState } from "react";
+import React, { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Form } from "antd";
 
 import "./style.scss";
@@ -8,7 +8,8 @@ import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { ApiService, http } from "shared/http";
+import { ApiService } from "shared/http";
+import { CameraPhoto } from "@capacitor/core";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -24,32 +25,61 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { location, push } = useHistory();
 
   // ADDITIONAL FIELDS WITHOUT FORM
+  const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
   const [positionId, setPositionId] = useState<number | null>(null);
 
+  const fetchUser = useCallback(async () => {
+    try {
+      const { data } = await ApiService.getUser(parseInt(userId!));
+      form.setFieldsValue({ ...data });
+    } catch(error) {
+      console.log(error);
+    }
+  }, [userId, form, ApiService]);
+
+  const fetchProfile = useCallback(async () => {
+    try {
+      const { data } = await ApiService.getProfile(parseInt(profileId!));
+      const { bio, user_data, gallery } = data;
+      form.setFieldsValue({ ...user_data });
+      setBio(bio);
+      !!gallery.length && setAvatar(gallery[0].picture);
+    } catch(error) {
+      console.log(error);
+    }
+  }, [profileId, form, ApiService])
+
+  const createProfile = useCallback(async () => {
+    const profileData = { user: userId, bio };
+
+    try {
+      const { data } = await ApiService.createProfile(profileData);
+      const { id } = data;
+      localStorage.setItem(StorageKeys.profileId, `${id}`);
+    } catch(error) {
+      console.log(error.message);
+    }
+  }, [userId, bio, form])
+
+  const updateProfile = useCallback(async () => {
+    const profileData = { user: userId, bio };
+
+    try {
+      await ApiService.updateProfile(parseInt(profileId!), profileData);
+    } catch(error) {
+      console.log(error.message);
+    }
+  }, [userId, bio, form])
+
   // SET INITIAL VALUE FORMS
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = ApiService.getUser(parseInt(userId!));
-        form.setFieldsValue({ ...data });
-      } catch(error) {
-        console.log(error);
-      }
+    // CHECK WHICH ID WE HAVE
+    if (!!profileId) {
+      fetchProfile();
+    } else {
+      fetchUser();
     }
-    
-    const fetchProfile = async () => {
-      try {
-        const { data } = await http.get(`/api/users/profiles/${profileId}/`);
-        const { bio } = data;
-        setBio(bio);
-      } catch(error) {
-        console.log(error);
-      }
-    }
-
-    fetchUser();
-    !!profileId && fetchProfile();
   }, [form])
 
   // Проверяем запускается форма первый ли раз
@@ -59,30 +89,33 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
   ): undefined, [onClose, initialForm])
   
-  const handltSubmitForm = async () => {
-    const userId = localStorage.getItem(StorageKeys.userId);
-    const profileId = localStorage.getItem(StorageKeys.profileId);
-
-    const profileData = {
-      user: userId,
-      bio,
-      
-    }    
-
+  const handltSubmitForm = useCallback(async () => {
     if (initialForm) {
-      try {
-
-      } catch(error) {
-
-      }
+      createProfile();
+      push(ROUTES.collegues);
     } else {
-      try {
-
-      } catch(error) {
-
-      }
+      updateProfile();
     }
-  }
+  }, [initialForm, createProfile, updateProfile]);
+
+  const handleAddPhoto = useCallback(async (photo: CameraPhoto) => {
+    const { dataUrl } = photo;
+
+    try {
+      if (initialForm) {
+        // Если в самом начала попробовать загрузить фотку, 
+        // то так как profileId еще нет, то не получится
+        // поэтому сначала создаем profile
+        await createProfile();
+        const profileId = localStorage.getItem(StorageKeys.profileId);
+        await ApiService.addPhoto(parseInt(profileId!), dataUrl!);
+      } else {
+        await ApiService.addPhoto(parseInt(profileId!), dataUrl!);
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }, [ApiService.addPhoto])
 
   const scrollabelStyle: CSSProperties = useMemo(() => ({
     maxHeight: initialForm ? "calc(100vh - 70px)" : "calc(100vh - 125px)"
@@ -97,7 +130,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       />
 
       <Scrollable style={scrollabelStyle}>
-        <AvatarField />
+        <AvatarField onChangePhoto={handleAddPhoto} photo={avatar} />
         <div className="form-holder">
           <Form form={form}>
             <Item name="first_name">

@@ -5,11 +5,12 @@ import "./style.scss";
 import { ProfileAvatarSVG } from "assets/icons";
 
 interface AvatarFieldProps {
+    photo?: string,
     onChangePhoto?: (photo: CameraPhoto) => void;
 }
 
 export const AvatarField: FC<AvatarFieldProps> = (props) => {
-    const { onChangePhoto } = props;
+    const { onChangePhoto, photo } = props;
 
     const [currentPhoto, setCurrentPhoto] = useState<CameraPhoto | null>(null);
 
@@ -29,8 +30,8 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
 
     const imageElement = useMemo(() => !!currentPhoto ? 
         <img className="avatar-img" src={currentPhoto.dataUrl} alt="avatar field" /> : 
-        <img src={ProfileAvatarSVG} alt="avatar field" />    
-    , [currentPhoto])
+        <img className="avatar-img" src={photo || ProfileAvatarSVG} alt="avatar field" />    
+    , [photo, currentPhoto])
 
     return (
         <div className="avatar-field">

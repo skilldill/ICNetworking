@@ -27,6 +27,6 @@ export const API_URLS = {
     logout: "/api/users/logout/",
 
     // PROFILES
-    profiles: "/api/profiles/",
-    
+    profiles: "/api/users/profiles/",
+    profilePhoto: "/api/users/profiles/profile_pictures/"
 }
