@@ -44,7 +44,12 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       const { bio, user_data, gallery } = data;
       form.setFieldsValue({ ...user_data });
       setBio(bio);
-      !!gallery.length && setAvatar(gallery[0].picture);
+      
+      if (!!gallery.length) {
+        const currentAvatarIndex = gallery.length - 1;
+        const { picture } = gallery[currentAvatarIndex];
+        setAvatar(picture);
+      }
     } catch(error) {
       console.log(error);
     }
@@ -96,7 +101,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     } else {
       updateProfile();
     }
-  }, [initialForm, createProfile, updateProfile]);
+
+    !!onClose && onClose();
+  }, [initialForm, onClose, createProfile, updateProfile]);
 
   const handleAddPhoto = useCallback(async (photo: CameraPhoto) => {
     const { dataUrl } = photo;
