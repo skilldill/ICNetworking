@@ -1,6 +1,5 @@
-import React, { CSSProperties, FC, useEffect, useMemo } from "react";
+import React, { CSSProperties, FC, useEffect, useMemo, useState } from "react";
 import { Form } from "antd";
-import { Input as AInput } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -17,15 +16,19 @@ interface ProfileFormProps {
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
+  const profileId = localStorage.getItem(StorageKeys.profileId);
+  const userId = localStorage.getItem(StorageKeys.userId);
+
   const { onClose } = props;
   const { useForm, Item } = Form;
   const [form] = useForm();
   const { location, push } = useHistory();
 
+  // ADDITIONAL FIELDS WITHOUT FORM
+  const [bio, setBio] = useState('');
+
   // SET INITIAL VALUE FORMS
   useEffect(() => {
-    const userId = localStorage.getItem(StorageKeys.userId);
-    
     const fetchUser = async () => {
       try {
         const { data } = await http.get(`/api/users/${userId}/`);
@@ -34,8 +37,19 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         console.log(error);
       }
     }
+    
+    const fetchProfile = async () => {
+      try {
+        const { data } = await http.get(`/api/users/profiles/${profileId}/`);
+        const { bio } = data;
+        setBio(bio);
+      } catch(error) {
+        console.log(error);
+      }
+    }
 
     fetchUser();
+    !!profileId && fetchProfile();
   }, [form])
 
   // Проверяем запускается форма первый ли раз
@@ -47,23 +61,31 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   
   const handltSubmitForm = async () => {
     const userId = localStorage.getItem(StorageKeys.userId);
+    const profileId = localStorage.getItem(StorageKeys.profileId);
+
+    const formValues = form.getFieldsValue();
+    const profileData = { bio }
 
     if (initialForm) {
       try {
-        const profileData = form.getFieldsValue();
-        console.log(profileData);
         // Потому что сваггер тупит
-        // await http.post('/api/users/profiles/', { user: parseInt(userId!), ...profileData });
-        // UsersService.usersProfilesCreate({ data: {} })
-        return;
+        const { data } = await http.post('/api/users/profiles/', { user: parseInt(userId!), ...profileData });
+        localStorage.setItem(StorageKeys.profileId, data.id);
+        onClose && onClose();
       } catch(error) {
         console.log(error);
-      } finally {
-        push(ROUTES.collegues);
-      }
+      } finally { }
+    } else {
+      try {
+        // Потому что сваггер тупит
+        await http.patch(`/api/users/profiles/${profileId}/`, { ...profileData });
+        
+        onClose && onClose();
+      } catch(error) {
+        console.log(error);
+      } finally { }
     }
-
-    onClose && onClose();
+    // push(ROUTES.collegues);
   }
 
   const scrollabelStyle: CSSProperties = useMemo(() => ({
@@ -91,7 +113,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
             <Item name="position">
               <Input placeholder="Введите должность" label="Должность" />
             </Item>
-            <Item name="position">
+            <Item name="level">
               <Input placeholder="Введите стаж" label="Стаж работы в компании" />
             </Item>
           </Form>
@@ -101,9 +123,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           <h3>Информация о себе</h3>
           <Text 
             placeholder="Введите текст" 
-            value={form.getFieldValue('bio')}
+            value={bio}
             // SIMPLAE CRUTCH :)
-            onChange={({ currentTarget }) => { form.setFieldsValue({ bio: currentTarget.value }) }}
+            onChange={({ currentTarget }) => setBio(currentTarget.value) }
           />
         </div>
       </Scrollable>
