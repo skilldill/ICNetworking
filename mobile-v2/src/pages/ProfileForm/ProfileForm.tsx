@@ -26,12 +26,14 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
 
   // ADDITIONAL FIELDS WITHOUT FORM
   const [bio, setBio] = useState('');
+  const [positionId, setPositionId] = useState<number | null>(null);
 
   // SET INITIAL VALUE FORMS
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await http.get(`/api/users/${userId}/`);
+        const data = UsersService.usersRead()
+        // const { data } = await http.get(`/api/users/${userId}/`);
         form.setFieldsValue({ ...data });
       } catch(error) {
         console.log(error);
@@ -63,29 +65,25 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     const userId = localStorage.getItem(StorageKeys.userId);
     const profileId = localStorage.getItem(StorageKeys.profileId);
 
-    const formValues = form.getFieldsValue();
-    const profileData = { bio }
+    const profileData = {
+      user: userId,
+      bio,
+      
+    }    
 
     if (initialForm) {
       try {
-        // Потому что сваггер тупит
-        const { data } = await http.post('/api/users/profiles/', { user: parseInt(userId!), ...profileData });
-        localStorage.setItem(StorageKeys.profileId, data.id);
-        onClose && onClose();
+
       } catch(error) {
-        console.log(error);
-      } finally { }
+
+      }
     } else {
       try {
-        // Потому что сваггер тупит
-        await http.patch(`/api/users/profiles/${profileId}/`, { ...profileData });
-        
-        onClose && onClose();
+
       } catch(error) {
-        console.log(error);
-      } finally { }
+
+      }
     }
-    // push(ROUTES.collegues);
   }
 
   const scrollabelStyle: CSSProperties = useMemo(() => ({
