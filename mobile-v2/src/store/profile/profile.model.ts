@@ -1,5 +1,5 @@
 export interface ProfileState {
-    profile: { [key: string]: any } | null,
+    profile: any | null,
     userId: number | null,
     profileId: number | null,
 }

@@ -4,19 +4,18 @@ import "./style.scss";
 import { ProfileAvatarSVG } from "assets/icons";
 
 interface AvatarFieldProps {
-  photo: any | null,
-  name: string,
-  secondname: string,
-  position: string,
-  experience: number // На самом деле должен быть date
+  gallery: any[] | null,
+  user_data: any
 }
 
 export const AvatarField = (props: AvatarFieldProps) => {
-  const { photo, name, secondname, position, experience } = props;
+  const { user_data, gallery } = props;
+  const { first_name, last_name } = user_data;
+  const photo = useMemo(() => (!!gallery && !!gallery.length) ? gallery[gallery.length - 1] : null, [gallery]);
 
   const avatar = useMemo(() => !!photo ? 
-    <img src={photo} alt={`${name} ${secondname}`} /> :
-    <div className="mock-photo"><img src={ProfileAvatarSVG} alt={`${name} ${secondname}`} /></div>
+    <img src={photo.picture} alt={`${first_name} ${last_name}`} /> :
+    <div className="mock-photo"><img src={ProfileAvatarSVG} alt={`${first_name} ${last_name}`} /></div>
   , [photo])
 
   return (
@@ -25,9 +24,9 @@ export const AvatarField = (props: AvatarFieldProps) => {
         {avatar}
       </div>
       <div className="info">
-        <h3>{`${secondname} ${name}`}</h3>
-        <small>{position}</small>
-        <small>{`Стаж: ${experience} года`}</small>
+        <h3>{`${first_name} ${last_name}`}</h3>
+        <small>Руководитель отдела разработки</small>
+        <small>Стаж: 3 года</small>
       </div>
     </div>
   )

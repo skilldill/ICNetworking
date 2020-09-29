@@ -13,8 +13,9 @@ import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
 import { ROUTES, StorageKeys } from "shared/constants";
 import { ApiService, initApi } from "shared/http";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
+import { Loading } from "shared/components";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -40,6 +41,7 @@ export const Profile = () => {
     const userId = localStorage.getItem(StorageKeys.userId);
 
     const dispatch = useDispatch();
+    const { profile } = useSelector(profileModule.selector);
 
     const [showProfileForm, setShowProfileForm] = useState(false);
 
@@ -67,7 +69,7 @@ export const Profile = () => {
         dispatch(profileModule.actions.logout(() =>  history.push(ROUTES.loadingPage)));
     }
 
-    return (
+    return !!profile ? (
         <div className="profile">
             <Navbar 
                 title="Профиль" 
@@ -79,7 +81,7 @@ export const Profile = () => {
             />
 
             <Scrollable>
-                <AvatarField {...avatarData} />
+                <AvatarField {...profile} />
                 <InterestsField interests={interests} />
                 <AchievementsField />
 
@@ -99,5 +101,5 @@ export const Profile = () => {
                 <ProfileForm onClose={handleClick} />
             </FadePage>
         </div>
-    )
+    ) : <Loading />
 }
