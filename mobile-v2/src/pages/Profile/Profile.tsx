@@ -13,6 +13,8 @@ import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
 import { ROUTES, StorageKeys } from "shared/constants";
 import { ApiService, initApi } from "shared/http";
+import { useDispatch } from "react-redux";
+import { profileModule } from "store/profile";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -33,6 +35,12 @@ const MOCK_USER = {
 const { interests, ...avatarData } = MOCK_USER;
 
 export const Profile = () => {
+    // STORAGE DATA
+    const profileId = localStorage.getItem(StorageKeys.profileId);
+    const userId = localStorage.getItem(StorageKeys.userId);
+
+    const dispatch = useDispatch();
+
     const [showProfileForm, setShowProfileForm] = useState(false);
 
     const { edit } = useParams<{ edit: string }>();
@@ -42,27 +50,21 @@ export const Profile = () => {
         setShowProfileForm(!showProfileForm);
     }
     
+    // SET INITIAL VALUE FORMS
     useEffect(() => {
-        console.log(edit);
-        if (edit === "edit") {
-            setShowProfileForm(true);
+        // CHECK WHICH ID WE HAVE
+        dispatch(profileModule.actions.setProfileId(profileId));
+        dispatch(profileModule.actions.setUserId(userId));
+
+        if (!!profileId) {
+            dispatch(profileModule.actions.fetchProfile(parseInt(profileId!)));
+        } else {
+            dispatch(profileModule.actions.fetchUser(parseInt(userId!)));
         }
     }, [])
 
     const handlLogout = async () => {
-        try {
-            await ApiService.logout();
-
-            localStorage.removeItem(StorageKeys.token);
-            localStorage.removeItem(StorageKeys.userId);
-            localStorage.removeItem(StorageKeys.profileId);
-            
-            history.push(ROUTES.loadingPage);
-
-            initApi();
-        } catch (error) {
-            console.log(error.massage);
-        }
+        dispatch(profileModule.actions.logout(() =>  history.push(ROUTES.loadingPage)));
     }
 
     return (

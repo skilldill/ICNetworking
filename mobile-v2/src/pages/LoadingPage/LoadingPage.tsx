@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo } from "react";
-import { Spin } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-import "./style.scss";
+import { Loading } from "core/Loading";
 import { ROUTES, StorageKeys } from "shared/constants";
 
 /**
@@ -11,7 +9,6 @@ import { ROUTES, StorageKeys } from "shared/constants";
  * всех данных при старте работы приложения
  */
 export const LoadingPage = () => {
-    const antIcon = <LoadingOutlined style={{ fontSize: 40 }} spin />;
     const history = useHistory();
 
     useEffect(() => {
@@ -28,8 +25,6 @@ export const LoadingPage = () => {
     }, [])
 
     return (
-        <div className="loading-page">
-            <Spin indicator={antIcon} size="large" />
-        </div>
+        <Loading />
     )
 }

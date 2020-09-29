@@ -10,82 +10,44 @@ import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
 import { ApiService } from "shared/http";
 import { CameraPhoto } from "@capacitor/core";
+import { useDispatch, useSelector } from "react-redux";
+import { profileModule } from "store/profile";
 
 interface ProfileFormProps {
   onClose?: () => void;
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
-  const profileId = localStorage.getItem(StorageKeys.profileId);
-  const userId = localStorage.getItem(StorageKeys.userId);
-
   const { onClose } = props;
   const { useForm, Item } = Form;
   const [form] = useForm();
   const { location, push } = useHistory();
+
+  const dispatch = useDispatch();
+  const { profile, profileId, userId } = useSelector(profileModule.selector);
 
   // ADDITIONAL FIELDS WITHOUT FORM
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
   const [positionId, setPositionId] = useState<number | null>(null);
 
-  const fetchUser = useCallback(async () => {
-    try {
-      const { data } = await ApiService.getUser(parseInt(userId!));
-      form.setFieldsValue({ ...data });
-    } catch(error) {
-      console.log(error);
-    }
-  }, [userId, form, ApiService]);
-
-  const fetchProfile = useCallback(async () => {
-    try {
-      const { data } = await ApiService.getProfile(parseInt(profileId!));
-      const { bio, user_data, gallery } = data;
+  // CHECK PROFILE DATA
+  useEffect(() => {
+    if (!!profile) {
+      const { bio, user_data, gallery } = profile;
       form.setFieldsValue({ ...user_data });
-      setBio(bio);
+
+      if (!!bio) {
+        setBio(bio);
+      }
       
-      if (!!gallery.length) {
+      if (!!gallery && !!gallery.length) {
         const currentAvatarIndex = gallery.length - 1;
         const { picture } = gallery[currentAvatarIndex];
         setAvatar(picture);
       }
-    } catch(error) {
-      console.log(error);
     }
-  }, [profileId, form, ApiService])
-
-  const createProfile = useCallback(async () => {
-    const profileData = { user: userId, bio };
-
-    try {
-      const { data } = await ApiService.createProfile(profileData);
-      const { id } = data;
-      localStorage.setItem(StorageKeys.profileId, `${id}`);
-    } catch(error) {
-      console.log(error.message);
-    }
-  }, [userId, bio, form])
-
-  const updateProfile = useCallback(async () => {
-    const profileData = { user: userId, bio };
-
-    try {
-      await ApiService.updateProfile(parseInt(profileId!), profileData);
-    } catch(error) {
-      console.log(error.message);
-    }
-  }, [userId, bio, form])
-
-  // SET INITIAL VALUE FORMS
-  useEffect(() => {
-    // CHECK WHICH ID WE HAVE
-    if (!!profileId) {
-      fetchProfile();
-    } else {
-      fetchUser();
-    }
-  }, [form])
+  }, [profile])
 
   // Проверяем запускается форма первый ли раз
   const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
@@ -95,34 +57,29 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   ): undefined, [onClose, initialForm])
   
   const handltSubmitForm = useCallback(async () => {
+    const profileData = { user: userId, bio };
+    
     if (initialForm) {
-      createProfile();
+      dispatch(profileModule.actions.createProfile(profileData));
       push(ROUTES.collegues);
     } else {
-      updateProfile();
+      dispatch(profileModule.actions.updateProfile(profileId!, profileData));
     }
 
     !!onClose && onClose();
-  }, [initialForm, onClose, createProfile, updateProfile]);
+  }, [initialForm, profileId, userId, onClose, bio, dispatch]);
 
-  const handleAddPhoto = useCallback(async (photo: CameraPhoto) => {
+  const handleAddPhoto = useCallback((photo: CameraPhoto) => {
     const { dataUrl } = photo;
 
-    try {
-      if (initialForm) {
-        // Если в самом начала попробовать загрузить фотку, 
-        // то так как profileId еще нет, то не получится
-        // поэтому сначала создаем profile
-        await createProfile();
-        const profileId = localStorage.getItem(StorageKeys.profileId);
-        await ApiService.addPhoto(parseInt(profileId!), dataUrl!);
-      } else {
-        await ApiService.addPhoto(parseInt(profileId!), dataUrl!);
-      }
-    } catch(error) {
-      console.log(error);
+    if (initialForm) {
+      const profileData = { user: userId, bio };
+      dispatch(profileModule.actions.createProfile(profileData));
+      dispatch(profileModule.actions.addPhoto(profileId!, dataUrl!));
+    } else {
+      dispatch(profileModule.actions.addPhoto(profileId!, dataUrl!));
     }
-  }, [ApiService.addPhoto])
+  }, [profileId, dispatch])
 
   const scrollabelStyle: CSSProperties = useMemo(() => ({
     maxHeight: initialForm ? "calc(100vh - 70px)" : "calc(100vh - 125px)"
