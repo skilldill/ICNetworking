@@ -4,6 +4,8 @@ import { Navbar } from "core/Navbar";
 
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
 import { http } from "shared/http";
+import { ROUTES, StorageKeys } from "shared/constants";
+import { useHistory } from "react-router-dom";
 
 const mockCollegues = [
     { 
@@ -76,19 +78,22 @@ export const Collegues = () => {
     }, [collegueIndex])
 
     // TEST EFFECT
-    useEffect(() => {
-        console.log('fetchProfiles');
-        const fetchUsers = async () => {
-            try {
-                // const { data } = await UsersService.usersList();
-                // console.log(data);
-            } catch(error) {
-                console.log(error.message);
-            }
-        }
-        
-        fetchUsers();
-    }, []);
+    // const history = useHistory();
+    // useEffect(() => {
+    //     const token = localStorage.getItem(StorageKeys.token);
+
+    //     console.log(token);
+
+    //     // Если токен есть то переходим в свайпы
+    //     // Иначе в форму авторизации
+    //     if (!!token) {
+    //         console.log(ROUTES.collegues);
+    //         history.push(ROUTES.collegues);
+    //     } else {
+    //         console.log(ROUTES.authorization);
+    //         history.push(ROUTES.authorization);
+    //     }
+    // }, [])
 
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
