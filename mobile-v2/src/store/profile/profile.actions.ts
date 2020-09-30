@@ -67,6 +67,7 @@ class ProfileActions {
     }
 
     login = (values: any) => async (dispatch: Dispatch) => {
+        console.log("LOOOGIIN");
         dispatch(this.setLoading(true));
 
         try {
@@ -89,16 +90,18 @@ class ProfileActions {
                 dispatch(this.setStatusUsing(StatusesUsing.edit));
             }
 
-            } catch (error) {
+        } catch (error) {
                 console.log(error.message);
-            } finally {
+        } finally {
                 dispatch(this.setLoading(false));
-            }
         }
+    }
 
     logout = (cb: any) => async (dispatch: Dispatch) => {
         try {
             await ApiService.logout();
+            
+            console.log('LOGOUTED');
 
             localStorage.removeItem(StorageKeys.token);
             localStorage.removeItem(StorageKeys.userId);
