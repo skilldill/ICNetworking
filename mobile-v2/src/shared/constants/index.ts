@@ -20,6 +20,11 @@ export enum StorageKeys {
     token = "token"
 }
 
+export enum StatusesUsing {
+    default = "default",
+    edit = "edit"
+}
+
 export const API_URLS = {
     // USERS
     users: "/api/users/",

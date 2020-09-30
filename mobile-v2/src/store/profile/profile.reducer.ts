@@ -2,13 +2,16 @@ import { handleActions, Action } from "redux-actions";
 
 import { ProfileState } from "./profile.model";
 import { profileActionTypes } from "./profile.actions";
-import { StorageKeys } from "shared/constants";
+import { StatusesUsing, StorageKeys } from "shared/constants";
 
 const initialState: ProfileState = {
     profile: null,
     
     profileId: null,
-    userId: null
+    userId: null,
+
+    loading: false,
+    status: null
 }
 
 const setProfile = (state: ProfileState, action: Action<any>) => ({
@@ -26,10 +29,22 @@ const setUserId = (state: ProfileState, action: Action<number>) => ({
     userId: action.payload
 })
 
+const setLoading = (state: ProfileState, action: Action<any>) => ({
+    ...state,
+    loading: action.payload
+})
+
+const setStatusUsing = (state: ProfileState, action: Action<any>) => ({
+    ...state,
+    status: action.payload
+})
+
 const mapReducers = {
     [profileActionTypes.SET_PROFILE]: setProfile,
     [profileActionTypes.SET_PROFILE_ID]: setProfileId,
-    [profileActionTypes.SET_USER_ID]: setUserId
+    [profileActionTypes.SET_USER_ID]: setUserId,
+    [profileActionTypes.SET_LOADING]: setLoading,
+    [profileActionTypes.SET_STATUS_USING]: setStatusUsing
 }
 
 export const profileReducer = handleActions(mapReducers, initialState);

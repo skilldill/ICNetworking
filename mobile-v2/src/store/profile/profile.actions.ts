@@ -1,18 +1,22 @@
 import { Dispatch } from "redux";
 import { createAction } from "redux-actions";
-import { StorageKeys } from "shared/constants";
+import { StatusesUsing, StorageKeys } from "shared/constants";
 import { ApiService, initApi } from "shared/http";
 
 export const profileActionTypes = {
     SET_PROFILE: 'PROFILE.SET_PROFILE',
     SET_USER_ID: 'PROFILE.SET_USER_ID',
     SET_PROFILE_ID: 'PROFILE.SET_PROFILE_ID',
+    SET_LOADING: 'PROFILE.SET_LOADING',
+    SET_STATUS_USING: 'PROFILE.SET_STATUS_USING'
 }
 
 class ProfileActions {
     setProfile = createAction(profileActionTypes.SET_PROFILE);
     setProfileId = createAction(profileActionTypes.SET_PROFILE_ID);
     setUserId = createAction(profileActionTypes.SET_USER_ID);
+    setLoading = createAction(profileActionTypes.SET_LOADING);
+    setStatusUsing = createAction(profileActionTypes.SET_STATUS_USING);
 
     fetchProfile = (profileId: number) => async (dispatch: Dispatch) => {
         try {
@@ -61,6 +65,36 @@ class ProfileActions {
             console.log(error.message);
         }
     }
+
+    login = (values: any) => async (dispatch: Dispatch) => {
+        dispatch(this.setLoading(true));
+
+        try {
+            const { data } = await ApiService.login(values);
+            const { token, profile_id, user_id } = data;
+            
+            localStorage.setItem(StorageKeys.token, token);
+            localStorage.setItem(StorageKeys.userId, `${user_id}`);
+
+            dispatch(this.setUserId(`${user_id}`));
+            initApi(token);
+            
+            // StatusesUsing нужен для того чтобы
+            // форма логина смотрела на свойство status в стейте
+            // и реагировала куда редиректить
+            if (!!profile_id) {
+                localStorage.setItem(StorageKeys.profileId, `${profile_id}`);
+                dispatch(this.setStatusUsing(StatusesUsing.default));
+            } else {  
+                dispatch(this.setStatusUsing(StatusesUsing.edit));
+            }
+
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+                dispatch(this.setLoading(false));
+            }
+        }
 
     logout = (cb: any) => async (dispatch: Dispatch) => {
         try {

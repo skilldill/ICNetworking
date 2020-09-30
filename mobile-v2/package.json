@@ -2,6 +2,7 @@
   "name": "mobile-v2",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://45.154.74.54",
   "dependencies": {
     "@capacitor/android": "2.4.0",
     "@capacitor/cli": "^2.4.0",

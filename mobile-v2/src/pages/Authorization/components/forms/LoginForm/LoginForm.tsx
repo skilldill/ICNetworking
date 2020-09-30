@@ -5,51 +5,47 @@ import cn from "classnames";
 import "../style.scss";
 import { Input, Button, Loading } from "shared/components";
 import { useHistory } from "react-router-dom";
-import { ROUTES, StorageKeys } from "shared/constants";
+import { ROUTES, StatusesUsing, StorageKeys } from "shared/constants";
 import { ApiService } from "shared/http";
 import { initApi } from "shared/http";
 import { isFilled } from "shared/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { profileModule } from "store/profile";
 
 export const LoginForm: FC<{show: boolean}> = (props) => {
   const [formFilled, setFormFilled] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const { show } = props;
 
   const { Item, useForm } = Form;
   const [form] = useForm();
+  
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { loading, status } = useSelector(profileModule.selector);
 
   useEffect(() => {
     console.log(isFilled(form.getFieldsValue()));
   }, [form.getFieldsValue()])
 
-  const handleSubmit = async (values: any) => {
-    if (formFilled) {
-      setLoading(true);
+  useEffect(() => {
+    console.log(status);
+    if (status === StatusesUsing.default) {
+      history.push(ROUTES.collegues);
+    }
 
-      try {
-        const loginData = values;
-        
-        const { data } = await ApiService.login(loginData);
-        const { token, profile_id, user_id } = data;
-        
-        localStorage.setItem(StorageKeys.token, token);
-        localStorage.setItem(StorageKeys.userId, `${user_id}`);
-        initApi(token);
-        
-        if (!!profile_id) {
-          localStorage.setItem(StorageKeys.profileId, `${profile_id}`);
-          history.push(ROUTES.collegues);
-        } else {  
-          const path = ROUTES.profileEdit;
-          history.push(path);
-        }
-      } catch (error) {
-        console.log(error.messgae);
-      } finally {
-        setLoading(false);
-      }
+    if (status === StatusesUsing.edit) {
+      history.push(ROUTES.profileEdit);
+    }
+
+    // DROP USING STATUS
+    dispatch(profileModule.actions.setStatusUsing(null));
+  }, [status])
+
+  const handleSubmit = async (values: any) => {
+    if (formFilled) { 
+      dispatch(profileModule.actions.login(values));
     }
   }
 
