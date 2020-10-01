@@ -101,6 +101,11 @@ class ProfileActions {
             dispatch(this.setUserId(`${user_id}`));
             initApi(token);
             
+            //head@yandex.ru
+
+            console.log(data);
+            console.log('Данные: ' + token, profile_id, user_id);
+
             // StatusesUsing нужен для того чтобы
             // форма логина смотрела на свойство status в стейте
             // и реагировала куда редиректить
@@ -112,9 +117,10 @@ class ProfileActions {
             }
 
         } catch (error) {
-                console.log(error.message);
+            console.log('ОШИБКА');
+            console.log(error.message);
         } finally {
-                dispatch(this.setLoading(false));
+            dispatch(this.setLoading(false));
         }
     }
 

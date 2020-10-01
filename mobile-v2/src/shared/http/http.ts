@@ -7,12 +7,18 @@ export let http = axios.create({
 });
 
 export const initApi = (token?: string) => {
-    if (!!token) {
-        const headers = { "Authorization": token };
-        http = axios.create({ headers, baseURL: BASE_URL });
+    try {
+        if (!!token) {
+            const headers = { "Authorization": token };
+            http = axios.create({ headers, baseURL: BASE_URL });
+            return;
+        }
+    
+        http = axios.create({ baseURL: BASE_URL });
         return;
-    }
+    } catch(error) {
+        http = axios.create({ baseURL: BASE_URL });
 
-    http = axios.create({ headers: {} });
-    return;
+        console.log(error.message);
+    }
 }
