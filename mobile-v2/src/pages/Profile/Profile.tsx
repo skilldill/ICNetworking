@@ -12,7 +12,6 @@ import { AchievementsField, AvatarField, InterestsField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { ApiService, initApi } from "shared/http";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { Loading } from "shared/components";
