@@ -66,7 +66,7 @@ class ProfileActions {
             // RETURN TO LOGIN FORM AND ADDITIONAL ACTIONS
             cb();
         } catch (error) {
-            console.log(error.message);
+            console.log('Status: ', error.response.status);
         } finally {
             dispatch(this.setLoading(false));
         }
