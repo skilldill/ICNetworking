@@ -8,7 +8,8 @@ export const profileActionTypes = {
     SET_USER_ID: 'PROFILE.SET_USER_ID',
     SET_PROFILE_ID: 'PROFILE.SET_PROFILE_ID',
     SET_LOADING: 'PROFILE.SET_LOADING',
-    SET_STATUS_USING: 'PROFILE.SET_STATUS_USING'
+    SET_STATUS_USING: 'PROFILE.SET_STATUS_USING',
+    RESET_STATE: 'PROFILE.RESET_STATE'
 }
 
 class ProfileActions {
@@ -17,11 +18,11 @@ class ProfileActions {
     setUserId = createAction(profileActionTypes.SET_USER_ID);
     setLoading = createAction(profileActionTypes.SET_LOADING);
     setStatusUsing = createAction(profileActionTypes.SET_STATUS_USING);
+    resetState = createAction(profileActionTypes.RESET_STATE);
 
     fetchProfile = (profileId: number) => async (dispatch: Dispatch) => {
         try {
             const { data } = await ApiService.getProfile(profileId);
-            console.log(data);
             dispatch(this.setProfile(data));
         } catch(error) {
             console.log(error);
@@ -32,7 +33,6 @@ class ProfileActions {
         try {
             const { data } = await ApiService.getUser(userId);
             const profileData = { user_data: data };
-            console.log(profileData);
             dispatch(this.setProfile(profileData));
         } catch(error) {
             console.log(error);
@@ -89,7 +89,6 @@ class ProfileActions {
     }
 
     login = (values: any) => async (dispatch: Dispatch) => {
-        console.log("LOOOGIIN");
         dispatch(this.setLoading(true));
 
         try {
@@ -123,7 +122,8 @@ class ProfileActions {
         try {
             await ApiService.logout();
             
-            console.log('LOGOUTED');
+            // RESET STATE
+            dispatch(this.resetState());
 
             localStorage.removeItem(StorageKeys.token);
             localStorage.removeItem(StorageKeys.userId);

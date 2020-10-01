@@ -18,8 +18,6 @@ export const LoadingPage = () => {
         const info = await Device.getInfo();
         const { platform } = info;
 
-        console.log(platform, token, token === "undefined", platform === "ios");
-
         // Нужно проверить платформу
         // Для мобильных платформ тип undefined это true
         if (platform === "ios" || platform === "android") {

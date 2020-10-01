@@ -39,12 +39,21 @@ const setStatusUsing = (state: ProfileState, action: Action<any>) => ({
     status: action.payload
 })
 
+const resetState = (state: ProfileState, action: Action<any>) => ({
+    profile: null,
+    profileId: null,
+    userId: null,
+    loading: false,
+    status: null
+})
+
 const mapReducers = {
     [profileActionTypes.SET_PROFILE]: setProfile,
     [profileActionTypes.SET_PROFILE_ID]: setProfileId,
     [profileActionTypes.SET_USER_ID]: setUserId,
     [profileActionTypes.SET_LOADING]: setLoading,
-    [profileActionTypes.SET_STATUS_USING]: setStatusUsing
+    [profileActionTypes.SET_STATUS_USING]: setStatusUsing,
+    [profileActionTypes.RESET_STATE]: resetState
 }
 
 export const profileReducer = handleActions(mapReducers, initialState);

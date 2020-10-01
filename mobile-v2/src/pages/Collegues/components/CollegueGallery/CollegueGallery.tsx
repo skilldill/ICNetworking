@@ -34,7 +34,6 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
 
   // COMPONENT DID MOUNT
   useEffect(() => {
-    console.log(123);
     setCurrentPhoto(currentAvatar);
   }, [])
 

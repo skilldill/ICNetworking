@@ -24,11 +24,6 @@ export const LoginForm: FC<{show: boolean}> = (props) => {
   const { loading, status } = useSelector(profileModule.selector);
 
   useEffect(() => {
-    console.log(isFilled(form.getFieldsValue()));
-  }, [form.getFieldsValue()])
-
-  useEffect(() => {
-    console.log(status);
     if (status === StatusesUsing.default) {
       history.push(ROUTES.collegues);
     }

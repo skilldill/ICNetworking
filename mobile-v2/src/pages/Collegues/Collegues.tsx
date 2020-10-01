@@ -77,24 +77,6 @@ export const Collegues = () => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
 
-    // TEST EFFECT
-    // const history = useHistory();
-    // useEffect(() => {
-    //     const token = localStorage.getItem(StorageKeys.token);
-
-    //     console.log(token);
-
-    //     // Если токен есть то переходим в свайпы
-    //     // Иначе в форму авторизации
-    //     if (!!token) {
-    //         console.log(ROUTES.collegues);
-    //         history.push(ROUTES.collegues);
-    //     } else {
-    //         console.log(ROUTES.authorization);
-    //         history.push(ROUTES.authorization);
-    //     }
-    // }, [])
-
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
             setDoSwipeToRight(true);

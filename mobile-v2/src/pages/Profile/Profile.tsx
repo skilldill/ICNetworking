@@ -67,7 +67,6 @@ export const Profile = () => {
 
     const handlLogout = async () => {
         dispatch(profileModule.actions.logout(() => {
-            console.log('LOGOUTED REDIRECT');
             history.push(ROUTES.loadingPage);
         }));
     }
