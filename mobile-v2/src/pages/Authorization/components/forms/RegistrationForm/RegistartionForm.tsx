@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState, useEffect } from "react";
+import React, { FC, useMemo, useState, useEffect, useCallback } from "react";
 import cn from "classnames";
 
 import "../style.scss";
@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { isFilled } from "shared/utils";
 import { ApiService } from "shared/http";
+import { useDispatch, useSelector } from "react-redux";
+import { profileModule } from "store/profile";
 
 enum FormParts {
   first,
@@ -23,13 +25,16 @@ interface RegistrationFormProps {
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   const { show, keyboardOpened, onBack } = props;
 
-  const [loading, setLoading] = useState(false);
   const [filledForm, setFilledForm] = useState(false);
   const [partForm, setPartForm] = useState(FormParts.first);
   const [firstValues, setFirstValues] = useState({});
 
   const { Item, useForm } = Form;
   const [form] = useForm();
+  const dispatch = useDispatch();
+
+  // SELECTORS
+  const { loading } = useSelector(profileModule.selector);
 
   const handleTouchFields = () => {
     setFilledForm(isFilled(form.getFieldsValue()));
@@ -63,6 +68,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
   const isFirstPart = useMemo(() => partForm === FormParts.first, [partForm]);
   const currentPart = useMemo(() => isFirstPart ? firstPart : secondPart, [isFirstPart]);
   
+  const resetForm = useCallback(() => {
+    // drop form data
+    setPartForm(FormParts.first);
+    setFilledForm(false);
+    form.resetFields();
+
+    onBack();
+  }, [onBack, form])
+
   const handleSubmit = async (values: any) => {
     if (isFirstPart) {
       setFirstValues({ ...values });
@@ -70,32 +84,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
       setFilledForm(false);
       return;
     }
-
-    // REMOVE PASSWORD REPEAT FROM FORM VALUES
-    setLoading(true);
-    const formValues = { ...firstValues, ...values };
-    const { passwordRepeat, ...data } = formValues;
     
-    // CRUTCH FOR FIRST_NAME
-    data["first_name"] = data["username"];
-
-    try {
-      // TODO: Необходимо добавить загрузку
-      await ApiService.registartion(data);
-
-      // drop form data
-      setPartForm(FormParts.first);
-      setFilledForm(false);
-      form.resetFields();
-
-      onBack();
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-
-    return;
+    const userData = { ...firstValues, ...values };
+    return dispatch(profileModule.actions.createUser(userData, resetForm));
   }
 
   // TEST ANIMATION SHOW

@@ -43,10 +43,32 @@ class ProfileActions {
         try {
             const { data } = await ApiService.createProfile(profileData);
             const { id } = data;
-            dispatch(this.setProfile(id));
+            dispatch(this.setProfileId(id));
             localStorage.setItem(StorageKeys.profileId, `${id}`);
         } catch(error) {
             console.log(error.message);
+        }
+    }
+
+    createUser = (userData: any, cb: () => void) => async (dispatch: Dispatch) => {
+        dispatch(this.setLoading(true));
+        
+        // REMOVE PASSWORD REPEAT FROM FORM VALUES
+        const { passwordRepeat, ...data } = userData;
+        
+        // CRUTCH FOR FIRST_NAME
+        data["first_name"] = data["username"];
+
+        try {
+            // TODO: Необходимо добавить загрузку
+            await ApiService.registartion(data);
+
+            // RETURN TO LOGIN FORM AND ADDITIONAL ACTIONS
+            cb();
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            dispatch(this.setLoading(false));
         }
     }
 
