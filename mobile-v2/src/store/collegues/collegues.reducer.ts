@@ -4,12 +4,13 @@ import { COLLEGUES_ACTION_TYPES } from "./colleguse.actions";
 
 const initialState: ColleguesState = {
   collegues: [],
-  loading: false
+  loading: false,
+  page: 1
 }
 
 const setCollegues = (state: ColleguesState, action: Action<any[]>) => ({
   ...state,
-  collegues: action.payload
+  collegues: [...state.collegues, ...action.payload]
 })
 
 const setLoading = (state: ColleguesState, action: Action<any>) => ({
@@ -17,9 +18,15 @@ const setLoading = (state: ColleguesState, action: Action<any>) => ({
   loading: action.payload
 })
 
+const setPage = (state: ColleguesState, action: Action<any>) => ({
+  ...state,
+  page: action.payload
+})
+
 const mapReducer = {
   [COLLEGUES_ACTION_TYPES.setCollegues]: setCollegues,
-  [COLLEGUES_ACTION_TYPES.setLoading]: setLoading
+  [COLLEGUES_ACTION_TYPES.setLoading]: setLoading,
+  [COLLEGUES_ACTION_TYPES.setPage]: setPage
 }
 
 export const colleguesReducer = handleActions(mapReducer, initialState);

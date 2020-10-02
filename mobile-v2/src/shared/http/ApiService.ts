@@ -60,7 +60,8 @@ export class ApiService {
     }
 
     // Collegues part
-    static getProfiles = () => {
-        return http.get(API_URLS.profiles);
+    static getProfiles = (page: number) => {
+        const params = { page };
+        return http.get(API_URLS.profiles, { params });
     }
 }

@@ -78,6 +78,13 @@ export const Collegues = () => {
         dispatch(colleguesModule.actions.fetchCollegues());
     }, [])
 
+    useEffect(() => {
+        const count = collegues.length - collegueIndex;
+        if (count === 3) {
+            dispatch(colleguesModule.actions.fetchCollegues());
+        }
+    }, [collegues, collegueIndex])
+
     const canSelectCollegue = useMemo(() => collegueIndex < collegues.length, [collegueIndex]);
 
     const handleSwipe = useCallback(() => {
