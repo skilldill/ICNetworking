@@ -91,9 +91,9 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
             style={dragStyle}
           >
             {
-              gallery.map((avatar: string, i: number) => 
+              gallery.map((avatar: any, i: number) => 
                 <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
-                  <img src={avatar} alt={name} />
+                  <img src={avatar.picture} alt={name} />
                 </div>
               )
             }
