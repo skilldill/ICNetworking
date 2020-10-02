@@ -58,4 +58,9 @@ export class ApiService {
 
         return http.post(url, formData);
     }
+
+    // Collegues part
+    static getProfiles = () => {
+        return http.get(API_URLS.profiles);
+    }
 }

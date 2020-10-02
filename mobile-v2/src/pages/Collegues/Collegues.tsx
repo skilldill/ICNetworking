@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
-import { http } from "shared/http";
-import { ROUTES, StorageKeys } from "shared/constants";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { colleguesModule } from "store/collegues";
 
 const mockCollegues = [
     { 
@@ -62,6 +61,9 @@ const mockCollegues = [
 ]
 
 export const Collegues = () => {
+    const { collegues } = useSelector(colleguesModule.selector);
+    const dispatch = useDispatch();
+
     const [collegueIndex, setCollegueIndex] = useState(0);
 
     // STATE FOR BUTTONS SWIPE
@@ -70,8 +72,13 @@ export const Collegues = () => {
 
     // WORK WITH MODAL
     const [isOpenModal, setIsOpenModal] = useState(false);
+    
+    // DOWNLOAD COLLEGUES
+    useEffect(() => {
+        dispatch(colleguesModule.actions.fetchCollegues());
+    }, [])
 
-    const canSelectCollegue = useMemo(() => collegueIndex < mockCollegues.length, [collegueIndex]);
+    const canSelectCollegue = useMemo(() => collegueIndex < collegues.length, [collegueIndex]);
 
     const handleSwipe = useCallback(() => {
         setCollegueIndex(collegueIndex + 1);
@@ -124,14 +131,14 @@ export const Collegues = () => {
             )}
 
             <CollegueModal 
-                collegue={mockCollegues[collegueIndex]}
+                collegue={collegues[collegueIndex]}
                 onOpen={() => { setIsOpenModal(true) }}
                 onClose={() => { setIsOpenModal(false) }}
                 doClose={isOpenModal}
             />
 
             <CollegueAvatar 
-                collegues={mockCollegues}
+                collegues={collegues}
                 onSwipeLeft={handleSwipe}
                 onSwipeRight={handleSwipe}
                 doSwipeToLeft={doSwipeToLeft}

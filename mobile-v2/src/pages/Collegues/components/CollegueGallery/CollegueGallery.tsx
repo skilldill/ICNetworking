@@ -14,9 +14,9 @@ interface CollegueGalleryProps {
 
 export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   const { collegue, currentAvatar, onSwipeLeft, onSwipeRight } = props;
-  const { avatars, name } = collegue;
+  const { gallery, name } = collegue;
 
-  const singleAvatar = useMemo(() => avatars.length > 1, [collegue]);
+  const singleAvatar = useMemo(() => gallery.length > 1, [collegue]);
   const displayWidth = window.innerWidth;
 
   const {
@@ -57,7 +57,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
         }
 
         // SWIPE TO LEFT
-        if (calcedTranslate < 0 && (currentPhoto < avatars.length - 1)) {
+        if (calcedTranslate < 0 && (currentPhoto < gallery.length - 1)) {
           const nextPhoto = currentPhoto + 1;
           const setedTranslate = displayWidth * -nextPhoto;
 
@@ -91,7 +91,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
             style={dragStyle}
           >
             {
-              avatars.map((avatar: string, i: number) => 
+              gallery.map((avatar: string, i: number) => 
                 <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
                   <img src={avatar} alt={name} />
                 </div>
@@ -99,18 +99,18 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
             }
           </div>) : (
           <div className="avatar-holder">
-            <img src={avatars[0]} />
+            <img src={gallery[0]} />
           </div>
           )
         }
 
       {singleAvatar && (
         <div className="gallery-controls">
-            {avatars.map((avatar: string, i: number) => 
+            {gallery.map((avatar: string, i: number) => 
                 <div 
                   key={`${i}_${name}`} 
                   className={cn({
-                      "gallery-control": avatars.length > 1,
+                      "gallery-control": gallery.length > 1,
                       "gallery-control-active": i === currentPhoto
                   })}
                 ></div>
