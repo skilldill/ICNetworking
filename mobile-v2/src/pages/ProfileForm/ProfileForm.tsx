@@ -3,15 +3,15 @@ import { Form } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-import { AvatarField, InterestsField } from "./components";
+import { AvatarField, InterestsField, PositionList,  } from "./components";
 import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
-import { ApiService } from "shared/http";
 import { CameraPhoto } from "@capacitor/core";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
+import { FadePage } from "core/FadePage";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -30,6 +30,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
   const [positionId, setPositionId] = useState<number | null>(null);
+  const [showPositionList, setShowPositionList] = useState(false);
 
   // CHECK PROFILE DATA
   useEffect(() => {
@@ -49,9 +50,13 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     }
   }, [profile])
 
+  const handleClearField = (fieldName: string) => () => {
+    form.resetFields([fieldName]);
+  }
+
   // Проверяем запускается форма первый ли раз
   const initialForm = useMemo(() => location.pathname === ROUTES.profileEdit, [location.pathname]);
-
+  
   const cancelButton = useMemo(() => !initialForm ? (
     <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
   ): undefined, [onClose, initialForm])
@@ -98,16 +103,36 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         <div className="form-holder">
           <Form form={form}>
             <Item name="first_name">
-              <Input placeholder="Введите имя" label="Имя" />
+              <Input 
+                placeholder="Введите имя" 
+                label="Имя" 
+                showClear 
+                onClear={handleClearField("first_name")}
+              />
             </Item>
             <Item name="last_name">
-              <Input placeholder="Введите фамилию" label="Фамилия" />
+              <Input 
+                placeholder="Введите фамилию" 
+                label="Фамилия" 
+                showClear 
+                onClear={handleClearField("last_name")}
+              />
             </Item>
             <Item name="position">
-              <Input placeholder="Введите должность" label="Должность" />
+              <Input 
+                placeholder="Введите должность" 
+                label="Должность"
+                autoComplete="off"
+                onFocus={() => setShowPositionList(true)}
+              />
             </Item>
             <Item name="level">
-              <Input placeholder="Введите стаж" label="Стаж работы в компании" />
+              <Input 
+                placeholder="Введите стаж" 
+                label="Стаж работы в компании" 
+                showClear 
+                onClear={handleClearField("level")}
+              />
             </Item>
           </Form>
         </div>
@@ -122,6 +147,10 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           />
         </div>
       </Scrollable>
+
+      <FadePage show={showPositionList} direction="vertical">
+        <PositionList onClose={() => setShowPositionList(false)} />
+      </FadePage>
     </div>
   )
 }
