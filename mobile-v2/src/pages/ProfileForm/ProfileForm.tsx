@@ -3,7 +3,7 @@ import { Form } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-import { AvatarField, InterestsField, PositionList,  } from "./components";
+import { AvatarField, InterestsField, PositionList, InterestList } from "./components";
 import { Input, Text } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
@@ -15,6 +15,12 @@ import { FadePage } from "core/FadePage";
 
 interface ProfileFormProps {
   onClose?: () => void;
+}
+
+enum ListTypes {
+  position,
+  interests,
+  skills
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
@@ -30,7 +36,22 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
   const [positionId, setPositionId] = useState<number | null>(null);
-  const [showPositionList, setShowPositionList] = useState(false);
+  
+  // SHOWED LIST
+  const [typeListPage, setTypeListPage] = useState<ListTypes>(ListTypes.position);
+  const [showListPage, setShowListPage] = useState(false); 
+
+  const currentList = useMemo(() => (
+    <>
+      {typeListPage === ListTypes.position && <PositionList onClose={() => setShowListPage(false)} />}
+      {typeListPage === ListTypes.interests && <InterestList onClose={() => setShowListPage(false)} />}
+    </>
+  ), [typeListPage])
+
+  const handleOpenList = (listType: ListTypes) => () => {
+    setTypeListPage(listType);
+    setShowListPage(true);
+  }
 
   // CHECK PROFILE DATA
   useEffect(() => {
@@ -123,7 +144,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 placeholder="Введите должность" 
                 label="Должность"
                 autoComplete="off"
-                onFocus={() => setShowPositionList(true)}
+                onFocus={handleOpenList(ListTypes.position)}
               />
             </Item>
             <Item name="level">
@@ -136,7 +157,14 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
             </Item>
           </Form>
         </div>
-        <InterestsField />
+        {/* <InterestsField /> */}
+        <div className="about-field">
+          <h3>Мои интересы</h3>
+          <Text 
+            placeholder="Интересы" 
+            onFocus={handleOpenList(ListTypes.interests)}
+          />
+        </div>
         <div className="about-field">
           <h3>Информация о себе</h3>
           <Text 
@@ -148,8 +176,8 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         </div>
       </Scrollable>
 
-      <FadePage show={showPositionList} direction="vertical">
-        <PositionList onClose={() => setShowPositionList(false)} />
+      <FadePage show={showListPage} direction="vertical">
+        {currentList}
       </FadePage>
     </div>
   )
