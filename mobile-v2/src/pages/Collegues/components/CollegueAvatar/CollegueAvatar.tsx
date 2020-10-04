@@ -5,9 +5,11 @@ import "./style.scss";
 
 // PICTURES
 import UserAltPNG from "assets/pictures/user-alt.png";
-import { MAX_TOUCH_TRANSLATE } from "shared/constants";
+import { MAX_TOUCH_TRANSLATE, StorageKeys } from "shared/constants";
 import { CollegueGallery } from "../CollegueGallery";
 import { useTouch } from "shared/hooks";
+import { colleguesModule } from "store/collegues";
+import { useDispatch } from "react-redux";
 
 interface CollegueAvatarProps {
     collegues: any[];
@@ -20,6 +22,9 @@ interface CollegueAvatarProps {
 
 export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     const { onSwipeLeft, onSwipeRight, collegues, doSwipeToLeft, doSwipeToRight, galleryMode } = props;
+
+    const profileId = localStorage.getItem(StorageKeys.profileId);
+    const dispatch = useDispatch();
 
     // CALC CURRENT INDEX COLLEGUE
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -107,6 +112,11 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             // SWIPE TO RIGHT
             if (stateTranslateX > 0) {
                 galleryMode ? swipeToSide(200, onSwipeRight) : beforeAvatar();
+                
+                // if (!!collegues[currentIndex]) {
+                //     const collegueProfileId = collegues[currentIndex].id;
+                //     dispatch(colleguesModule.actions.matching(parseInt(profileId!), collegueProfileId));
+                // }
             }
 
             // SWIPE TO LEFT

@@ -32,6 +32,15 @@ export class ColleguesActions {
       disparch(this.setLoading(false));
     }
   }
+
+  // WITHOUT DISPATCH
+  matching = (profileId: number, collegueProfileId: number) => async (dispatch: Dispatch) => {
+    try {
+      await ApiService.matching(profileId, collegueProfileId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export const colleguesActions = new ColleguesActions();

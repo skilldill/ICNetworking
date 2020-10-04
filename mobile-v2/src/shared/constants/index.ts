@@ -33,5 +33,8 @@ export const API_URLS = {
 
     // PROFILES
     profiles: "/api/users/profiles/",
-    profilePhoto: "/api/users/profiles/profile_pictures/"
+    profilePhoto: "/api/users/profiles/profile_pictures/",
+
+    // EVENTS
+    matches: "/api/events/matches/"
 }

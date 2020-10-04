@@ -6,6 +6,8 @@ import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { colleguesModule } from "store/collegues";
 import { Loading } from "shared/components";
+import { profileModule } from "store/profile";
+import { StorageKeys } from "shared/constants";
 
 const mockCollegues = [
     { 
@@ -64,6 +66,7 @@ const mockCollegues = [
 export const Collegues = () => {
     const { collegues, loading } = useSelector(colleguesModule.selector);
     const dispatch = useDispatch();
+    const profileId = localStorage.getItem(StorageKeys.profileId);
 
     const [collegueIndex, setCollegueIndex] = useState(0);
 
@@ -95,6 +98,11 @@ export const Collegues = () => {
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
             setDoSwipeToRight(true);
+
+            if (doSwipeToRight && !!collegues[collegueIndex]) {
+                const collegueProfileId = collegues[collegueIndex].id;
+                dispatch(colleguesModule.actions.matching(parseInt(profileId!), collegueProfileId));
+            }
 
             const timeout = setTimeout(() => {
                 resolve(timeout);
@@ -150,7 +158,7 @@ export const Collegues = () => {
                     <CollegueAvatar 
                         collegues={collegues}
                         onSwipeLeft={handleSwipe}
-                        onSwipeRight={handleSwipe}
+                        onSwipeRight={handleLike}
                         doSwipeToLeft={doSwipeToLeft}
                         doSwipeToRight={doSwipeToRight}
                         galleryMode={!isOpenModal}

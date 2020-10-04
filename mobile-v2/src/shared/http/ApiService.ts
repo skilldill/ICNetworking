@@ -64,4 +64,13 @@ export class ApiService {
         const params = { page };
         return http.get(API_URLS.profiles, { params });
     }
+
+    // Events
+    static matching = (profileId: number, collegueProfileId: number) => {
+        const params = {
+            user_profile: profileId,
+	        match_with_user_profile: collegueProfileId
+        }
+        return http.post(API_URLS.matches, params);
+    }
 }
