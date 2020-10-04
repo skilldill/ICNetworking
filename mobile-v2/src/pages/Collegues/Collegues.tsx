@@ -5,6 +5,7 @@ import { Navbar } from "core/Navbar";
 import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { colleguesModule } from "store/collegues";
+import { Loading } from "shared/components";
 
 const mockCollegues = [
     { 
@@ -61,7 +62,7 @@ const mockCollegues = [
 ]
 
 export const Collegues = () => {
-    const { collegues } = useSelector(colleguesModule.selector);
+    const { collegues, loading } = useSelector(colleguesModule.selector);
     const dispatch = useDispatch();
 
     const [collegueIndex, setCollegueIndex] = useState(0);
@@ -85,7 +86,7 @@ export const Collegues = () => {
         }
     }, [collegues, collegueIndex])
 
-    const canSelectCollegue = useMemo(() => collegueIndex < collegues.length, [collegueIndex]);
+    const canSelectCollegue = useMemo(() => collegueIndex < collegues.length, [collegues, collegueIndex]);
 
     const handleSwipe = useCallback(() => {
         setCollegueIndex(collegueIndex + 1);
@@ -125,33 +126,37 @@ export const Collegues = () => {
 
     return (
         <div className="collegues">
-            <Navbar 
-                title="Коллеги" 
-                onClickBack={isOpenModal ? () => { setIsOpenModal(false) } : undefined}
-            />
+            {loading ? <Loading /> : (
+                <>
+                    <Navbar 
+                    title="Коллеги" 
+                    onClickBack={isOpenModal ? () => { setIsOpenModal(false) } : undefined}
+                    />
 
-            {canSelectCollegue && (
-                <ButtonControls 
-                    onLike={handleLike}
-                    onSkip={handleSkip}
-                />
+                    {canSelectCollegue && (
+                        <ButtonControls 
+                            onLike={handleLike}
+                            onSkip={handleSkip}
+                        />
+                    )}
+
+                    <CollegueModal 
+                        collegue={collegues[collegueIndex]}
+                        onOpen={() => { setIsOpenModal(true) }}
+                        onClose={() => { setIsOpenModal(false) }}
+                        doClose={isOpenModal}
+                    />
+
+                    <CollegueAvatar 
+                        collegues={collegues}
+                        onSwipeLeft={handleSwipe}
+                        onSwipeRight={handleSwipe}
+                        doSwipeToLeft={doSwipeToLeft}
+                        doSwipeToRight={doSwipeToRight}
+                        galleryMode={!isOpenModal}
+                    />
+                </>
             )}
-
-            <CollegueModal 
-                collegue={collegues[collegueIndex]}
-                onOpen={() => { setIsOpenModal(true) }}
-                onClose={() => { setIsOpenModal(false) }}
-                doClose={isOpenModal}
-            />
-
-            <CollegueAvatar 
-                collegues={collegues}
-                onSwipeLeft={handleSwipe}
-                onSwipeRight={handleSwipe}
-                doSwipeToLeft={doSwipeToLeft}
-                doSwipeToRight={doSwipeToRight}
-                galleryMode={!isOpenModal}
-            />
         </div>
     )
 }
