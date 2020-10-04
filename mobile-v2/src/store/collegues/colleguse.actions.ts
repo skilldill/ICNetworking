@@ -2,6 +2,7 @@ import { createAction } from "redux-actions";
 import { Dispatch } from "redux";
 
 import { ApiService } from "shared/http";
+import { profileMapper } from "shared/utils";
 
 export const COLLEGUES_ACTION_TYPES = {
   setCollegues: 'COLLEGUES.SET_COLLEGUES',
@@ -20,7 +21,8 @@ export class ColleguesActions {
 
     try {
       const { data } = await ApiService.getProfiles(page);
-      disparch(this.setCollegues(data.results));
+      const profiles = data.results.map(profileMapper);
+      disparch(this.setCollegues(profiles));
 
       // TEST SET PAGE
       disparch(this.setPage(page + 1));

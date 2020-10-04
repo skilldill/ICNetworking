@@ -14,9 +14,9 @@ interface CollegueGalleryProps {
 
 export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   const { collegue, currentAvatar, onSwipeLeft, onSwipeRight } = props;
-  const { gallery, name } = collegue;
+  const { avatars, firstName } = collegue;
 
-  const singleAvatar = useMemo(() => gallery.length > 1, [collegue]);
+  const singleAvatar = useMemo(() => avatars.length > 1, [collegue]);
   const displayWidth = window.innerWidth;
 
   const {
@@ -57,7 +57,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
         }
 
         // SWIPE TO LEFT
-        if (calcedTranslate < 0 && (currentPhoto < gallery.length - 1)) {
+        if (calcedTranslate < 0 && (currentPhoto < avatars.length - 1)) {
           const nextPhoto = currentPhoto + 1;
           const setedTranslate = displayWidth * -nextPhoto;
 
@@ -91,26 +91,26 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
             style={dragStyle}
           >
             {
-              gallery.map((avatar: any, i: number) => 
+              avatars.map((avatar: any, i: number) => 
                 <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
-                  <img src={avatar.picture} alt={name} />
+                  <img src={avatar.picture} alt={firstName} />
                 </div>
               )
             }
           </div>) : (
           <div className="avatar-holder">
-            <img src={gallery[0]} />
+            <img src={avatars[0]} />
           </div>
           )
         }
 
       {singleAvatar && (
         <div className="gallery-controls">
-            {gallery.map((avatar: string, i: number) => 
+            {avatars.map((avatar: string, i: number) => 
                 <div 
-                  key={`${i}_${name}`} 
+                  key={`${i}_${firstName}`} 
                   className={cn({
-                      "gallery-control": gallery.length > 1,
+                      "gallery-control": avatars.length > 1,
                       "gallery-control-active": i === currentPhoto
                   })}
                 ></div>

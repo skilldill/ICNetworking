@@ -170,7 +170,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
             >
                 {!!currentCollegue && (
                     <div className={topInfoClasses}>
-                        <h3 className="name">{`${currentCollegue.user_data.first_name} ${currentCollegue.user_data.last_name}`}</h3>
+                        <h3 className="name">{`${currentCollegue.firstName} ${currentCollegue.lastName}`}</h3>
                         {!!currentCollegue.position && <span className="position">{currentCollegue.position}</span>}
                     </div>
                 )}

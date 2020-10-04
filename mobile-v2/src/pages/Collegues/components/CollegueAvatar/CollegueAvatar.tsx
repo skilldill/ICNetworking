@@ -58,7 +58,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
 
      // GALLERY CONTROLS
      const nextAvatar = useCallback(() => {
-        if (currentAvatar < collegues[currentIndex].gallery.length - 1) {
+        if (currentAvatar < collegues[currentIndex].avatars.length - 1) {
             setCurrentAvatar(currentAvatar + 1);
 
             // RETURN TO DEFAULT
@@ -165,13 +165,13 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             {
                 !!collegues[currentIndex + 1] ? (
                     <div className="avatar avatar-next">
-                        {!!collegues[currentIndex + 1].gallery.length ? (
+                        {!!collegues[currentIndex + 1].avatars.length ? (
                             <img 
                                 className={cn({
                                     "photo": true,
                                     "photo-gallery": !galleryMode
                                 })}  
-                                src={collegues[currentIndex + 1].gallery[0].picture} alt={collegues[currentIndex].name} 
+                                src={collegues[currentIndex + 1].avatars[0].picture} alt={collegues[currentIndex].firstName} 
                             />
                         ) : (
                             <div className="mock">
@@ -195,14 +195,14 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                         style={galleryMode ? dragStyle : undefined}
                     >
                         {showGallery && <div className="avatar-control-backdrop" />}
-                        {!!collegues[currentIndex].gallery.length ? (
+                        {!!collegues[currentIndex].avatars.length ? (
                             <img 
                                 className={cn({
                                     "photo": true,
                                     "photo-gallery": !galleryMode
                                 })} 
-                                src={collegues[currentIndex].gallery[currentAvatar].picture} 
-                                alt={collegues[currentIndex].name} 
+                                src={collegues[currentIndex].avatars[currentAvatar].picture} 
+                                alt={collegues[currentIndex].firstName} 
                             /> 
                         ) : (
                             <div className="mock">
