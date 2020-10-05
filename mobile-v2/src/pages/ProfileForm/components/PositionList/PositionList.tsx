@@ -1,8 +1,10 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { SuggestList } from "shared/components";
+import { useDispatch, useSelector } from "react-redux";
+import { listsModule } from "store/lists";
 
 interface PositionListProps {
     onClose: () => void
@@ -10,6 +12,15 @@ interface PositionListProps {
 
 export const PositionList: FC<PositionListProps> = (props) => {
     const { onClose } = props;
+
+    const dispatch = useDispatch();
+    const { positions, loading } = useSelector(listsModule.selector);
+
+    useEffect(() => {
+        if (positions.length === 0) {
+            dispatch(listsModule.actions.fetchPositions());
+        }
+    }, [positions])
 
     const cancelButton = useMemo(() => (
         <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
