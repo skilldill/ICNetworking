@@ -32,7 +32,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={[]} />
+            <SuggestList options={interests} />
         </div>
     )
 }

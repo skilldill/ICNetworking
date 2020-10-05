@@ -32,7 +32,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={[]} />
+            <SuggestList options={positions} />
         </div>
     )
 }
