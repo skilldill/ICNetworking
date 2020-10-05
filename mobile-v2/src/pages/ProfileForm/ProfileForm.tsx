@@ -12,6 +12,7 @@ import { CameraPhoto } from "@capacitor/core";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { FadePage } from "core/FadePage";
+import { SkillsList } from "./components/SkillsList";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -45,6 +46,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     <>
       {typeListPage === ListTypes.position && <PositionList onClose={() => setShowListPage(false)} />}
       {typeListPage === ListTypes.interests && <InterestList onClose={() => setShowListPage(false)} />}
+      {typeListPage === ListTypes.skills && <SkillsList onClose={() => setShowListPage(false)} />}
     </>
   ), [typeListPage])
 
@@ -158,14 +160,24 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           </Form>
         </div>
         {/* <InterestsField /> */}
-        <div className="about-field">
+
+        <div className="field-block">
           <h3>Мои интересы</h3>
           <Text 
             placeholder="Интересы" 
             onFocus={handleOpenList(ListTypes.interests)}
           />
         </div>
-        <div className="about-field">
+        
+        <div className="field-block">
+          <h3>Мои навыки</h3>
+          <Text 
+            placeholder="Навыки" 
+            onFocus={handleOpenList(ListTypes.skills)}
+          />
+        </div>
+
+        <div className="field-block">
           <h3>Информация о себе</h3>
           <Text 
             placeholder="Введите текст" 
