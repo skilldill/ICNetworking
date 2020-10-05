@@ -153,7 +153,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 placeholder="Введите эл.адрес" 
                 label="Эл.адрес" 
                 showClear 
-                onClear={handleClearField("last_name")}
+                onClear={handleClearField("email")}
               />
             </Item>
             <Item name="department">
@@ -161,7 +161,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 placeholder="Назавание подразделения" 
                 label="Отдел"
                 autoComplete="off"
-                onFocus={handleOpenList(ListTypes.position)}
+                onFocus={handleOpenList(ListTypes.department)}
               />
             </Item>
             <Item name="position">

@@ -8,3 +8,7 @@ export const profileMapper = (profile: any) => ({
     bio: profile.bio,
     avatars: profile.gallery
 })
+
+export const listsNormalizer = (item: { id: number, name: string }) => ({
+    
+})

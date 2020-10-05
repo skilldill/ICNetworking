@@ -28,6 +28,8 @@ import AchievementMeetingsHeldSVG from "./achievement-meetings-held.svg";
 import AchievementMeetingsSheduledSVG from "./achievement-meetings-sheduled.svg";
 import AchievementMeetingsAppointmentsSVG from "./achievement-meetings-appointments.svg";
 
+import PlusSVG from "./plus.svg";
+
 export {
   ColleguesSVG,
   MatchesSVG,
@@ -48,5 +50,6 @@ export {
   SmallBlueCrossSVG,
   AchievementMeetingsHeldSVG,
   AchievementMeetingsSheduledSVG,
-  AchievementMeetingsAppointmentsSVG
+  AchievementMeetingsAppointmentsSVG,
+  PlusSVG
 }

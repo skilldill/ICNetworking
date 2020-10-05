@@ -1,4 +1,8 @@
 .suggest-list {
+  .scrollabel {
+    max-height: calc(100vh - 210px);
+  }
+
   .part-block {
     .control-input {
       margin: 0;
@@ -6,6 +10,21 @@
   }
 
   .list-items {
-    
+    .part-block {
+      padding: 8px 24px;
+      text-align: start;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-plus-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 100%;
+      border: 1px solid #E8E8E8;
+      outline: none;
+      background-color: white;
+      margin-right: 12px;
+    }
   }
 }

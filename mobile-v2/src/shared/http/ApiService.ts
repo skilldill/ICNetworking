@@ -40,14 +40,6 @@ export class ApiService {
         return http.patch(url, data);
     }
 
-    static getPosition = () => {
-
-    }
-
-    static createPosition = () => {
-
-    }
-
     static addPhoto = (id: number, uri: string) => {
         const url = `${API_URLS.profilePhoto}`;
         const formData = new FormData();
@@ -72,5 +64,18 @@ export class ApiService {
 	        match_with_user_profile: collegueProfileId
         }
         return http.post(API_URLS.matches, params);
+    }
+
+    // Lists
+    static getPositions = () => {
+        return http.get(API_URLS.positions);
+    }
+
+    static getInterests = () => {
+        return http.get(API_URLS.interests);
+    }
+
+    static getDepartments = () => {
+        return http.get(API_URLS.departments);
     }
 }

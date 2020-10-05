@@ -41,5 +41,5 @@ export const API_URLS = {
     //LISTS
     positions: "/api/users/positions/",
     interests: "/api/users/interests/",
-    departments: "/api/users/departments",
+    departments: "/api/users/departments/",
 }

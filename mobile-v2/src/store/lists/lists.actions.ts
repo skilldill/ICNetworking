@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { createAction } from "redux-actions";
+import { ApiService } from "shared/http";
 
 export const LISTS_ACTION_TYPES = {
     SET_POSITIONS: "LISTS.SET_POSITIONS",
@@ -18,7 +19,8 @@ class ListsActions {
         dispatch(this.setLoading(true));
 
         try {
-
+            const { data } = await ApiService.getPositions();
+            dispatch(this.setPositions(data.results));
         } catch(error) {
             console.log(error.message);
         } finally {
@@ -26,11 +28,12 @@ class ListsActions {
         }
     }
 
-    fetchInterests = () => (dispatch: Dispatch) => {
+    fetchInterests = () => async (dispatch: Dispatch) => {
         dispatch(this.setLoading(true));
 
         try {
-
+            const { data } = await ApiService.getInterests();
+            dispatch(this.setInterests(data.results));
         } catch(error) {
             console.log(error.message);
         } finally {
@@ -38,11 +41,12 @@ class ListsActions {
         }
     }
 
-    fetchDepartments = () => (dispatch: Dispatch) => {
+    fetchDepartments = () => async (dispatch: Dispatch) => {
         dispatch(this.setLoading(true));
 
         try {
-
+            const { data } = await ApiService.getDepartments();
+            dispatch(this.setDepartments(data.results));
         } catch(error) {
             console.log(error.message);
         } finally {

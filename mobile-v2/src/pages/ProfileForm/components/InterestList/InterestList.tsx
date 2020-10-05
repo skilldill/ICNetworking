@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
@@ -16,11 +16,14 @@ export const InterestList: FC<InterestListProps> = (props) => {
     const dispatch = useDispatch();
     const { interests, loading } = useSelector(listsModule.selector);
 
+    // FOR CHECK ALREDY WAS QUERY
+    const [requested, setRequested] = useState(false);
+
     useEffect(() => {
-        if (interests.length === 0) {
-            dispatch(listsModule.actions.fetchPositions());
+        if (interests.length === 0 && !requested) {
+            dispatch(listsModule.actions.fetchInterests());
         }
-    }, [interests])
+    }, [interests, requested])
 
     const cancelButton = useMemo(() => (
         <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
