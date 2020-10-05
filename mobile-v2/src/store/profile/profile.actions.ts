@@ -72,9 +72,10 @@ class ProfileActions {
         }
     }
 
-    updateProfile = (profileId: number, profileData: any) => async (dispatch: Dispatch) => {
+    updateProfile = (profileId: number, profileData: any) => async (dispatch: any) => {
         try {
-            await ApiService.updateProfile(profileId, profileData);
+           const { data } = await ApiService.updateProfile(profileId, profileData);
+           dispatch(this.setProfile(data));
         } catch(error) {
             console.log(error.message);
         }

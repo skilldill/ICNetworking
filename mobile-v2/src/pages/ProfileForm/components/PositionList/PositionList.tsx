@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { listsModule } from "store/lists";
 
 interface PositionListProps {
-    onClose: () => void
+    onClose: () => void,
+    onSelect: (value: any) => void;
 }
 
 export const PositionList: FC<PositionListProps> = (props) => {
-    const { onClose } = props;
+    const { onClose, onSelect } = props;
 
     const dispatch = useDispatch();
     const { positions, loading } = useSelector(listsModule.selector);
@@ -35,7 +36,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={positions} />
+            <SuggestList options={positions} onSelect={onSelect} />
         </div>
     )
 }

@@ -40,7 +40,7 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
   const optionsList = useMemo(() => !!options.length ? (
     normalizedOptions.map((item: any, i: number) => ( 
       <PartBlock key={i}>
-        <button className="btn-plus-circle">
+        <button className="btn-plus-circle" onClick={() => handleSelect(item)}>
           <img src={PlusSVG} alt="Добавить" />
         </button>
         <span>{item.name}</span>

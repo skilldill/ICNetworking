@@ -8,10 +8,11 @@ import { listsModule } from "store/lists";
 
 interface DepartmentListProps {
   onClose: () =>  void;
+  onSelect: (value: any) => void;
 }
 
 export const DepartmentList: FC<DepartmentListProps> = (props) => {
-  const { onClose } = props;
+  const { onClose, onSelect } = props;
 
   const dispatch = useDispatch();
   const { departments, loading } = useSelector(listsModule.selector);
@@ -36,7 +37,7 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           title="Отдел" 
           leftButton={cancelButton}
       />
-      <SuggestList options={departments} />
+      <SuggestList options={departments} onSelect={onSelect} />
     </div>
   )
 }

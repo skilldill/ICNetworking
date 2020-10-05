@@ -3,7 +3,7 @@ import { Form } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-import { AvatarField, PositionList, InterestList, DepartmentList, SkillsList } from "./components";
+import { AvatarField, PositionList, InterestList, DepartmentList, SkillsList, InterestsField } from "./components";
 import { Input, Text, PartBlock } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
@@ -36,8 +36,10 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   // ADDITIONAL FIELDS WITHOUT FORM
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
-  const [positionId, setPositionId] = useState<number | null>(null);
-  
+  const [position, setPosition] = useState<any | null>(null);
+  const [department, setDepartment] = useState<any | null>(null);
+  const [interests, setInterests] = useState<any[]>([]);
+
   // SHOWED LIST
   const [typeListPage, setTypeListPage] = useState<ListTypes | null>(null);
   const [showListPage, setShowListPage] = useState(false); 
@@ -47,12 +49,17 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     setTypeListPage(null);
   }, [])
 
+  const handleSelectItem = (setValueCb: any) => (value: any) => {
+    setValueCb(value);
+    handleCloseList();
+  }
+
   const currentList = useMemo(() => (
     <>
-      {typeListPage === ListTypes.position && <PositionList onClose={handleCloseList} />}
-      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} />}
+      {typeListPage === ListTypes.position && <PositionList onClose={handleCloseList} onSelect={handleSelectItem(setPosition)} />}
+      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} onSelect={handleSelectItem((value: any) => setInterests([...interests, value]))} />}
       {typeListPage === ListTypes.skills && <SkillsList onClose={handleCloseList} />}
-      {typeListPage === ListTypes.department && <DepartmentList onClose={handleCloseList} />}
+      {typeListPage === ListTypes.department && <DepartmentList onClose={handleCloseList} onSelect={handleSelectItem(setDepartment)} />}
     </>
   ), [typeListPage])
 
@@ -61,16 +68,32 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     setShowListPage(true);
   }
 
+  useEffect(() => {
+    const fields = {
+      position: !!position ? position.name : profile.position_name,
+      department: !!department ? department.name : profile.department_name,
+      interests: !!interests.length ? interests : profile.interest_names,
+    }
+
+    console.log(fields);
+
+    form.setFieldsValue(fields);
+  }, [position, department, interests])
+
   // CHECK PROFILE DATA
   useEffect(() => {
     if (!!profile) {
-      const { bio, user_data, gallery } = profile;
+      const { bio, user_data, gallery, interest_names, interests } = profile;
       form.setFieldsValue({ ...user_data });
 
       if (!!bio) {
         setBio(bio);
       }
       
+      if (!!interest_names.length) {
+        setInterests(interest_names.map((name: string, i: number) => ({ name, id: interests[i] })));
+      }
+
       if (!!gallery && !!gallery.length) {
         const currentAvatarIndex = gallery.length - 1;
         const { picture } = gallery[currentAvatarIndex];
@@ -91,7 +114,13 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   ): undefined, [onClose, initialForm])
   
   const handltSubmitForm = useCallback(async () => {
-    const profileData = { user: userId, bio };
+    const profileData = { 
+      bio,
+      user: userId,
+      position: !!position ? position.id : undefined,
+      department: !!department ? department.id : undefined,
+      interests: !!interests.length ? interests.map((interest: any) => interest.id) : undefined
+    };
     
     if (initialForm) {
       dispatch(profileModule.actions.createProfile(profileData));
@@ -101,7 +130,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     }
 
     !!onClose && onClose();
-  }, [initialForm, profileId, userId, onClose, bio, dispatch]);
+  }, [initialForm, profileId, userId, onClose, bio, position, department, interests, dispatch]);
 
   const handleAddPhoto = useCallback((photo: CameraPhoto) => {
     const { dataUrl } = photo;
@@ -184,9 +213,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         </div>
 
         <PartBlock title="Мои интересы">
-          <Text 
-            placeholder="Интересы" 
-            onFocus={handleOpenList(ListTypes.interests)}
+          <InterestsField 
+            interests={interests}
+            onClick={handleOpenList(ListTypes.interests)}
           />
         </PartBlock>
 

@@ -1,77 +1,24 @@
-.interests-field {
-    padding: 24px;
-    border-bottom: 1px solid #E8E8E8;
-    position: relative;
-    z-index: 1;
+.selected-interests-field {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #F8F8F8;
+    border-radius: 6px;
+    padding: 12px;
 
-    h3 {
-        font-weight: 450;
-        font-size: 16px;
-        color: #222222;
-        text-align: left;
+    .placeholder {
+        font-size: 14px;
+        color: #949494;
     }
 
-    .found-interests {
-        position: absolute;
-        width: calc(100% - 48px);
-        left: 24px;
-        top: 102px;
-        background: #FFFFFF;
-        border: 1px solid #B1CEF9;
-        border-radius: 6px;
-        padding: 0;
-
-        .found-interest {
-            list-style-type: none;
-            padding: 11px 10px;
-            border-bottom: 1px solid #E8E8E8;
-            text-align: left;
-            font-size: 14px;
-            color: #222222;
-        }
-
-        .first-found-interest {
-            border-top-right-radius: 6px;
-            border-top-left-radius: 6px;
-        }
-
-        .last-found-interest {
-            border-bottom: none;
-            border-bottom-right-radius: 6px;
-            border-bottom-left-radius: 6px;
-        }
-    }
-
-    .selected-interests {
+    .interest {
+        font-size: 14px;
         display: flex;
-        flex-wrap: wrap;
-        background: #F8F8F8;
-        border: 1px solid #E8E8E8;
-        border-radius: 6px;
-        width: 100%;
-        min-height: 88px;
-        padding: 12px;
-
-        .selected-interest {
-            display: flex;
-            background: #FFFFFF;
-            border: 1px solid #B1CEF9;
-            border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 12px;
-            color: #222222;
-            height: 28px;
-            align-items: center;
-            margin-right: 8px;
-            margin-bottom: 8px;
-
-            button {
-                background-color: white;
-                border: none;
-                outline: none;
-                margin-left: 12px;
-                padding: 0;
-            }
-        }
+        align-items: center;
+        background: #5295F1;
+        border-radius: 4px;
+        padding: 8px 12px;
+        color: white;
+        max-height: 32px;
+        margin-right: 8px;
     }
 }

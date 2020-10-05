@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { listsModule } from "store/lists";
 
 interface InterestListProps {
-    onClose: () => void
+    onClose: () => void;
+    onSelect: (value: any) => void;
 }
 
 export const InterestList: FC<InterestListProps> = (props) => {
-    const { onClose } = props;
+    const { onClose, onSelect } = props;
 
     const dispatch = useDispatch();
     const { interests, loading } = useSelector(listsModule.selector);
@@ -35,7 +36,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={interests} />
+            <SuggestList options={interests} onSelect={onSelect} />
         </div>
     )
 }
