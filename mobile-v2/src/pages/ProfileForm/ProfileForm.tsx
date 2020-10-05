@@ -4,7 +4,7 @@ import { Form } from "antd";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { AvatarField, InterestsField, PositionList, InterestList } from "./components";
-import { Input, Text } from "shared/components";
+import { Input, Text, PartBlock } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
 import { ROUTES, StorageKeys } from "shared/constants";
@@ -170,31 +170,31 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         </div>
         {/* <InterestsField /> */}
 
-        <div className="field-block">
-          <h3>Мои интересы</h3>
+        <PartBlock title="Мои интересы">
           <Text 
             placeholder="Интересы" 
             onFocus={handleOpenList(ListTypes.interests)}
           />
-        </div>
-        
-        <div className="field-block">
-          <h3>Мои навыки</h3>
+        </PartBlock>
+
+        <PartBlock title="Мои достижения">
+        </PartBlock>        
+
+        <PartBlock title="Мои навыки">
           <Text 
             placeholder="Навыки" 
             onFocus={handleOpenList(ListTypes.skills)}
           />
-        </div>
+        </PartBlock>
 
-        <div className="field-block">
-          <h3>Информация о себе</h3>
+        <PartBlock title="Информация о себе">
           <Text 
             placeholder="Введите текст" 
             value={bio}
             // SIMPLAE CRUTCH :)
             onChange={({ currentTarget }) => setBio(currentTarget.value) }
           />
-        </div>
+        </PartBlock>
       </Scrollable>
 
       <FadePage show={showListPage} direction="vertical">
