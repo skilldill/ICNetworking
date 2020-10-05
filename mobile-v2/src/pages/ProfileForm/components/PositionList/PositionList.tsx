@@ -2,6 +2,7 @@ import React, { FC, useMemo } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
+import { SuggestList } from "shared/components";
 
 interface PositionListProps {
     onClose: () => void
@@ -20,6 +21,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={cancelButton}
             />
+            <SuggestList options={[]} />
         </div>
     )
 }

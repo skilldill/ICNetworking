@@ -2,6 +2,7 @@ import React, { FC, useMemo } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
+import { SuggestList } from "shared/components";
 
 interface InterestListProps {
     onClose: () => void
@@ -20,6 +21,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={cancelButton}
             />
+            <SuggestList options={[]} />
         </div>
     )
 }

@@ -2,6 +2,8 @@ import React, { FC, useMemo } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
+import { SuggestList } from "shared/components";
+import { Scrollable } from "core/Scrollable";
 
 interface SkillsListProps {
   onClose: () => void
@@ -20,6 +22,9 @@ export const SkillsList: FC<SkillsListProps> = (props) => {
           title="Навыки" 
           leftButton={cancelButton}
       />
+      <Scrollable>
+        <SuggestList options={[]} />
+      </Scrollable>
     </div>
   )
 }

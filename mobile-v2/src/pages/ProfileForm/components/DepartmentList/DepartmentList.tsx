@@ -1,5 +1,6 @@
 import { Navbar } from "core/Navbar";
 import React, { FC, useMemo } from "react";
+import { SuggestList } from "shared/components";
 
 interface DepartmentListProps {
   onClose: () =>  void;
@@ -18,6 +19,7 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           title="Отдел" 
           leftButton={cancelButton}
       />
+      <SuggestList options={[]} />
     </div>
   )
 }
