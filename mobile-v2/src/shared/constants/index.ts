@@ -36,5 +36,10 @@ export const API_URLS = {
     profilePhoto: "/api/users/profiles/profile_pictures/",
 
     // EVENTS
-    matches: "/api/events/matches/"
+    matches: "/api/events/matches/",
+
+    //LISTS
+    positions: "/api/users/positions/",
+    interests: "/api/users/interests/",
+    departments: "/api/users/departments",
 }

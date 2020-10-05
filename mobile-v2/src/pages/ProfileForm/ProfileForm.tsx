@@ -39,15 +39,20 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const [positionId, setPositionId] = useState<number | null>(null);
   
   // SHOWED LIST
-  const [typeListPage, setTypeListPage] = useState<ListTypes>(ListTypes.position);
+  const [typeListPage, setTypeListPage] = useState<ListTypes | null>(null);
   const [showListPage, setShowListPage] = useState(false); 
+
+  const handleCloseList = useCallback(() => {
+    setShowListPage(false);
+    setTypeListPage(null);
+  }, [])
 
   const currentList = useMemo(() => (
     <>
-      {typeListPage === ListTypes.position && <PositionList onClose={() => setShowListPage(false)} />}
-      {typeListPage === ListTypes.interests && <InterestList onClose={() => setShowListPage(false)} />}
-      {typeListPage === ListTypes.skills && <SkillsList onClose={() => setShowListPage(false)} />}
-      {typeListPage === ListTypes.department && <DepartmentList onClose={() => setShowListPage(false)} />}
+      {typeListPage === ListTypes.position && <PositionList onClose={handleCloseList} />}
+      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} />}
+      {typeListPage === ListTypes.skills && <SkillsList onClose={handleCloseList} />}
+      {typeListPage === ListTypes.department && <DepartmentList onClose={handleCloseList} />}
     </>
   ), [typeListPage])
 

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useCallback, useMemo, useRef } from "react";
 
 import "./style.scss";
 import { Input, PartBlock } from "../";
@@ -11,6 +11,8 @@ interface SuggestListProps {
 
 export const SuggestList: FC<SuggestListProps> = (props) => {
   const { options, onSelect, onSearch } = props;
+
+  const input = useRef(null);
 
   const handleSelect = useCallback((value: any) => {
     !!onSelect && onSelect(value);
@@ -30,14 +32,14 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
         
       </PartBlock>
     ))) : (
-      <div></div>
+      <div />
     ), [options])
 
   return (
     <div className="suggest-list">
-      <div className="search">
-        <Input />
-      </div>
+      <PartBlock>
+        <Input isFocus />
+      </PartBlock>
       <div className="list-items">
         {optionsList}
       </div>
