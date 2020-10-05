@@ -30,7 +30,9 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
 
     const imageElement = useMemo(() => !!currentPhoto ? 
         <img className="avatar-img" src={currentPhoto.dataUrl} alt="avatar field" /> : 
-        <img className="avatar-img" src={photo || ProfileAvatarSVG} alt="avatar field" />    
+        photo ? 
+            <img className="avatar-img" src={photo} alt="avatar field" /> :
+            <img className="avatar-img-mock" src={ProfileAvatarSVG} alt="avatar field" />
     , [photo, currentPhoto])
 
     return (
