@@ -4,6 +4,7 @@ export const profileMapper = (profile: any) => ({
     firstName: profile.user_data.first_name,
     lastName: profile.user_data.last_name,
     username: profile.user_data.username,
+    email: profile.user_data.email,
     bio: profile.bio,
     avatars: profile.gallery
 })

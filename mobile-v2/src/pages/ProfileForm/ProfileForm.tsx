@@ -123,6 +123,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
 
       <Scrollable style={scrollabelStyle}>
         <AvatarField onChangePhoto={handleAddPhoto} photo={avatar} />
+
         <div className="form-holder">
           <Form form={form}>
             <Item name="first_name">
@@ -137,6 +138,14 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
               <Input 
                 placeholder="Введите фамилию" 
                 label="Фамилия" 
+                showClear 
+                onClear={handleClearField("last_name")}
+              />
+            </Item>
+            <Item name="email">
+              <Input 
+                placeholder="Введите эл.адрес" 
+                label="Эл.адрес" 
                 showClear 
                 onClear={handleClearField("last_name")}
               />
