@@ -21,7 +21,7 @@ import OptionsDotsSVG from "./options-dots.svg";
 
 import ProfileAvatarSVG from "./profile-avatar.svg";
 import CrossInputSVG from "./cross-input.svg";
-import SmallBlueCrossSVG from "./small-blue-cross.svg";
+import SmallCrossSVG from "./small-cross.svg";
 
 /* ACHIEVEMENTS */
 import AchievementMeetingsHeldSVG from "./achievement-meetings-held.svg";
@@ -47,7 +47,7 @@ export {
   OptionsDotsSVG,
   ProfileAvatarSVG,
   CrossInputSVG,
-  SmallBlueCrossSVG,
+  SmallCrossSVG,
   AchievementMeetingsHeldSVG,
   AchievementMeetingsSheduledSVG,
   AchievementMeetingsAppointmentsSVG,

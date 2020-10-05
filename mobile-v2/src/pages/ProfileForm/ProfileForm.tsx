@@ -54,10 +54,23 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     handleCloseList();
   }
 
+  const handleRemoveInterest = (id: number) => {
+    const updatedInterests = interests.filter((interest) => interest.id !== id);
+    setInterests(updatedInterests);
+  }
+
+  const handleSelectInterest = (value: any) => {
+    const checkedInterest = interests.find((interest) => interest.id === value.id);
+
+    if (!checkedInterest) {
+      setInterests([...interests, value])
+    }
+  }
+
   const currentList = useMemo(() => (
     <>
       {typeListPage === ListTypes.position && <PositionList onClose={handleCloseList} onSelect={handleSelectItem(setPosition)} />}
-      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} onSelect={handleSelectItem((value: any) => setInterests([...interests, value]))} />}
+      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} onSelect={handleSelectInterest} />}
       {typeListPage === ListTypes.skills && <SkillsList onClose={handleCloseList} />}
       {typeListPage === ListTypes.department && <DepartmentList onClose={handleCloseList} onSelect={handleSelectItem(setDepartment)} />}
     </>
@@ -216,6 +229,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           <InterestsField 
             interests={interests}
             onClick={handleOpenList(ListTypes.interests)}
+            onRemove={handleRemoveInterest}
           />
         </PartBlock>
 
