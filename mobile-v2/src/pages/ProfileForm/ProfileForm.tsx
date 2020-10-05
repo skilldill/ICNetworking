@@ -3,7 +3,7 @@ import { Form } from "antd";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-import { AvatarField, InterestsField, PositionList, InterestList } from "./components";
+import { AvatarField, PositionList, InterestList, DepartmentList, SkillsList } from "./components";
 import { Input, Text, PartBlock } from "shared/components";
 import { Scrollable } from "core/Scrollable";
 import { useHistory } from "react-router-dom";
@@ -12,7 +12,6 @@ import { CameraPhoto } from "@capacitor/core";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { FadePage } from "core/FadePage";
-import { SkillsList } from "./components/SkillsList";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -21,7 +20,8 @@ interface ProfileFormProps {
 enum ListTypes {
   position,
   interests,
-  skills
+  skills,
+  department
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
@@ -47,6 +47,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       {typeListPage === ListTypes.position && <PositionList onClose={() => setShowListPage(false)} />}
       {typeListPage === ListTypes.interests && <InterestList onClose={() => setShowListPage(false)} />}
       {typeListPage === ListTypes.skills && <SkillsList onClose={() => setShowListPage(false)} />}
+      {typeListPage === ListTypes.department && <DepartmentList onClose={() => setShowListPage(false)} />}
     </>
   ), [typeListPage])
 
@@ -148,6 +149,14 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 label="Эл.адрес" 
                 showClear 
                 onClear={handleClearField("last_name")}
+              />
+            </Item>
+            <Item name="department">
+              <Input 
+                placeholder="Назавание подразделения" 
+                label="Отдел"
+                autoComplete="off"
+                onFocus={handleOpenList(ListTypes.position)}
               />
             </Item>
             <Item name="position">
