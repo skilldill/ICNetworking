@@ -103,7 +103,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         setBio(bio);
       }
       
-      if (!!interest_names.length) {
+      if (!!interest_names && !!interest_names.length) {
         setInterests(interest_names.map((name: string, i: number) => ({ name, id: interests[i] })));
       }
 
