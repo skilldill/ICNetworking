@@ -177,7 +177,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
             </Item>
           </Form>
         </div>
-        {/* <InterestsField /> */}
 
         <PartBlock title="Мои интересы">
           <Text 
