@@ -70,7 +70,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const currentList = useMemo(() => (
     <>
       {typeListPage === ListTypes.position && <PositionList onClose={handleCloseList} onSelect={handleSelectItem(setPosition)} />}
-      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} onSelect={handleSelectInterest} />}
+      {typeListPage === ListTypes.interests && <InterestList onClose={handleCloseList} onSelect={handleSelectItem(handleSelectInterest)} />}
       {typeListPage === ListTypes.skills && <SkillsList onClose={handleCloseList} />}
       {typeListPage === ListTypes.department && <DepartmentList onClose={handleCloseList} onSelect={handleSelectItem(setDepartment)} />}
     </>
