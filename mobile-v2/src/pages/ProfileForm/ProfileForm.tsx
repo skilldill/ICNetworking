@@ -158,9 +158,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     }
   }, [profileId, dispatch])
 
-  const scrollabelStyle: CSSProperties = useMemo(() => ({
-    maxHeight: initialForm ? "calc(100vh - 70px)" : "calc(100vh - 125px)"
-  }), [initialForm])
+  // const scrollabelStyle: CSSProperties = useMemo(() => ({
+  //   maxHeight: initialForm ? "calc(100vh - 70px)" : "calc(100vh - 125px)"
+  // }), [initialForm])
 
   return (
     <Page className="profile-form">
@@ -170,7 +170,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         rightButton={<span onClick={handltSubmitForm} className="nav-button nav-button-ready">Готово</span>}
       />
 
-      <Scrollable style={scrollabelStyle}>
+      <Scrollable>
         <AvatarField onChangePhoto={handleAddPhoto} photo={avatar} />
 
         <div className="form-holder">
