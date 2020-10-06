@@ -4,6 +4,7 @@
     // 55 + 70 = 125px SUM
     max-height: calc(100vh - 125px);
     overflow: scroll;
+    overscroll-behavior: none;
 }
 
 .scrollabel-with-keyboard {
