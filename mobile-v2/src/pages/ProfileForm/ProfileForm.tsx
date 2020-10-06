@@ -52,7 +52,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
 
   const handleSelectItem = (setValueCb: any) => (value: any) => {
     setValueCb(value);
-    handleCloseList();
   }
 
   const handleRemoveInterest = (id: number) => {
@@ -204,6 +203,8 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 placeholder="Назавание подразделения" 
                 label="Отдел"
                 autoComplete="off"
+                showClear
+                onClear={() => {}}
                 onFocus={handleOpenList(ListTypes.department)}
               />
             </Item>
@@ -212,6 +213,8 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
                 placeholder="Введите должность" 
                 label="Должность"
                 autoComplete="off"
+                showClear
+                onClear={() => {}}
                 onFocus={handleOpenList(ListTypes.position)}
               />
             </Item>
@@ -240,7 +243,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         <PartBlock title="Мои навыки">
           <Text 
             placeholder="Навыки" 
-            onFocus={handleOpenList(ListTypes.skills)}
           />
         </PartBlock>
 

@@ -48,8 +48,13 @@ export const InterestList: FC<InterestListProps> = (props) => {
         const timeout = setTimeout(() => {
             clearTimeout(timeout);
             onClose();
-        }, 50)
-      }, [onClose])
+        }, 100)
+    }, [onClose])
+    
+    const handleSelect = useCallback((value: any) => {
+        onSelect(value);
+        handleClose();
+    }, [onSelect, handleClose])
 
     const cancelButton = useMemo(() => (
         <span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>
@@ -61,7 +66,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={interests} onSelect={onSelect} focused={focusedSearch} />
+            <SuggestList options={interests} onSelect={handleSelect} focused={focusedSearch} />
         </Page>
     )
 }

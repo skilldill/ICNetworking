@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { Loading } from "shared/components";
 import { Page } from "core/Page";
+import { keyboardModule } from "store/keyboard";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -42,6 +43,7 @@ export const Profile = () => {
 
     const dispatch = useDispatch();
     const { profile } = useSelector(profileModule.selector);
+    const { showKeyboard } = useSelector(keyboardModule.selector);
 
     const [showProfileForm, setShowProfileForm] = useState(false);
 
@@ -49,6 +51,15 @@ export const Profile = () => {
     const history = useHistory();
 
     const handleClick = () => {
+        if (showKeyboard) {
+            const timeout = setTimeout(() => {
+                clearTimeout(timeout);
+                setShowProfileForm(!showProfileForm);
+            }, 100);
+
+            return;
+        }
+
         setShowProfileForm(!showProfileForm);
     }
     

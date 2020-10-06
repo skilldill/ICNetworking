@@ -48,12 +48,17 @@ export const PositionList: FC<PositionListProps> = (props) => {
         const timeout = setTimeout(() => {
             clearTimeout(timeout);
             onClose();
-        }, 50)
+        }, 100)
       }, [onClose])
 
     const cancelButton = useMemo(() => (
         <span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>
     ), [onClose])
+    
+    const handleSelect = useCallback((value: any) => {
+        onSelect(value);
+        handleClose();
+    }, [onSelect, handleClose])
 
     return (
         <Page>
@@ -61,7 +66,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={positions} onSelect={onSelect} focused={focusedSearch} />
+            <SuggestList options={positions} onSelect={handleSelect} focused={focusedSearch} />
         </Page>
     )
 }
