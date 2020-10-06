@@ -12,6 +12,7 @@ import { CameraPhoto } from "@capacitor/core";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { FadePage } from "core/FadePage";
+import { Page } from "core/Page";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -162,7 +163,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   }), [initialForm])
 
   return (
-    <div className="profile-form">
+    <Page className="profile-form">
       <Navbar 
         title="Профиль"
         leftButton={cancelButton}
@@ -256,6 +257,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       <FadePage show={showListPage} direction="vertical">
         {currentList}
       </FadePage>
-    </div>
+    </Page>
   )
 }

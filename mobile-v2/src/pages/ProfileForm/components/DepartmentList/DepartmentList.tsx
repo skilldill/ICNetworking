@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.scss";
 import { SuggestList } from "shared/components";
 import { listsModule } from "store/lists";
+import { Page } from "core/Page";
 
 interface DepartmentListProps {
   onClose: () =>  void;
@@ -28,6 +29,8 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           setFocusedSearch(true);
           clearTimeout(timout);
       }, 350)
+
+      return () => setFocusedSearch(false);
   }, [])
 
   useEffect(() => {
@@ -42,12 +45,12 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
   ), [onClose])
 
   return (
-    <div className="department-list">
+    <Page>
       <Navbar 
           title="Отдел" 
           leftButton={cancelButton}
       />
       <SuggestList options={departments} onSelect={onSelect} focused={focusedSearch} />
-    </div>
+    </Page>
   )
 }

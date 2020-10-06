@@ -15,6 +15,7 @@ import { ROUTES, StorageKeys } from "shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { Loading } from "shared/components";
+import { Page } from "core/Page";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -71,7 +72,7 @@ export const Profile = () => {
     }
 
     return !!profile ? (
-        <div className="profile">
+        <Page className="profile">
             <Navbar 
                 title="Профиль" 
                 rightButton={
@@ -101,6 +102,6 @@ export const Profile = () => {
             <FadePage show={showProfileForm} direction="vertical">
                 <ProfileForm onClose={handleClick} />
             </FadePage>
-        </div>
+        </Page>
     ) : <Loading />
 }

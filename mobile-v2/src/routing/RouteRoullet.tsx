@@ -5,14 +5,18 @@ import { Plugins } from "@capacitor/core";
 import { ROUTES } from "shared/constants";
 import { Collegues, Matches, Chats, Meetings, Profile, Authorization, LoadingPage } from "pages";
 import { Tabbar } from "core/Tabbar";
+import { useDispatch, useSelector } from "react-redux";
+import { keyboardModule } from "store/keyboard";
 
 export const RouteRoullet = () => {
     const { Keyboard } = Plugins;
-    const [showTabbar, setShowTabbar] = useState(true);
+
+    const dispatch = useDispatch();
+    const { showKeyboard } = useSelector(keyboardModule.selector);
 
     useEffect(() => {
-        Keyboard.addListener("keyboardWillShow", () => setShowTabbar(false));
-        Keyboard.addListener("keyboardWillHide", () =>  setShowTabbar(true));
+        Keyboard.addListener("keyboardWillShow", () => dispatch(keyboardModule.actions.setShowKeyboard(true)));
+        Keyboard.addListener("keyboardWillHide", () =>  dispatch(keyboardModule.actions.setShowKeyboard(false)));
     }, [])
 
     return (
@@ -50,7 +54,7 @@ export const RouteRoullet = () => {
                     <Profile />
                 </Route>
             </Switch>
-            {showTabbar && <Tabbar />}
+            {!showKeyboard && <Tabbar />}
         </Router>
     )
 }

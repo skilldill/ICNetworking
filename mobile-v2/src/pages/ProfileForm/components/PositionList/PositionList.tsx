@@ -5,6 +5,7 @@ import { Navbar } from "core/Navbar";
 import { SuggestList } from "shared/components";
 import { useDispatch, useSelector } from "react-redux";
 import { listsModule } from "store/lists";
+import { Page } from "core/Page";
 
 interface PositionListProps {
     onClose: () => void,
@@ -28,6 +29,8 @@ export const PositionList: FC<PositionListProps> = (props) => {
             setFocusedSearch(true);
             clearTimeout(timout);
         }, 350)
+
+        return () => setFocusedSearch(false);
     }, [])
 
     useEffect(() => {
@@ -41,12 +44,12 @@ export const PositionList: FC<PositionListProps> = (props) => {
     ), [onClose])
 
     return (
-        <div className="position-list">
+        <Page>
             <Navbar 
                 title="Должность" 
                 leftButton={cancelButton}
             />
             <SuggestList options={positions} onSelect={onSelect} focused={focusedSearch} />
-        </div>
+        </Page>
     )
 }

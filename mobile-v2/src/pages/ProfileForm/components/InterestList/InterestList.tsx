@@ -5,6 +5,7 @@ import { Navbar } from "core/Navbar";
 import { SuggestList } from "shared/components";
 import { useDispatch, useSelector } from "react-redux";
 import { listsModule } from "store/lists";
+import { Page } from "core/Page";
 
 interface InterestListProps {
     onClose: () => void;
@@ -28,6 +29,8 @@ export const InterestList: FC<InterestListProps> = (props) => {
             setFocusedSearch(true);
             clearTimeout(timout);
         }, 350)
+
+        return () => setFocusedSearch(false);
     }, [])
 
     useEffect(() => {
@@ -41,12 +44,12 @@ export const InterestList: FC<InterestListProps> = (props) => {
     ), [onClose])
 
     return (
-        <div className="interest-list">
+        <Page>
             <Navbar 
                 title="Интересы" 
                 leftButton={cancelButton}
             />
             <SuggestList options={interests} onSelect={onSelect} focused={focusedSearch} />
-        </div>
+        </Page>
     )
 }
