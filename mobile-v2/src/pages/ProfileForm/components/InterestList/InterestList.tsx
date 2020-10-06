@@ -20,6 +20,16 @@ export const InterestList: FC<InterestListProps> = (props) => {
     // FOR CHECK ALREDY WAS QUERY
     const [requested, setRequested] = useState(false);
 
+    // FOR TRANSITION FOCUS SEARCH INPUT
+    const [focusedSearch, setFocusedSearch] = useState(false);
+
+    useEffect(() => {
+        const timout = setTimeout(() => {
+            setFocusedSearch(true);
+            clearTimeout(timout);
+        }, 350)
+    }, [])
+
     useEffect(() => {
         if (interests.length === 0 && !requested) {
             dispatch(listsModule.actions.fetchInterests());
@@ -36,7 +46,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={interests} onSelect={onSelect} />
+            <SuggestList options={interests} onSelect={onSelect} focused={focusedSearch} />
         </div>
     )
 }

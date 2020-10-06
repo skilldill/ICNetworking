@@ -6,14 +6,15 @@ import { PlusSVG } from "assets/icons";
 import { Scrollable } from "core/Scrollable";
 
 interface SuggestListProps {
-  options: any[]
+  options: any[],
+  focused?: boolean,
   onSelect?: (value: any) => void,
   onSearch?: (value: string) => void,
   normalize?: (value: {[key: string]: any}) => { name: string, value: any }[]
 }
 
 export const SuggestList: FC<SuggestListProps> = (props) => {
-  const { options, onSelect, onSearch, normalize } = props;
+  const { options, focused, onSelect, onSearch, normalize } = props;
 
   const [normalizedOptions, setNormalizedOptions] = useState<any[]>([]);
 
@@ -52,7 +53,7 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
   return (
     <div className="suggest-list">
       <PartBlock>
-        <Input isFocus />
+        <Input isFocus={focused} />
       </PartBlock>
       <div className="list-items">
         <Scrollable>

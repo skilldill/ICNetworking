@@ -19,6 +19,16 @@ export const PositionList: FC<PositionListProps> = (props) => {
 
     // FOR CHECK ALREDY WAS QUERY
     const [requested, setRequested] = useState(false);
+    
+    // FOR TRANSITION FOCUS SEARCH INPUT
+    const [focusedSearch, setFocusedSearch] = useState(false);
+
+    useEffect(() => {
+        const timout = setTimeout(() => {
+            setFocusedSearch(true);
+            clearTimeout(timout);
+        }, 350)
+    }, [])
 
     useEffect(() => {
         if (positions.length === 0 && !requested) {
@@ -36,7 +46,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={cancelButton}
             />
-            <SuggestList options={positions} onSelect={onSelect} />
+            <SuggestList options={positions} onSelect={onSelect} focused={focusedSearch} />
         </div>
     )
 }

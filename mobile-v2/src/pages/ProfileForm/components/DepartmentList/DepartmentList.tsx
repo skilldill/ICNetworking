@@ -20,6 +20,16 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
   // FOR CHECK ALREDY WAS QUERY
   const [requested, setRequested] = useState(false);
 
+  // FOR TRANSITION FOCUS SEARCH INPUT
+  const [focusedSearch, setFocusedSearch] = useState(false);
+
+  useEffect(() => {
+      const timout = setTimeout(() => {
+          setFocusedSearch(true);
+          clearTimeout(timout);
+      }, 350)
+  }, [])
+
   useEffect(() => {
       if (departments.length === 0 && !requested) {
           setRequested(true);
@@ -37,7 +47,7 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           title="Отдел" 
           leftButton={cancelButton}
       />
-      <SuggestList options={departments} onSelect={onSelect} />
+      <SuggestList options={departments} onSelect={onSelect} focused={focusedSearch} />
     </div>
   )
 }
