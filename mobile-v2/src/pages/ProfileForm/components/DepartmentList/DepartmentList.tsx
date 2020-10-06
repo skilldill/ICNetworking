@@ -1,5 +1,5 @@
 import { Navbar } from "core/Navbar";
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./style.scss";
@@ -29,8 +29,6 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           setFocusedSearch(true);
           clearTimeout(timout);
       }, 350)
-
-      return () => setFocusedSearch(false);
   }, [])
 
   useEffect(() => {
@@ -40,8 +38,22 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
       }
   }, [departments, requested])
 
+  const handleClose = useCallback(() => {
+    // Этот костыль нужен чтобы сначала убрать 
+    // клавиатуру, а потом закрыть окно, 
+    // тогда в мобилке не останется следа от клавиатуры
+    // на форме
+
+    setFocusedSearch(false);
+
+    const timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      onClose();
+    }, 50)
+  }, [onClose])
+
   const cancelButton = useMemo(() => (
-      <span onClick={onClose} className="nav-button nav-button-cancel">Отмена</span>
+      <span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>
   ), [onClose])
 
   return (

@@ -3,7 +3,7 @@ import { KEYBOARD_ACTION_TYPES } from "./keyboard.actions";
 import { KeyboardState } from "./keyboard.model";
 
 const initialState: KeyboardState = {
-  showKeyboard: true
+  showKeyboard: false
 }
 
 const setShowKeyboard = (state: KeyboardState, action: Action<any>): KeyboardState => ({
