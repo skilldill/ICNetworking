@@ -1,18 +1,16 @@
 .avatar-field-info {
   padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid #E8E8E8;
 
   .info {
-    text-align: left;
+    text-align: center;
     flex: 1;
 
     h3 {
       font-size: 18px;
       color: #222222;
       margin: 0;
+      margin-bottom: 5px;
     }
   
     small {
@@ -27,7 +25,8 @@
     width: 84px;
     height: 84px;
     border-radius: 100%;
-    margin-right: 28px;
+    margin: auto;
+    margin-bottom: 8px;
 
     img {
       height: 84px;

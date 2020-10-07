@@ -10,7 +10,7 @@ interface AvatarFieldProps {
 
 export const AvatarField = (props: AvatarFieldProps) => {
   const { user_data, gallery } = props;
-  const { first_name, last_name } = user_data;
+  const { first_name, last_name, email } = user_data;
   const photo = useMemo(() => (!!gallery && !!gallery.length) ? gallery[gallery.length - 1] : null, [gallery]);
 
   const avatar = useMemo(() => !!photo ? 
@@ -25,8 +25,7 @@ export const AvatarField = (props: AvatarFieldProps) => {
       </div>
       <div className="info">
         <h3>{`${first_name} ${last_name}`}</h3>
-        <small>Руководитель отдела разработки</small>
-        <small>Стаж: 3 года</small>
+        <small>{email}</small>
       </div>
     </div>
   )
