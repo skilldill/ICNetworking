@@ -95,6 +95,11 @@ export const Collegues = () => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
 
+    // TEST USEEFFECT
+    useEffect(() => {
+        console.log(collegueIndex);
+    }, [collegueIndex])
+
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
             setDoSwipeToRight(true);
@@ -102,7 +107,11 @@ export const Collegues = () => {
             if (doSwipeToRight && !!collegues[collegueIndex]) {
                 const collegueProfileId = collegues[collegueIndex].id;
                 dispatch(colleguesModule.actions.matching(parseInt(profileId!), collegueProfileId));
+                
+                // TODO: 
+                handleSwipe();
             }
+
 
             const timeout = setTimeout(() => {
                 resolve(timeout);

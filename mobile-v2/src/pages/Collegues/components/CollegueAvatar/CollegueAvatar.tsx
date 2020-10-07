@@ -112,11 +112,6 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
             // SWIPE TO RIGHT
             if (stateTranslateX > 0) {
                 galleryMode ? swipeToSide(200, onSwipeRight) : beforeAvatar();
-                
-                // if (!!collegues[currentIndex]) {
-                //     const collegueProfileId = collegues[currentIndex].id;
-                //     dispatch(colleguesModule.actions.matching(parseInt(profileId!), collegueProfileId));
-                // }
             }
 
             // SWIPE TO LEFT

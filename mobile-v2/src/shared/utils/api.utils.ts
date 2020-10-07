@@ -6,7 +6,8 @@ export const profileMapper = (profile: any) => ({
     username: profile.user_data.username,
     email: profile.user_data.email,
     bio: profile.bio,
-    avatars: profile.gallery
+    avatars: profile.gallery,
+    prevProfile: profile
 })
 
 export const listsNormalizer = (item: { id: number, name: string }) => ({

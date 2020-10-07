@@ -4,6 +4,7 @@ import cn from "classnames";
 import "./style.scss";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
 import { useTouch } from "shared/hooks";
+import { CommonProfilePart } from "core/CommonProfilePart";
 
 interface CollegueModalProps {
     collegue: any;
@@ -175,6 +176,7 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
                     </div>
                 )}
             </div>
+            {!!collegue && <CommonProfilePart profile={collegue.prevProfile} />}
         </div>
     )
 }
