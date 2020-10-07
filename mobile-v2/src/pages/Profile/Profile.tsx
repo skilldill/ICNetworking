@@ -11,12 +11,13 @@ import { OptionsDotsSVG } from "assets/icons";
 import { AchievementsField, AvatarField, InterestsField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
-import { ROUTES, StorageKeys } from "shared/constants";
+import { DELAY_KEYBOARD, ROUTES, StorageKeys } from "shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { Loading } from "shared/components";
 import { Page } from "core/Page";
 import { keyboardModule } from "store/keyboard";
+import { useKeyboard } from "shared/hooks";
 
 const MOCK_USER = {
     name: "Сергей",
@@ -43,23 +44,15 @@ export const Profile = () => {
 
     const dispatch = useDispatch();
     const { profile } = useSelector(profileModule.selector);
-    const { showKeyboard } = useSelector(keyboardModule.selector);
+    const [openKeyboard, hideKeyboard] = useKeyboard();
 
     const [showProfileForm, setShowProfileForm] = useState(false);
 
     const { edit } = useParams<{ edit: string }>();
     const history = useHistory();
 
-    const handleClick = () => {
-        if (showKeyboard) {
-            const timeout = setTimeout(() => {
-                clearTimeout(timeout);
-                setShowProfileForm(!showProfileForm);
-            }, 100);
-
-            return;
-        }
-
+    const handleClick = async () => {
+        await hideKeyboard();
         setShowProfileForm(!showProfileForm);
     }
     

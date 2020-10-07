@@ -6,6 +6,8 @@ import "./style.scss";
 import { SuggestList } from "shared/components";
 import { listsModule } from "store/lists";
 import { Page } from "core/Page";
+import { DELAY_KEYBOARD } from "shared/constants";
+import { useKeyboard } from "shared/hooks";
 
 interface DepartmentListProps {
   onClose: () =>  void;
@@ -17,6 +19,7 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
 
   const dispatch = useDispatch();
   const { departments, loading } = useSelector(listsModule.selector);
+  const [openKeyboard, hideKeyboard] = useKeyboard();
 
   // FOR CHECK ALREDY WAS QUERY
   const [requested, setRequested] = useState(false);
@@ -38,18 +41,15 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
       }
   }, [departments, requested])
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback(async () => {
     // Этот костыль нужен чтобы сначала убрать 
     // клавиатуру, а потом закрыть окно, 
     // тогда в мобилке не останется следа от клавиатуры
     // на форме
 
     setFocusedSearch(false);
-
-    const timeout = setTimeout(() => {
-      clearTimeout(timeout);
-      onClose();
-    }, 100)
+    await hideKeyboard();
+    onClose();
   }, [onClose])
 
   const handleSelect = useCallback((value: any) => {

@@ -6,6 +6,8 @@ import { SuggestList } from "shared/components";
 import { useDispatch, useSelector } from "react-redux";
 import { listsModule } from "store/lists";
 import { Page } from "core/Page";
+import { DELAY_KEYBOARD } from "shared/constants";
+import { useKeyboard } from "shared/hooks";
 
 interface PositionListProps {
     onClose: () => void,
@@ -17,6 +19,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
 
     const dispatch = useDispatch();
     const { positions, loading } = useSelector(listsModule.selector);
+    const [openKeyboard, hideKeyboard] = useKeyboard();
 
     // FOR CHECK ALREDY WAS QUERY
     const [requested, setRequested] = useState(false);
@@ -37,18 +40,15 @@ export const PositionList: FC<PositionListProps> = (props) => {
         }
     }, [positions, requested])
 
-    const handleClose = useCallback(() => {
+    const handleClose = useCallback(async () => {
         // Этот костыль нужен чтобы сначала убрать 
         // клавиатуру, а потом закрыть окно, 
         // тогда в мобилке не останется следа от клавиатуры
         // на форме
     
         setFocusedSearch(false);
-    
-        const timeout = setTimeout(() => {
-            clearTimeout(timeout);
-            onClose();
-        }, 100)
+        await hideKeyboard();
+        onClose();
       }, [onClose])
 
     const cancelButton = useMemo(() => (

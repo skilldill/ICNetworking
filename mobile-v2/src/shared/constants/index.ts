@@ -43,3 +43,5 @@ export const API_URLS = {
     interests: "/api/users/interests/",
     departments: "/api/users/departments/",
 }
+
+export const DELAY_KEYBOARD = 200;
