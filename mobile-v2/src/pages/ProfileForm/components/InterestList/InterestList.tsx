@@ -33,7 +33,6 @@ export const InterestList: FC<InterestListProps> = (props) => {
     useEffect(() => {
         const timout = setTimeout(() => {
             setFocusedSearch(true);
-            dispatch(keyboardModule.actions.setShowKeyboard(true));
             clearTimeout(timout);
         }, 350)
     }, [])
