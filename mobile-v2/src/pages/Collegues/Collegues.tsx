@@ -98,6 +98,7 @@ export const Collegues = () => {
     // TEST USEEFFECT
     useEffect(() => {
         console.log(collegueIndex);
+        //  Смотреть на next в ответе запроса!!!
     }, [collegueIndex])
 
     const handleLike = useCallback(() => {
