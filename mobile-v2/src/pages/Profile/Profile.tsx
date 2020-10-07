@@ -5,37 +5,18 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { FadePage } from "core/FadePage";
 import { ProfileForm } from "pages/ProfileForm";
-import { OptionsDotsSVG } from "assets/icons";
 
 // PARTS
-import { AchievementsField, AvatarField, CommonInfo, InterestsField } from "./components";
+import { AvatarField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
-import { DELAY_KEYBOARD, ROUTES, StorageKeys } from "shared/constants";
+import { ROUTES, StorageKeys } from "shared/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { Loading } from "shared/components";
 import { Page } from "core/Page";
-import { keyboardModule } from "store/keyboard";
 import { useKeyboard } from "shared/hooks";
-
-const MOCK_USER = {
-    name: "Сергей",
-    secondname: "Валашович",
-    photo: null,
-    position: "Руководитель отдела разработки",
-    experience: 3,
-    interests: [
-        {name: 'Футбол'},
-        {name: 'Бизнес-литература'},
-        {name: 'Теннис'},
-        {name: 'Дизайн'},
-        {name: 'Искусство'},
-        {name: 'Работа'}
-    ]
-}
-
-const { interests, ...avatarData } = MOCK_USER;
+import { CommonProfilePart } from "core/CommonProfilePart";
 
 export const Profile = () => {
     // STORAGE DATA
@@ -87,10 +68,7 @@ export const Profile = () => {
 
             <Scrollable>
                 <AvatarField {...profile} />
-                <CommonInfo profile={profile} />
-                <InterestsField interests={interests} />
-                <AchievementsField />
-
+                <CommonProfilePart profile={profile} />
 
                 {/* TEST BUTTON */}
                 <div style={{marginTop: "40px", paddingBottom: "100px"}}>
