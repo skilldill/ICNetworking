@@ -52,10 +52,13 @@ export const Profile = () => {
     const history = useHistory();
 
     const handleClick = async () => {
-        await hideKeyboard();
-        setShowProfileForm(!showProfileForm);
+        setShowProfileForm(true);
     }
     
+    const handleClose = () => {
+        hideKeyboard(() => setShowProfileForm(false));
+    }
+
     // SET INITIAL VALUE FORMS
     useEffect(() => {
         // CHECK WHICH ID WE HAVE
@@ -104,7 +107,7 @@ export const Profile = () => {
             </Scrollable>
             
             <FadePage show={showProfileForm} direction="vertical">
-                <ProfileForm onClose={handleClick} />
+                <ProfileForm onClose={handleClose} />
             </FadePage>
         </Page>
     ) : <Loading />

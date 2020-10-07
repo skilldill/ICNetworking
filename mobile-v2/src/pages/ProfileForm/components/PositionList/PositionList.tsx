@@ -8,6 +8,7 @@ import { listsModule } from "store/lists";
 import { Page } from "core/Page";
 import { DELAY_KEYBOARD } from "shared/constants";
 import { useKeyboard } from "shared/hooks";
+import { keyboardModule } from "store/keyboard";
 
 interface PositionListProps {
     onClose: () => void,
@@ -16,6 +17,8 @@ interface PositionListProps {
 
 export const PositionList: FC<PositionListProps> = (props) => {
     const { onClose, onSelect } = props;
+
+    const { showKeyboard } = useSelector(keyboardModule.selector);
 
     const dispatch = useDispatch();
     const { positions, loading } = useSelector(listsModule.selector);
@@ -30,6 +33,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
     useEffect(() => {
         const timout = setTimeout(() => {
             setFocusedSearch(true);
+            dispatch(keyboardModule.actions.setShowKeyboard(true));
             clearTimeout(timout);
         }, 350)
     }, [])
@@ -40,21 +44,16 @@ export const PositionList: FC<PositionListProps> = (props) => {
         }
     }, [positions, requested])
 
-    const handleClose = useCallback(async () => {
+    const handleClose = () => {
         // Этот костыль нужен чтобы сначала убрать 
         // клавиатуру, а потом закрыть окно, 
         // тогда в мобилке не останется следа от клавиатуры
         // на форме
     
         setFocusedSearch(false);
-        await hideKeyboard();
-        onClose();
-      }, [onClose])
+        hideKeyboard(() => onClose());
+      }
 
-    const cancelButton = useMemo(() => (
-        <span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>
-    ), [onClose])
-    
     const handleSelect = useCallback((value: any) => {
         onSelect(value);
         handleClose();
@@ -64,7 +63,7 @@ export const PositionList: FC<PositionListProps> = (props) => {
         <Page>
             <Navbar 
                 title="Должность" 
-                leftButton={cancelButton}
+                leftButton={<span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>}
             />
             <SuggestList options={positions} onSelect={handleSelect} focused={focusedSearch} />
         </Page>

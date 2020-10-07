@@ -45,10 +45,10 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const [typeListPage, setTypeListPage] = useState<ListTypes | null>(null);
   const [showListPage, setShowListPage] = useState(false); 
 
-  const handleCloseList = useCallback(() => {
+  const handleCloseList = () => {
     setShowListPage(false);
     setTypeListPage(null);
-  }, [])
+  }
 
   const handleSelectItem = (setValueCb: any) => (value: any) => {
     setValueCb(value);

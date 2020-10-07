@@ -14,8 +14,6 @@ export const Page: FC<PageProps> = (props) => {
 
     const { showKeyboard } = useSelector(keyboardModule.selector);
 
-    useEffect(() => { console.log(showKeyboard) }, [showKeyboard])
-
     const classes = useMemo(() => {
         if (!!className) {
             return cn({

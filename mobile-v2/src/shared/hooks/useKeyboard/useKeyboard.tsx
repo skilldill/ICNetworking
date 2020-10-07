@@ -1,12 +1,13 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Plugins } from "@capacitor/core"
 import { useDispatch, useSelector } from "react-redux";
 
 import { keyboardModule } from "store/keyboard";
+import { DELAY_KEYBOARD } from "shared/constants";
 
 export const useKeyboard = () => {
   const { Keyboard } = Plugins;
-
+  const dispatch = useDispatch();
   const { showKeyboard } = useSelector(keyboardModule.selector);
 
   const openKeyboard = useCallback(() => {
@@ -15,9 +16,22 @@ export const useKeyboard = () => {
     }
   }, [showKeyboard, Keyboard])
 
-  const hideKeyboard = useCallback(() => {
+  const hideKeyboard = useCallback(async (cb: () => void) => {
+    console.log(showKeyboard);
+
     if (showKeyboard) {
-      return Keyboard.hide();
+      try {
+        await Keyboard.hide();
+        const timeout = setTimeout(() => {
+          clearTimeout(timeout);
+          cb();
+          dispatch(keyboardModule.actions.setShowKeyboard(false));
+        }, DELAY_KEYBOARD);
+      } catch(error) {
+        cb();
+      }
+    } else {
+      cb();
     }
   }, [showKeyboard, Keyboard])
 

@@ -8,6 +8,7 @@ import { listsModule } from "store/lists";
 import { Page } from "core/Page";
 import { DELAY_KEYBOARD } from "shared/constants";
 import { useKeyboard } from "shared/hooks";
+import { keyboardModule } from "store/keyboard";
 
 interface InterestListProps {
     onClose: () => void;
@@ -16,6 +17,8 @@ interface InterestListProps {
 
 export const InterestList: FC<InterestListProps> = (props) => {
     const { onClose, onSelect } = props;
+
+    const { showKeyboard } = useSelector(keyboardModule.selector);
 
     const dispatch = useDispatch();
     const { interests, loading } = useSelector(listsModule.selector);
@@ -30,6 +33,7 @@ export const InterestList: FC<InterestListProps> = (props) => {
     useEffect(() => {
         const timout = setTimeout(() => {
             setFocusedSearch(true);
+            dispatch(keyboardModule.actions.setShowKeyboard(true));
             clearTimeout(timout);
         }, 350)
     }, [])
@@ -40,31 +44,26 @@ export const InterestList: FC<InterestListProps> = (props) => {
         }
     }, [interests, requested])
 
-    const handleClose = useCallback(async () => {
+    const handleClose = () => {
         // Этот костыль нужен чтобы сначала убрать 
         // клавиатуру, а потом закрыть окно, 
         // тогда в мобилке не останется следа от клавиатуры
         // на форме
     
         setFocusedSearch(false);
-        await hideKeyboard();
-        onClose();
-    }, [onClose])
+        hideKeyboard(() => onClose());
+    }
     
     const handleSelect = useCallback((value: any) => {
         onSelect(value);
         handleClose();
     }, [onSelect, handleClose])
 
-    const cancelButton = useMemo(() => (
-        <span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>
-    ), [onClose])
-
     return (
         <Page>
             <Navbar 
                 title="Интересы" 
-                leftButton={cancelButton}
+                leftButton={<span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>}
             />
             <SuggestList options={interests} onSelect={handleSelect} focused={focusedSearch} />
         </Page>
