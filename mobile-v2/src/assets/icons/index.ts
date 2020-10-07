@@ -30,6 +30,11 @@ import AchievementMeetingsAppointmentsSVG from "./achievement-meetings-appointme
 
 import PlusSVG from "./plus.svg";
 
+/* COMMON INFO */
+import DepartmentSVG from "./departments.svg";
+import PositionSVG from "./position.svg";
+import LevelSVG from "./level.svg";
+
 export {
   ColleguesSVG,
   MatchesSVG,
@@ -51,5 +56,8 @@ export {
   AchievementMeetingsHeldSVG,
   AchievementMeetingsSheduledSVG,
   AchievementMeetingsAppointmentsSVG,
-  PlusSVG
+  PlusSVG,
+  DepartmentSVG,
+  PositionSVG,
+  LevelSVG
 }

@@ -8,7 +8,7 @@ import { ProfileForm } from "pages/ProfileForm";
 import { OptionsDotsSVG } from "assets/icons";
 
 // PARTS
-import { AchievementsField, AvatarField, InterestsField } from "./components";
+import { AchievementsField, AvatarField, CommonInfo, InterestsField } from "./components";
 import { Button } from "antd";
 import { Scrollable } from "core/Scrollable";
 import { DELAY_KEYBOARD, ROUTES, StorageKeys } from "shared/constants";
@@ -82,15 +82,12 @@ export const Profile = () => {
         <Page className="profile">
             <Navbar 
                 title="Профиль" 
-                rightButton={
-                    <button onClick={handleClick}>
-                        <img src={OptionsDotsSVG} alt="options"/>
-                    </button>
-                }
+                rightButton={<span className="nav-button" onClick={handleClick}>Ред.</span>}
             />
 
             <Scrollable>
                 <AvatarField {...profile} />
+                <CommonInfo profile={profile} />
                 <InterestsField interests={interests} />
                 <AchievementsField />
 
