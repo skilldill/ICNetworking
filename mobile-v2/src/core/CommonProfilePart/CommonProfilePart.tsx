@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { AchievementsField, CommonInfo, InterestsField } from "./components";
+import { AboutField, AchievementsField, CommonInfo, InterestsField } from "./components";
 
 interface CommonProfilePartProps {
   profile: any
@@ -13,6 +13,7 @@ export const CommonProfilePart: FC<CommonProfilePartProps> = (props) => {
       <CommonInfo profile={profile} />
       <InterestsField profile={profile} />
       <AchievementsField />
+      <AboutField profile={profile} />
     </>
   )
 }
