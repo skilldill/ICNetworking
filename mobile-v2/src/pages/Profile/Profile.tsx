@@ -71,7 +71,7 @@ export const Profile = () => {
                 <CommonProfilePart profile={profile} />
 
                 {/* TEST BUTTON */}
-                <div style={{marginTop: "40px", paddingBottom: "100px"}}>
+                <div style={{marginTop: "40px", paddingBottom: "50px"}}>
                     <Button 
                         type="link" 
                         danger 
