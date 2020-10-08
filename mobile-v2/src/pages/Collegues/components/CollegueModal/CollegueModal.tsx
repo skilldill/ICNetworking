@@ -137,6 +137,17 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         }
     }
 
+    const showProfileInfo = useMemo(() => !!collegue && modeShowInfo, [collegue, modeShowInfo]);
+
+    const topInfoContent = useMemo(() => modeShowInfo ? (
+            <p className="email">{!!currentCollegue && currentCollegue.email}</p>
+        ) : (
+            <>
+                {(!!currentCollegue && !!currentCollegue.positionName) && <p>{currentCollegue.positionName}</p>}
+                <p>Стаж: 2 года</p>
+            </>
+    ), [modeShowInfo, currentCollegue])
+
     const topInfoClasses = useMemo(() => cn({
         'top-info': true,
         'top-info-hide': hideInfo
@@ -172,11 +183,11 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
                 {!!currentCollegue && (
                     <div className={topInfoClasses}>
                         <h3 className="name">{`${currentCollegue.firstName} ${currentCollegue.lastName}`}</h3>
-                        {!!currentCollegue.position && <span className="position">{currentCollegue.position}</span>}
+                        {topInfoContent}
                     </div>
                 )}
             </div>
-            {!!collegue && <CommonProfilePart profile={collegue.prevProfile} />}
+            {showProfileInfo && <CommonProfilePart profile={collegue.prevProfile} />}
         </div>
     )
 }

@@ -7,6 +7,7 @@ export const profileMapper = (profile: any) => ({
     email: profile.user_data.email,
     bio: profile.bio,
     avatars: profile.gallery,
+    positionName: profile.position_name,
     prevProfile: profile
 })
 
