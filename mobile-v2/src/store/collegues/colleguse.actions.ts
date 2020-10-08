@@ -15,8 +15,10 @@ export class ColleguesActions {
   setLoading = createAction(COLLEGUES_ACTION_TYPES.setLoading);
   setPage = createAction(COLLEGUES_ACTION_TYPES.setPage);
 
-  fetchCollegues = () => async (disparch: Dispatch, getState: () => any) => {
-    disparch(this.setLoading(true));
+  fetchCollegues = (withoutLoading?: boolean) => async (disparch: Dispatch, getState: () => any) => {
+    // This parametr for collegues swipe, invisibel download
+    !withoutLoading && disparch(this.setLoading(true));
+    
     const { page } = getState().collegues;
 
     try {

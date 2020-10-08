@@ -85,7 +85,7 @@ export const Collegues = () => {
     useEffect(() => {
         const count = collegues.length - collegueIndex;
         if (count === 3) {
-            dispatch(colleguesModule.actions.fetchCollegues());
+            dispatch(colleguesModule.actions.fetchCollegues(true));
         }
     }, [collegues, collegueIndex])
 
