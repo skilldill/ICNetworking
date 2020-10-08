@@ -166,57 +166,52 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                 />
             )}
 
-
-            {
-                !!collegues[currentIndex + 1] ? (
-                    <div className="avatar avatar-next">
-                        {!!collegues[currentIndex + 1].avatars.length ? (
-                            <img 
-                                className={cn({
-                                    "photo": true,
-                                    "photo-gallery": !galleryMode
-                                })}  
-                                src={collegues[currentIndex + 1].avatars[0].picture} alt={collegues[currentIndex].firstName} 
-                            />
-                        ) : (
-                            <div className="mock">
-                                <img src={UserAltPNG} alt=""/>
-                            </div>
-                        )}
-                    </div>
+            {!!collegues[currentIndex + 1] ? (
+                <div className="avatar avatar-next">
+                    {!!collegues[currentIndex + 1].avatars.length ? (
+                        <img 
+                            className={cn({
+                                "photo": true,
+                                "photo-gallery": !galleryMode
+                            })}  
+                            src={collegues[currentIndex + 1].avatars[0].picture} alt={collegues[currentIndex].firstName} 
+                        />
+                    ) : (
+                        <div className="mock">
+                            <img src={UserAltPNG} alt=""/>
+                        </div>
+                    )}
+                </div>
                 ) : (
-                    <div style={{paddingTop: 150}}>
-                        <Empty description="Вы просвайпали всех" />
-                    </div>
-                )
-            }
+                <div style={{paddingTop: 150}}>
+                    <Empty description="Вы просвайпали всех" />
+                </div>
+            )}
 
-            {
-                !!collegues[currentIndex] && (
-                    <div className="avatar" 
-                        onTouchStart={handleTouchStart()}
-                        onTouchMove={handleTouchMove(handleChangeOpacity)}
-                        onTouchEnd={handleTouchEnd(onTouchEnd)}
-                        style={galleryMode ? dragStyle : undefined}
-                    >
-                        {showGallery && <div className="avatar-control-backdrop" />}
-                        {!!collegues[currentIndex].avatars.length ? (
-                            <img 
-                                className={cn({
-                                    "photo": true,
-                                    "photo-gallery": !galleryMode
-                                })} 
-                                src={collegues[currentIndex].avatars[currentAvatar].picture} 
-                                alt={collegues[currentIndex].firstName} 
-                            /> 
-                        ) : (
-                            <div className="mock">
-                                <img src={UserAltPNG} alt=""/>
-                            </div>
-                        )}
-                    </div>
-                )
-            }
+            {!!collegues[currentIndex] && (
+                <div className="avatar" 
+                    onTouchStart={handleTouchStart()}
+                    onTouchMove={handleTouchMove(handleChangeOpacity)}
+                    onTouchEnd={handleTouchEnd(onTouchEnd)}
+                    style={galleryMode ? dragStyle : undefined}
+                >
+                    {showGallery && <div className="avatar-control-backdrop" />}
+                    {!!collegues[currentIndex].avatars.length ? (
+                        <img 
+                            className={cn({
+                                "photo": true,
+                                "photo-gallery": !galleryMode
+                            })} 
+                            src={collegues[currentIndex].avatars[currentAvatar].picture} 
+                            alt={collegues[currentIndex].firstName} 
+                        /> 
+                    ) : (
+                        <div className="mock">
+                            <img src={UserAltPNG} alt=""/>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

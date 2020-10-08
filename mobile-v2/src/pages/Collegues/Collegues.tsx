@@ -40,11 +40,11 @@ export const Collegues = () => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
 
-    // TEST USEEFFECT
-    useEffect(() => {
-        console.log(collegueIndex);
-        //  Смотреть на next в ответе запроса!!!
-    }, [collegueIndex])
+    // // TEST USEEFFECT
+    // useEffect(() => {
+    //     console.log(collegueIndex);
+    //     //  Смотреть на next в ответе запроса!!!
+    // }, [collegueIndex])
 
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {

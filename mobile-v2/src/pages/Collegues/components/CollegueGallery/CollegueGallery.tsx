@@ -2,6 +2,7 @@ import React, { FC, useMemo, useState, useCallback, useEffect } from "react";
 import cn from "classnames";
 
 import "./style.scss";
+import UserAltPNG from "assets/pictures/user-alt.png";
 import { MAX_TOUCH_TRANSLATE } from "shared/constants";
 import { useTouch } from "shared/hooks";
 
@@ -16,7 +17,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   const { collegue, currentAvatar, onSwipeLeft, onSwipeRight } = props;
   const { avatars, firstName } = collegue;
 
-  const singleAvatar = useMemo(() => avatars.length > 1, [collegue]);
+  const manyAvatars = useMemo(() => avatars.length > 1, [avatars]);
   const displayWidth = window.innerWidth;
 
   const {
@@ -36,6 +37,12 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
   useEffect(() => {
     setCurrentPhoto(currentAvatar);
   }, [])
+
+
+  // TEST USE EFFECT
+  useEffect(() => {
+    console.log(collegue.avatars);
+  }, [collegue])
 
   const onTouchEnd = () => {
     const calcedTranslate = stateTranslateX + (displayWidth * currentPhoto);
@@ -80,9 +87,17 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
     transition : stateTransition ? "all .3s" : "none"
   }), [stateTranslateX, stateTransition]);
 
+  const singlePhoto = useMemo(() => !!avatars.length ? (
+    <img src={avatars[0].picture} />
+  ) : (
+    <div className="mock-avatar">
+      <img src={UserAltPNG} />
+    </div>
+  ), [avatars])
+
   return (
     <div className="collegue-gallery">
-      { singleAvatar ? (
+      {manyAvatars ? (
           <div 
             className="avatars-lenta"
             onTouchStart={handleTouchStart()}
@@ -90,21 +105,19 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
             onTouchEnd={handleTouchEnd(onTouchEnd)}
             style={dragStyle}
           >
-            {
-              avatars.map((avatar: any, i: number) => 
-                <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
-                  <img src={avatar.picture} alt={firstName} />
-                </div>
-              )
-            }
-          </div>) : (
-          <div className="avatar-holder">
-            <img src={avatars[0]} />
+            {avatars.map((avatar: any, i: number) => 
+              <div className="avatar-holder" key={i} style={{minWidth: `${displayWidth}px`}}>
+                <img src={avatar.picture} alt={firstName} />
+              </div>
+            )}
           </div>
-          )
-        }
+        ) : (
+          <div className="avatar-holder">
+            {singlePhoto}
+          </div>
+      )}
 
-      {singleAvatar && (
+      {manyAvatars && (
         <div className="gallery-controls">
             {avatars.map((avatar: string, i: number) => 
                 <div 

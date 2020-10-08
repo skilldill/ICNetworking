@@ -11,6 +11,19 @@
     img {
       width: 70%;
     }
+
+    .mock-avatar {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      padding-top: 150px;
+
+      img {
+        width: 55px;
+        height: 55px;
+      }
+    }
   }
 
 
