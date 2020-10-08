@@ -30,6 +30,7 @@ import AchievementMeetingsAppointmentsSVG from "./achievement-meetings-appointme
 
 import PlusSVG from "./plus.svg";
 import ArrowDownSVG from "./arrow-down.svg";
+import StarFill from "./star-fill.svg";
 
 /* COMMON INFO */
 import DepartmentSVG from "./departments.svg";
@@ -61,5 +62,6 @@ export {
   DepartmentSVG,
   PositionSVG,
   LevelSVG,
-  ArrowDownSVG
+  ArrowDownSVG,
+  StarFill
 }

@@ -1,0 +1,46 @@
+.skills-field {
+  h3 {
+    img {
+      margin-left: 6px;
+    }
+  }
+
+  .skills {
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .skill {
+        width: 160px;
+        padding: 12px;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 8px rgba(178, 178, 178, 0.35);
+        border-radius: 8px;
+
+        .top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        h4 {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          color: #222222;
+          margin: 0;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 16px;
+          color: #222222;
+          text-align: start;
+          margin: 0;
+          margin-top: 25px;
+        }
+      }
+    }
+  }
+}
