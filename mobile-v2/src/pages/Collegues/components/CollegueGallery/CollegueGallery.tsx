@@ -107,7 +107,7 @@ export const CollegueGallery: FC<CollegueGalleryProps>  = (props) => {
           >
             {avatars.map((avatar: any, i: number) => 
               <div className="avatar-holder" key={i}>
-                <img src={avatar.picture} alt={firstName} />
+                <img src={avatar.picture} alt={firstName} style={{ width: displayWidth }} />
               </div>
             )}
           </div>
