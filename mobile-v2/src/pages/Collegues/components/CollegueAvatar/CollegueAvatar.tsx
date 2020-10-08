@@ -1,6 +1,5 @@
 import React, { FC, useState, useCallback, useMemo, useEffect } from "react";
 import { Empty } from "antd";
-import cn from "classnames";
 import "./style.scss";
 
 // PICTURES
@@ -8,7 +7,6 @@ import UserAltPNG from "assets/pictures/user-alt.png";
 import { MAX_TOUCH_TRANSLATE, StorageKeys } from "shared/constants";
 import { CollegueGallery } from "../CollegueGallery";
 import { useTouch } from "shared/hooks";
-import { colleguesModule } from "store/collegues";
 import { useDispatch } from "react-redux";
 
 interface CollegueAvatarProps {
@@ -170,10 +168,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                 <div className="avatar avatar-next">
                     {!!collegues[currentIndex + 1].avatars.length ? (
                         <img 
-                            className={cn({
-                                "photo": true,
-                                "photo-gallery": !galleryMode
-                            })}  
+                            className="photo"  
                             src={collegues[currentIndex + 1].avatars[0].picture} alt={collegues[currentIndex].firstName} 
                         />
                     ) : (
@@ -198,10 +193,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
                     {showGallery && <div className="avatar-control-backdrop" />}
                     {!!collegues[currentIndex].avatars.length ? (
                         <img 
-                            className={cn({
-                                "photo": true,
-                                "photo-gallery": !galleryMode
-                            })} 
+                            className="photo" 
                             src={collegues[currentIndex].avatars[currentAvatar].picture} 
                             alt={collegues[currentIndex].firstName} 
                         /> 
@@ -215,3 +207,7 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
         </div>
     )
 }
+
+// У img был этот класс чтобы при открытии галлереи
+// картинка типо подстраивалась
+//"photo-gallery": !galleryMode
