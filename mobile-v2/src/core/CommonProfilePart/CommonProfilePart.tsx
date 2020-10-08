@@ -12,7 +12,7 @@ export const CommonProfilePart: FC<CommonProfilePartProps> = (props) => {
     <>
       <CommonInfo profile={profile} />
       <InterestsField profile={profile} />
-      <AchievementsField />
+      <AchievementsField profile={profile} />
       <AboutField profile={profile} />
     </>
   )

@@ -1,65 +1,48 @@
 import React, { FC } from "react";
 
 import "./style.scss";
-import { 
-  AchievementMeetingsHeldSVG,
-  AchievementMeetingsSheduledSVG,
-  AchievementMeetingsAppointmentsSVG,
-} from "assets/icons";
+import { ArrowDownSVG } from "assets/icons";
+import { PartBlock } from "shared/components";
+
+// IMAGES
+import AchievmentMeetingsPNG from "assets/pictures/achievment-meetings.png";
+import AchievmentCalendarPNG from "assets/pictures/achievment-calendar.png"
 
 interface AchievementsFieldProps {
-  achievements?: { name: string, rate: number }[]
+  profile: any
 }
 
 export const AchievementsField: FC<AchievementsFieldProps> = (props) => {
-  const { achievements } = props;
+  const { profile } = props;
 
   return (
-    <div className="achievements-field">
-      <h3>Мои достижения</h3>
-      <div className="achievements-content">
-
-        <div className="achievement">
+    <PartBlock 
+      className="achievements-field" 
+      title={(
+        <h3>
+          Мои достижения 
+          <img src={ArrowDownSVG} alt="открыть" />
+        </h3>)}
+    >
+      <div className="achievments">
+        
+        <div className="achievment-card">
           <div className="picture">
-            <img src={AchievementMeetingsHeldSVG} alt="held meetings"/>
+            <img src={AchievmentMeetingsPNG} alt="Состоявшиеся встречи"/>
           </div>
-          <div className="description">
-            <h4>Состоявшиеся встречи</h4>
-            <small>Название уровня</small>
-          </div>
+          <h4>Состоявшиеся встречи</h4>
+          <p>Название уровня</p>
         </div>
 
-        <div className="achievement">
+        <div className="achievment-card">
           <div className="picture">
-            <img src={AchievementMeetingsSheduledSVG} alt="held meetings"/>
+            <img src={AchievmentCalendarPNG} alt="Запланированные встречи"/>
           </div>
-          <div className="description">
-            <h4>Запланированные встречи</h4>
-            <small>Название уровня</small>
-          </div>
-        </div>
-
-        <div className="achievement">
-          <div className="picture">
-            <img src={AchievementMeetingsAppointmentsSVG} alt="held meetings"/>
-          </div>
-          <div className="description">
-            <h4>Назначенные встречи</h4>
-            <small>Название уровня</small>
-          </div>
-        </div>
-
-        <div className="achievement">
-          <div className="picture">
-            <img src={AchievementMeetingsAppointmentsSVG} alt="held meetings"/>
-          </div>
-          <div className="description">
-            <h4>Успешные встречи</h4>
-            <small>Название уровня</small>
-          </div>
+          <h4>Запланированные встречи</h4>
+          <p>Название уровня</p>
         </div>
 
       </div>
-    </div>
+    </PartBlock>
   )
 }

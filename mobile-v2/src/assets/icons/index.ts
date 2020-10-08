@@ -29,6 +29,7 @@ import AchievementMeetingsSheduledSVG from "./achievement-meetings-sheduled.svg"
 import AchievementMeetingsAppointmentsSVG from "./achievement-meetings-appointments.svg";
 
 import PlusSVG from "./plus.svg";
+import ArrowDownSVG from "./arrow-down.svg";
 
 /* COMMON INFO */
 import DepartmentSVG from "./departments.svg";
@@ -59,5 +60,6 @@ export {
   PlusSVG,
   DepartmentSVG,
   PositionSVG,
-  LevelSVG
+  LevelSVG,
+  ArrowDownSVG
 }
