@@ -16,7 +16,7 @@ export const SkillsField: FC<SkillsFieldProps> = (props) => {
       className="skills-field"
       title={(
         <h3>
-          Мои достижения 
+          Мои навыки 
           <img src={ArrowDownSVG} alt="открыть" />
         </h3>)}
     >

@@ -16,6 +16,12 @@
       padding: 12px;
       width: 160px;
       border-radius: 8px;
+      flex: 1;
+      margin-right: 8px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
 
       .picture {
         text-align: center;
