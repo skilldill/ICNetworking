@@ -167,9 +167,9 @@ export const CollegueModal: FC<CollegueModalProps> = (props) => {
         <div 
             className={modalClasses}
             style={dragStyle}
-            onTouchStart={handleTouchStart()}
-            onTouchMove={handleTouchMove()}
-            onTouchEnd={handleTouchEnd(onTouchEnd)}
+            onTouchStart={!modeShowInfo ? handleTouchStart() : undefined}
+            onTouchMove={!modeShowInfo ? handleTouchMove() : undefined}
+            onTouchEnd={!modeShowInfo ? handleTouchEnd(onTouchEnd) : undefined}
         >
             <div className="top">
                 <div></div>

@@ -142,8 +142,12 @@ export const CollegueAvatar: FC<CollegueAvatarProps> = (props) => {
     useEffect(() => {
         if (!galleryMode) {
             document.body.style.overflowY = "scroll";
+            document.body.style.setProperty("overscroll-behavior", "auto");
+            document.body.style.touchAction = "auto";
         } else {
             document.body.style.overflowY = "hidden";
+            document.body.style.setProperty("overscroll-behavior", "none");
+            document.body.style.touchAction = "none";
         }
     }, [galleryMode])
 
