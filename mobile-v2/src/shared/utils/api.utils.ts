@@ -6,7 +6,8 @@ export const profileMapper = (profile: any) => ({
     username: profile.user_data.username,
     email: profile.user_data.email,
     bio: profile.bio,
-    avatars: profile.gallery,
+    // Так как android ругается на http, то чтобы не париться на фронте меняем на https
+    avatars: profile.gallery.map(({ picture }: { picture: string }) => ({ picture: picture.replace("http", "https") })),
     positionName: profile.position_name,
     prevProfile: profile
 })
