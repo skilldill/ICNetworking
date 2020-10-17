@@ -44,9 +44,9 @@ export const API_URLS = {
     departments: "/api/users/departments/",
 
     //SEARCHABLE LISTS
-    searchPositions: "/api/users/positions/?name_icontains=",
-    searchIntersts: "/api/users/interests/?name_icontains=",
-    searchDepartments: "/api/users/departments/?name_icontains="
+    searchPositions: "/api/users/positions/?name__icontains=",
+    searchIntersts: "/api/users/interests/?name__icontains=",
+    searchDepartments: "/api/users/departments/?name__icontains="
 }
 
 export const DELAY_KEYBOARD = 200;

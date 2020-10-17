@@ -53,6 +53,12 @@ export const Profile = () => {
         }
     }, [])
 
+    useEffect(() => {
+        if (edit === "edit") {
+            setShowProfileForm(true);
+        }
+    }, [edit])
+
     const handlLogout = async () => {
         dispatch(profileModule.actions.logout(() => {
             history.push(ROUTES.loadingPage);
