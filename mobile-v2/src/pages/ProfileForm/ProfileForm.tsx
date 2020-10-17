@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileModule } from "store/profile";
 import { FadePage } from "core/FadePage";
 import { Page } from "core/Page";
+import { commonModule } from "store/common";
 
 interface ProfileFormProps {
   onClose?: () => void;
@@ -136,6 +137,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
     };
     
     if (initialForm) {
+      dispatch(commonModule.actions.setShowTabbar(true));
       dispatch(profileModule.actions.createProfile(profileData));
       push(ROUTES.collegues);
     } else {

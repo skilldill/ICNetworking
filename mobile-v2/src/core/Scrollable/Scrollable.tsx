@@ -14,12 +14,12 @@ export const Scrollable: FC<ScrollableProps> = (props) => {
     const { style, className } = props;
     const { children } = props;
 
-    const { showKeyboard } = useSelector(commonModule.selector);
+    const { showKeyboard, showTabbar } = useSelector(commonModule.selector);
 
     const classes = useMemo(() => cn({
         "scrollabel": true,
-        "scrollabel-with-keyboard": showKeyboard
-    }, className), [showKeyboard, className])
+        "scrollabel-with-keyboard": showKeyboard || !showTabbar
+    }, className), [showKeyboard, showTabbar, className])
 
     return (
         <div className={classes} style={style}>

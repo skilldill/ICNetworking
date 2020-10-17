@@ -17,6 +17,7 @@ import { Loading } from "shared/components";
 import { Page } from "core/Page";
 import { useKeyboard } from "shared/hooks";
 import { CommonProfilePart } from "core/CommonProfilePart";
+import { commonModule } from "store/common";
 
 export const Profile = () => {
     // STORAGE DATA
@@ -55,6 +56,7 @@ export const Profile = () => {
 
     useEffect(() => {
         if (edit === "edit") {
+            dispatch(commonModule.actions.setShowTabbar(false));
             setShowProfileForm(true);
         }
     }, [edit])

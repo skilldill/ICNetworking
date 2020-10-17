@@ -18,13 +18,13 @@ export const Page: FC<PageProps> = (props) => {
         if (!!className) {
             return cn({
                 "page": true,
-                "page-without-bottom-padding": showKeyboard,
+                "page-without-bottom-padding": showKeyboard
             }, [className])
         }
 
         return cn({
             "page": true,
-            "page-without-bottom-padding": showKeyboard,
+            "page-without-bottom-padding": showKeyboard
         })
     }, [showKeyboard, className])
 
