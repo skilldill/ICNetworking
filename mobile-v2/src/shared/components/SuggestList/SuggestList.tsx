@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "re
 
 import "./style.scss";
 import { Input, PartBlock } from "../";
-import { PlusSVG } from "assets/icons";
+import { PlusSVG, SearchInputSVG } from "assets/icons";
 import { Scrollable } from "core/Scrollable";
 
 interface SuggestListProps {
@@ -16,6 +16,7 @@ interface SuggestListProps {
 export const SuggestList: FC<SuggestListProps> = (props) => {
   const { options, focused, onSelect, onSearch, normalize } = props;
 
+  const [searchValue, setSearchValue] = useState("");
   const [normalizedOptions, setNormalizedOptions] = useState<any[]>([]);
 
   useEffect(() => {
@@ -32,7 +33,8 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
 
   const handleSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    
+    setSearchValue(value);
+
     if (value.length > 2) {
       !!onSearch && onSearch(value);
     }
@@ -52,8 +54,15 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
 
   return (
     <div className="suggest-list">
-      <PartBlock>
-        <Input isFocus={focused} onChange={handleSearch}/>
+      <PartBlock className="part-block-search">
+        {/* <img className="search-icon" src={SearchInputSVG} alt="поиск"/> */}
+        <Input 
+          isFocus={focused} 
+          onChange={handleSearch} 
+          onClear={() => setSearchValue("")}
+          value={searchValue}
+          showClear 
+        />
       </PartBlock>
       <div className="list-items">
         <Scrollable>

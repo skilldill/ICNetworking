@@ -13,6 +13,14 @@
     }
   }
 
+  .part-block-search {
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+    }
+  }
+
   .list-items {
     .part-block {
       padding: 8px 24px;

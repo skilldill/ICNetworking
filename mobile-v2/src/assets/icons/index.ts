@@ -36,6 +36,7 @@ import StarFill from "./star-fill.svg";
 import DepartmentSVG from "./departments.svg";
 import PositionSVG from "./position.svg";
 import LevelSVG from "./level.svg";
+import SearchInputSVG from "./search-input.svg";
 
 export {
   ColleguesSVG,
@@ -63,5 +64,6 @@ export {
   PositionSVG,
   LevelSVG,
   ArrowDownSVG,
-  StarFill
+  StarFill,
+  SearchInputSVG
 }
