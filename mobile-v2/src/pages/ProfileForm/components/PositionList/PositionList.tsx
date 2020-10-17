@@ -54,9 +54,20 @@ export const PositionList: FC<PositionListProps> = (props) => {
       }
 
     const handleSelect = useCallback((value: any) => {
-        onSelect(value);
+        // Если у объекта нет id значит это значение,
+        // которое ввел пользователь
+        if (!value.id) {
+            console.log(value);
+            dispatch(listsModule.actions.createPosition(value));
+        } else {
+            onSelect(value);
+        }
         handleClose();
     }, [onSelect, handleClose])
+
+    const handleSearch = useCallback((value: string) => {
+        dispatch(listsModule.actions.searchPositions(value));
+    }, [dispatch])
 
     return (
         <Page>
@@ -64,7 +75,12 @@ export const PositionList: FC<PositionListProps> = (props) => {
                 title="Должность" 
                 leftButton={<span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>}
             />
-            <SuggestList options={positions} onSelect={handleSelect} focused={focusedSearch} />
+            <SuggestList 
+                options={positions} 
+                onSelect={handleSelect} 
+                focused={focusedSearch}
+                onSearch={handleSearch}
+            />
         </Page>
     )
 }

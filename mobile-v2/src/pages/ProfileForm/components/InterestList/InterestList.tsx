@@ -54,9 +54,19 @@ export const InterestList: FC<InterestListProps> = (props) => {
     }
     
     const handleSelect = useCallback((value: any) => {
-        onSelect(value);
+        // Если у объекта нет id значит это значение,
+        // которое ввел пользователь
+        if (!value.id) {
+            dispatch(listsModule.actions.createInterest(value));
+        } else {
+            onSelect(value);
+        }
         handleClose();
     }, [onSelect, handleClose])
+
+    const handleSearch = useCallback((value: string) => {
+        dispatch(listsModule.actions.searchInterests(value));
+    }, [dispatch])
 
     return (
         <Page>
@@ -64,7 +74,12 @@ export const InterestList: FC<InterestListProps> = (props) => {
                 title="Интересы" 
                 leftButton={<span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>}
             />
-            <SuggestList options={interests} onSelect={handleSelect} focused={focusedSearch} />
+            <SuggestList 
+                options={interests}
+                onSelect={handleSelect} 
+                focused={focusedSearch}
+                onSearch={handleSearch}
+            />
         </Page>
     )
 }

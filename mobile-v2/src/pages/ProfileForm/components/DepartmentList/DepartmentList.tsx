@@ -37,12 +37,12 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
       }, 350)
   }, [])
 
-  useEffect(() => {
-      if (departments.length === 0 && !requested) {
-          setRequested(true);
-          dispatch(listsModule.actions.fetchDepartments());
-      }
-  }, [departments, requested])
+  // useEffect(() => {
+  //     if (departments.length === 0 && !requested) {
+  //         setRequested(true);
+  //         dispatch(listsModule.actions.fetchDepartments());
+  //     }
+  // }, [departments, requested])
 
   const handleClose = () => {
     // Этот костыль нужен чтобы сначала убрать 
@@ -54,9 +54,19 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
   }
 
   const handleSelect = useCallback((value: any) => {
-    onSelect(value);
+    // Если у объекта нет id значит это значение,
+    // которое ввел пользователь
+    if (!value.id) {
+      dispatch(listsModule.actions.createDepartment(value));
+    } else {
+      onSelect(value);
+    }
     handleClose();
-  }, [onSelect, handleClose])
+  }, [onSelect, handleClose, dispatch])
+
+  const handleSearch = useCallback((value: string) => {
+    dispatch(listsModule.actions.searchDepartments(value));
+  }, [dispatch])
 
   return (
     <Page>
@@ -64,7 +74,12 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
           title="Отдел" 
           leftButton={<span onClick={handleClose} className="nav-button nav-button-cancel">Отмена</span>}
       />
-      <SuggestList options={departments} onSelect={handleSelect} focused={focusedSearch} />
+      <SuggestList 
+        options={departments} 
+        onSelect={handleSelect} 
+        focused={focusedSearch}
+        onSearch={handleSearch}
+      />
     </Page>
   )
 }

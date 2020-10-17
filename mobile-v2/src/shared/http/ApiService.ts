@@ -78,4 +78,32 @@ export class ApiService {
     static getDepartments = () => {
         return http.get(API_URLS.departments);
     }
+
+    // Searchable lists 
+    static searchPositions = (value: string) => {
+        const url = API_URLS.searchPositions + value;
+        return http.get(url);
+    }
+
+    static searchInterests = (value: string) => {
+        const url = API_URLS.searchIntersts + value;
+        return http.get(url);
+    }
+
+    static searchDepartments = (value: string) => {
+        const url = API_URLS.searchDepartments + value;
+        return http.get(url);
+    }
+
+    static createPosition = (value: {name: string}) => {
+        return http.post(API_URLS.positions, value);
+    }
+
+    static createInterest = (value: {name: string}) => {
+        return http.post(API_URLS.interests, value);
+    }
+
+    static createDepartment = (value: {name: string}) => {
+        return http.post(API_URLS.departments, value);
+    }
 }

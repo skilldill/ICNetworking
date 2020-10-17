@@ -53,7 +53,7 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
   return (
     <div className="suggest-list">
       <PartBlock>
-        <Input isFocus={focused} />
+        <Input isFocus={focused} onChange={handleSearch}/>
       </PartBlock>
       <div className="list-items">
         <Scrollable>
