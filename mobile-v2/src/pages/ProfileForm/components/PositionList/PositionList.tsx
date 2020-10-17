@@ -51,7 +51,6 @@ export const PositionList: FC<PositionListProps> = (props) => {
         // Если у объекта нет id значит это значение,
         // которое ввел пользователь
         if (!value.id) {
-            console.log(value);
             dispatch(listsModule.actions.createPosition(value));
         } else {
             onSelect(value);
