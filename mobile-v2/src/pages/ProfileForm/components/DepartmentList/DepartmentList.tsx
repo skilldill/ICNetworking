@@ -37,13 +37,6 @@ export const DepartmentList: FC<DepartmentListProps> = (props) => {
       }, 350)
   }, [])
 
-  // useEffect(() => {
-  //     if (departments.length === 0 && !requested) {
-  //         setRequested(true);
-  //         dispatch(listsModule.actions.fetchDepartments());
-  //     }
-  // }, [departments, requested])
-
   const handleClose = () => {
     // Этот костыль нужен чтобы сначала убрать 
     // клавиатуру, а потом закрыть окно, 

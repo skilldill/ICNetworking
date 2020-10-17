@@ -37,12 +37,6 @@ export const InterestList: FC<InterestListProps> = (props) => {
         }, 350)
     }, [])
 
-    useEffect(() => {
-        if (interests.length === 0 && !requested) {
-            dispatch(listsModule.actions.fetchInterests());
-        }
-    }, [interests, requested])
-
     const handleClose = () => {
         // Этот костыль нужен чтобы сначала убрать 
         // клавиатуру, а потом закрыть окно, 
