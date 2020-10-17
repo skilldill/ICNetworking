@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import "./style.scss";
 import { Navbar } from "core/Navbar";
-import { CollegueAvatar, CollegueModal, ButtonControls } from "./components";
+import { CollegueAvatar, CollegueModal, ButtonControls, FiltersBlock } from "./components";
 import { useDispatch, useSelector } from "react-redux";
 import { colleguesModule } from "store/collegues";
 import { Loading } from "shared/components";
 import { StorageKeys } from "shared/constants";
+import { spawn } from "child_process";
+import { FadePage } from "core/FadePage";
 
 export const Collegues = () => {
     const { collegues, loading } = useSelector(colleguesModule.selector);
@@ -22,6 +24,9 @@ export const Collegues = () => {
     // WORK WITH MODAL
     const [isOpenModal, setIsOpenModal] = useState(false);
     
+    // FILTERS
+    const [showFilters, setShowFilters] = useState(false);
+
     // DOWNLOAD COLLEGUES
     useEffect(() => {
         dispatch(colleguesModule.actions.fetchCollegues());
@@ -91,8 +96,13 @@ export const Collegues = () => {
             {loading ? <Loading /> : (
                 <>
                     <Navbar 
-                    title="Коллеги" 
-                    onClickBack={isOpenModal ? () => { setIsOpenModal(false) } : undefined}
+                        title="Коллеги" 
+                        leftButton={
+                            <span 
+                                className="nav-right-btn"
+                                onClick={() => setShowFilters(true)}
+                            >Фильтры</span>
+                        }
                     />
 
                     {canSelectCollegue && (
@@ -119,6 +129,10 @@ export const Collegues = () => {
                     />
                 </>
             )}
+
+            <FadePage show={showFilters} direction="horizontal">
+                <FiltersBlock onClose={() => setShowFilters(false)} />
+            </FadePage>
         </div>
     )
 }
