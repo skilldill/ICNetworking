@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import "./style.scss";
 import { useSelector } from "react-redux";
-import { keyboardModule } from "store/keyboard";
+import { commonModule } from "store/common";
 
 interface ScrollableProps {
     className?: string,
@@ -14,7 +14,7 @@ export const Scrollable: FC<ScrollableProps> = (props) => {
     const { style, className } = props;
     const { children } = props;
 
-    const { showKeyboard } = useSelector(keyboardModule.selector);
+    const { showKeyboard } = useSelector(commonModule.selector);
 
     const classes = useMemo(() => cn({
         "scrollabel": true,

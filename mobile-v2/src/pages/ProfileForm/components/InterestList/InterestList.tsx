@@ -8,7 +8,7 @@ import { listsModule } from "store/lists";
 import { Page } from "core/Page";
 import { DELAY_KEYBOARD } from "shared/constants";
 import { useKeyboard } from "shared/hooks";
-import { keyboardModule } from "store/keyboard";
+import { commonModule } from "store/common";
 
 interface InterestListProps {
     onClose: () => void;
@@ -18,7 +18,7 @@ interface InterestListProps {
 export const InterestList: FC<InterestListProps> = (props) => {
     const { onClose, onSelect } = props;
 
-    const { showKeyboard } = useSelector(keyboardModule.selector);
+    const { showKeyboard } = useSelector(commonModule.selector);
 
     const dispatch = useDispatch();
     const { interests, loading } = useSelector(listsModule.selector);

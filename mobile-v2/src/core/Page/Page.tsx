@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import cn from "classnames";
 
 import "./style.scss";
-import { keyboardModule } from "store/keyboard";
+import { commonModule } from "store/common";
 
 interface PageProps {
     className?: string
@@ -12,7 +12,7 @@ interface PageProps {
 export const Page: FC<PageProps> = (props) => {
     const { children, className } = props;
 
-    const { showKeyboard } = useSelector(keyboardModule.selector);
+    const { showKeyboard } = useSelector(commonModule.selector);
 
     const classes = useMemo(() => {
         if (!!className) {

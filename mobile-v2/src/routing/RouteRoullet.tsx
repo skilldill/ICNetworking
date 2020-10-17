@@ -6,17 +6,17 @@ import { ROUTES } from "shared/constants";
 import { Collegues, Matches, Chats, Meetings, Profile, Authorization, LoadingPage } from "pages";
 import { Tabbar } from "core/Tabbar";
 import { useDispatch, useSelector } from "react-redux";
-import { keyboardModule } from "store/keyboard";
+import { commonModule } from "store/common";
 
 export const RouteRoullet = () => {
     const { Keyboard } = Plugins;
 
     const dispatch = useDispatch();
-    const { showKeyboard } = useSelector(keyboardModule.selector);
+    const { showKeyboard } = useSelector(commonModule.selector);
 
     useEffect(() => {
-        Keyboard.addListener("keyboardWillShow", () => dispatch(keyboardModule.actions.setShowKeyboard(true)));
-        Keyboard.addListener("keyboardWillHide", () =>  dispatch(keyboardModule.actions.setShowKeyboard(false)));
+        Keyboard.addListener("keyboardWillShow", () => dispatch(commonModule.actions.setShowKeyboard(true)));
+        Keyboard.addListener("keyboardWillHide", () =>  dispatch(commonModule.actions.setShowKeyboard(false)));
     }, [])
 
     return (
