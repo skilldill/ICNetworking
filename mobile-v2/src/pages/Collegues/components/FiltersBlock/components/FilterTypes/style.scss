@@ -1,0 +1,23 @@
+.filter-types {
+    padding: 8px 0;
+    border-bottom: 1px solid #E8E8E8;
+    display: flex;
+    overflow-x: scroll;
+
+    .type-value {
+        font-size: 16px;
+        padding: 0 16px;
+        color: #222222;
+        position: relative;
+
+        .outline {
+            position: absolute;
+            bottom: -8px;
+            left: 0px;
+            right: 0px;
+            height: 2px;
+            border-radius: 1px;
+            background-color: #5295F1;
+        }
+    }
+}

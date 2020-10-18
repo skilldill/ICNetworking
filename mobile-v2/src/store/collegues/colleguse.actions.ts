@@ -5,15 +5,17 @@ import { ApiService } from "shared/http";
 import { profileMapper } from "shared/utils";
 
 export const COLLEGUES_ACTION_TYPES = {
-  setCollegues: 'COLLEGUES.SET_COLLEGUES',
-  setLoading: 'COLLEGUES.SET_LOADING',
-  setPage: 'COLLEGUES.SET_PAGE'
+  SET_COLLEGUES: 'COLLEGUES.SET_COLLEGUES',
+  SET_LOADING: 'COLLEGUES.SET_LOADING',
+  SET_PAGE: 'COLLEGUES.SET_PAGE',
+  SET_FILTER: "COLLEGUES.SET_FILTER"
 }
 
 export class ColleguesActions {
-  setCollegues = createAction(COLLEGUES_ACTION_TYPES.setCollegues);
-  setLoading = createAction(COLLEGUES_ACTION_TYPES.setLoading);
-  setPage = createAction(COLLEGUES_ACTION_TYPES.setPage);
+  setCollegues = createAction(COLLEGUES_ACTION_TYPES.SET_COLLEGUES);
+  setLoading = createAction(COLLEGUES_ACTION_TYPES.SET_LOADING);
+  setPage = createAction(COLLEGUES_ACTION_TYPES.SET_PAGE);
+  setFilter = createAction(COLLEGUES_ACTION_TYPES.SET_FILTER);
 
   fetchCollegues = (withoutLoading?: boolean) => async (disparch: Dispatch, getState: () => any) => {
     // This parametr for collegues swipe, invisibel download

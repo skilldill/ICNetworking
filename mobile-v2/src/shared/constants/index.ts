@@ -25,6 +25,13 @@ export enum StatusesUsing {
     edit = "edit"
 }
 
+export enum FilterTypeNames {
+    position = "position",
+    skills = "skills",
+    department = "department",
+    interest = "interest"
+}
+
 export const API_URLS = {
     // USERS
     users: "/api/users/",

@@ -8,6 +8,13 @@
     color: #686868;
   }
 
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 11px;
+    z-index: 1;
+  }
+
   .ant-input {
     background: #F8F8F8;
     border: 1px solid #F8F8F8;
