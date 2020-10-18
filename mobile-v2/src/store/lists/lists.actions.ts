@@ -56,37 +56,61 @@ class ListsActions {
     }
 
     // SEARCHABLE
-    searchPositions = (value: string) => async (dispatch: Dispatch) => {
+    searchPositions = (value: string, isFilter?: boolean) => async (dispatch: Dispatch) => {
         try {
             const { data } = await ApiService.searchPositions(value);
             
+            if (value.length === 0) {
+                dispatch(this.setPositions([]));
+            }
+
             // Вставляем вводимое значение в список 
             // чтобы пользователь мог создать новое значение
-            dispatch(this.setPositions([{ name: value }, ...data.results]));
+            if (isFilter) {
+                dispatch(this.setPositions(data.results));
+            } else {
+                dispatch(this.setPositions([{ name: value }, ...data.results]));
+            }
         } catch(error) {
             console.log(error);
         }
     }
 
-    searchInterests = (value: string) => async (dispatch: Dispatch) => {
+    searchInterests = (value: string, isFilter?: boolean) => async (dispatch: Dispatch) => {
         try {
             const { data } = await ApiService.searchInterests(value);
 
+            if (value.length === 0) {
+                dispatch(this.setInterests([]));
+            }
+
             // Вставляем вводимое значение в список 
             // чтобы пользователь мог создать новое значение
-            dispatch(this.setInterests([{ name: value }, ...data.results]));
+            if (isFilter) {
+                dispatch(this.setInterests(data.results));
+            } else {
+                dispatch(this.setInterests([{ name: value }, ...data.results]));
+            }
         } catch(error) {
             console.log(error);
         }
     }
 
-    searchDepartments = (value: string) => async (dispatch: Dispatch) => {
+    searchDepartments = (value: string, isFilter?: boolean) => async (dispatch: Dispatch) => {
         try {
             const { data } = await ApiService.searchDepartments(value);
 
+            if (value.length === 0) {
+                dispatch(this.setDepartments([]));
+            }
+
             // Вставляем вводимое значение в список 
             // чтобы пользователь мог создать новое значение
-            dispatch(this.setDepartments([{ name: value }, ...data.results]));
+            if (isFilter) {
+                dispatch(this.setDepartments(data.results));
+            } else {
+                dispatch(this.setDepartments([{ name: value }, ...data.results]));
+            }
         } catch(error) {
             console.log(error);
         }
