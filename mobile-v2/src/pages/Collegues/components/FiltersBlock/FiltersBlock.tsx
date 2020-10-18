@@ -10,6 +10,7 @@ import { FilterTypes } from "./components";
 import { FilterTypeNames } from "shared/constants";
 import { colleguesModule } from "store/collegues";
 import { listsModule } from "store/lists";
+import { useKeyboard } from "shared/hooks";
 
 interface FiltersBlockProps {
     onClose: () => void
@@ -22,7 +23,8 @@ export const FiltersBlock: FC<FiltersBlockProps> = (props) => {
     const { filter } = useSelector(colleguesModule.selector);
     const { departments, interests, positions } = useSelector(listsModule.selector);
     const [options, setOptions] = useState<any>([]);
-
+    const [openKeyboard, hideKeyboard] = useKeyboard();
+    
     // Очищаеи все листы перед поиском
     useEffect(() => {
         dispatch(listsModule.actions.setDepartments([]));
@@ -77,7 +79,9 @@ export const FiltersBlock: FC<FiltersBlockProps> = (props) => {
     }, [dispatch])
 
     const handleSelect = useCallback((value: any) => {
-        console.log(value);
+        // Псевдо фильтрация
+        dispatch(colleguesModule.actions.fetchCollegues());
+        hideKeyboard(() => onClose());
     }, []);
 
     return (
