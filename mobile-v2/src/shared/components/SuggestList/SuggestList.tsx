@@ -4,6 +4,7 @@ import "./style.scss";
 import { Input, PartBlock } from "../";
 import { PlusSVG, SearchInputSVG } from "assets/icons";
 import { Scrollable } from "core/Scrollable";
+import { SelectList } from "../SelectList";
 
 interface SuggestListProps {
   options: any[],
@@ -62,11 +63,7 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
           showClear 
         />
       </PartBlock>
-      <div className="list-items">
-        <Scrollable>
-          {optionsList}
-        </Scrollable>
-      </div>
+      <SelectList options={normalizedOptions} onSelect={handleSelect} />
     </div>
   )
 }
