@@ -35,9 +35,7 @@ export const SuggestList: FC<SuggestListProps> = (props) => {
     const { value } = event.currentTarget;
     setSearchValue(value);
 
-    if (value.length > 2) {
-      !!onSearch && onSearch(value);
-    }
+    !!onSearch && onSearch(value);
   }, [onSearch])
 
   const optionsList = useMemo(() => !!options.length ? (
