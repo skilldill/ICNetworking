@@ -45,12 +45,6 @@ export const Collegues = () => {
         setCollegueIndex(collegueIndex + 1);
     }, [collegueIndex])
 
-    // // TEST USEEFFECT
-    // useEffect(() => {
-    //     console.log(collegueIndex);
-    //     //  Смотреть на next в ответе запроса!!!
-    // }, [collegueIndex])
-
     const handleLike = useCallback(() => {
         const swipePromise = new Promise<NodeJS.Timeout>((resolve) => {
             setDoSwipeToRight(true);
@@ -90,6 +84,14 @@ export const Collegues = () => {
                 setDoSwipeToLeft(false);
             })
     }, [collegueIndex, setDoSwipeToLeft])
+
+    // SCROLL FOR SHOW MORE INFO MODAL (EQUAL TO TELEGA)
+    useEffect(() => {
+        if (isOpenModal) {
+            window.scroll({ top: 400, behavior: "smooth" });
+        }
+    }, [isOpenModal])
+
 
     return (
         <div className="collegues">
