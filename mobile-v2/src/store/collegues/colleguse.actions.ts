@@ -8,7 +8,8 @@ export const COLLEGUES_ACTION_TYPES = {
   SET_COLLEGUES: 'COLLEGUES.SET_COLLEGUES',
   SET_LOADING: 'COLLEGUES.SET_LOADING',
   SET_PAGE: 'COLLEGUES.SET_PAGE',
-  SET_FILTER: "COLLEGUES.SET_FILTER"
+  SET_FILTER: "COLLEGUES.SET_FILTER",
+  SET_FILTRED_COLLEGUES: "SET_FILTRED_COLLEGUES"
 }
 
 export class ColleguesActions {
@@ -16,6 +17,7 @@ export class ColleguesActions {
   setLoading = createAction(COLLEGUES_ACTION_TYPES.SET_LOADING);
   setPage = createAction(COLLEGUES_ACTION_TYPES.SET_PAGE);
   setFilter = createAction(COLLEGUES_ACTION_TYPES.SET_FILTER);
+  setFilterdCollegues = createAction(COLLEGUES_ACTION_TYPES.SET_FILTRED_COLLEGUES);
 
   fetchCollegues = (withoutLoading?: boolean) => async (disparch: Dispatch, getState: () => any) => {
     // This parametr for collegues swipe, invisibel download
@@ -34,6 +36,20 @@ export class ColleguesActions {
       console.log(error);
     } finally {
       disparch(this.setLoading(false));
+    }
+  }
+
+  filter = (filters: any) => async (dispatch: Dispatch) => {
+    dispatch(this.setLoading(true));
+
+    try {
+      const {data} = await ApiService.filterProfiles(filters);
+      const profiles = data.map(profileMapper);
+      dispatch(this.setFilterdCollegues(profiles));
+    } catch(error) {
+      console.log(error.message);
+    } finally {
+      dispatch(this.setLoading(false));
     }
   }
 

@@ -57,6 +57,10 @@ export class ApiService {
         return http.get(API_URLS.profiles, { params });
     }
 
+    static filterProfiles = (data: any) => {
+        return http.post(API_URLS.profilesFilter, data);
+    }
+
     // Events
     static matching = (profileId: number, collegueProfileId: number) => {
         const params = {

@@ -1,5 +1,6 @@
 import { handleActions, Action } from "redux-actions";
 import { FilterTypeNames } from "shared/constants";
+import { COMMON_ACTION_TYPES } from "store/common/common.actions";
 import { ColleguesState } from "./collegues.model";
 import { COLLEGUES_ACTION_TYPES } from "./colleguse.actions";
 
@@ -16,6 +17,11 @@ const initialState: ColleguesState = {
 const setCollegues = (state: ColleguesState, action: Action<any[]>) => ({
   ...state,
   collegues: [...state.collegues, ...action.payload]
+})
+
+ const setFiltredCollegues = (state: ColleguesState, action: Action<any[]>) => ({
+  ...state,
+  collegues: action.payload
 })
 
 const setLoading = (state: ColleguesState, action: Action<any>) => ({
@@ -37,7 +43,8 @@ const mapReducer = {
   [COLLEGUES_ACTION_TYPES.SET_COLLEGUES]: setCollegues,
   [COLLEGUES_ACTION_TYPES.SET_LOADING]: setLoading,
   [COLLEGUES_ACTION_TYPES.SET_PAGE]: setPage,
-  [COLLEGUES_ACTION_TYPES.SET_FILTER]: setFilter
+  [COLLEGUES_ACTION_TYPES.SET_FILTER]: setFilter,
+  [COLLEGUES_ACTION_TYPES.SET_FILTRED_COLLEGUES]: setFiltredCollegues
 }
 
 export const colleguesReducer = handleActions(mapReducer, initialState);

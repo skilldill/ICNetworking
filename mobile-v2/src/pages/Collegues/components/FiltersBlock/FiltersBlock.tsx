@@ -80,7 +80,8 @@ export const FiltersBlock: FC<FiltersBlockProps> = (props) => {
 
     const handleSelect = useCallback((value: any) => {
         // Псевдо фильтрация
-        dispatch(colleguesModule.actions.fetchCollegues());
+        const prepareFilter = {[filter.type]: [value.id]};
+        dispatch(colleguesModule.actions.filter(prepareFilter));
         hideKeyboard(() => onClose());
     }, []);
 

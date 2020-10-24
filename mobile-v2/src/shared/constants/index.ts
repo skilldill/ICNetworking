@@ -26,10 +26,10 @@ export enum StatusesUsing {
 }
 
 export enum FilterTypeNames {
-    position = "position",
+    position = "positions",
     skills = "skills",
-    department = "department",
-    interest = "interest"
+    department = "departments",
+    interest = "interests"
 }
 
 export const API_URLS = {
@@ -41,6 +41,7 @@ export const API_URLS = {
     // PROFILES
     profiles: "/api/users/profiles/",
     profilePhoto: "/api/users/profiles/profile_pictures/",
+    profilesFilter: "/api/users/profiles/filter_by_inline/",
 
     // EVENTS
     matches: "/api/events/matches/",
