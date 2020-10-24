@@ -81,15 +81,28 @@ export const FiltersBlock: FC<FiltersBlockProps> = (props) => {
     const handleSelect = useCallback((value: any) => {
         // Псевдо фильтрация
         const prepareFilter = {[filter.type]: [value.id]};
+
+        // Задаем фильтр для того чтобы можно было сбросить
+        dispatch(colleguesModule.actions.setFilter({ type: filter.type, value: value.id }));
+
         dispatch(colleguesModule.actions.filter(prepareFilter));
         hideKeyboard(() => onClose());
     }, []);
+
+    const handleDropFilters = useCallback(() => {
+        dispatch(colleguesModule.actions.setFilter({ type: filter.type }));
+        dispatch(colleguesModule.actions.fetchCollegues());
+        hideKeyboard(() => onClose());
+    }, [dispatch]);
+
+    const dropButton = useMemo(() => !!filter.value ? (<span onClick={handleDropFilters}>Сбросить</span>) : <></>, [filter])
 
     return (
         <Page className="filters-block">
             <Navbar 
                 title="Коллеги" 
                 leftButton={<span onClick={onClose}>Отмена</span>}
+                rightButton={dropButton}
             />
             <PartBlock className="search-block">
                 <Input search placeholder="Поиск" onChange={handleSearch}/>
