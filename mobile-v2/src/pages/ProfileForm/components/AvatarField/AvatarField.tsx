@@ -1,5 +1,5 @@
 import React, { FC, useState, useMemo } from "react";
-import { Camera, CameraResultType, CameraPhoto } from "@capacitor/core";
+import { Camera, CameraResultType, CameraPhoto, CameraSource, CameraDirection } from "@capacitor/core";
 
 import "./style.scss";
 import { ProfileAvatarSVG } from "assets/icons";
@@ -17,6 +17,10 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
     const handlePhoto = async () => {
         try {
             const photo = await Camera.getPhoto({
+                source: CameraSource.Prompt,
+                promptLabelPhoto: "Открыть камеру",
+                promptLabelPicture: "Выбрать из галереи",
+                direction: CameraDirection.Front,
                 quality: 90,
                 allowEditing: true,
                 resultType: CameraResultType.DataUrl

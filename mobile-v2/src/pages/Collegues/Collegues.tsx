@@ -89,6 +89,7 @@ export const Collegues = () => {
     useEffect(() => {
         if (isOpenModal) {
             window.scroll({ top: 400, behavior: "smooth" });
+            document.body.style.overflowX = "hidden";
         }
     }, [isOpenModal])
 
