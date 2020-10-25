@@ -61,7 +61,11 @@ export class ApiService {
         return http.post(API_URLS.profilesFilter, data);
     }
 
-    // Events
+    // Events matches
+    static getMatches = () => {
+        return http.get(API_URLS.matches);
+    }
+
     static matching = (profileId: number, collegueProfileId: number) => {
         const params = {
             user_profile: profileId,
