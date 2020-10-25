@@ -5,14 +5,23 @@ import { Scrollable } from "core/Scrollable";
 import { MacthesItem } from "../MatchesItem";
 
 interface MatchesListProps {
-    matches: any[]
+    matches: any[],
+    selectedIds: any[],
+    selectMode: boolean
 }
 
 export const MatchesList: FC<MatchesListProps> = (props) => {
-    const { matches } = props;
+    const { matches, selectedIds, selectMode } = props;
 
     const matchesList = useMemo(() => matches.length ? (
-        matches.map((match, i) => <MacthesItem key={i} match={match} />)
+        matches.map((match, i) => (
+            <MacthesItem 
+                key={i} 
+                match={match} 
+                selected={selectedIds.includes(match.id)}
+                selectMode={selectMode}
+            />
+        ))
     ) : <></>, [matches])
 
     return (

@@ -37,6 +37,9 @@ import DepartmentSVG from "./departments.svg";
 import PositionSVG from "./position.svg";
 import LevelSVG from "./level.svg";
 import SearchInputSVG from "./search-input.svg";
+import SelectListItemSVG from "./select-list-item.svg";
+import SelectListItemActiveSVG from "./select-list-item-active.svg";
+import PlusWhiteSVG from "./plus-white.svg";
 
 export {
   ColleguesSVG,
@@ -65,5 +68,8 @@ export {
   LevelSVG,
   ArrowDownSVG,
   StarFill,
-  SearchInputSVG
+  SearchInputSVG,
+  SelectListItemSVG,
+  SelectListItemActiveSVG,
+  PlusWhiteSVG
 }

@@ -5,11 +5,11 @@ import { http } from "shared/http";
 import { useDispatch, useSelector } from "react-redux";
 import { matchesModule } from "store/matches";
 import { Page } from "core/Page";
-import { MatchesList } from "./components";
+import { MatchesAdd, MatchesList } from "./components";
 
 export const Matches = () => {
     const dispatch = useDispatch();
-    const { matches, loading } = useSelector(matchesModule.selector);
+    const { matches, loading, selectedIds, selectMode } = useSelector(matchesModule.selector);
 
     // test matches
     useEffect(() => {
@@ -19,7 +19,8 @@ export const Matches = () => {
     return (
         <Page className="matches">
             <Navbar title="Совпадения" />
-            <MatchesList matches={matches} />
+            <MatchesAdd />
+            <MatchesList matches={matches} selectedIds={selectedIds} selectMode={selectMode} />
         </Page>
     )
 }

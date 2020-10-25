@@ -5,7 +5,9 @@ import { MATCHES_ACTION_TYPES } from "./matches.actions";
 
 const initialState: MatchesState = {
     matches: [],
-    loading: false
+    selectedIds: [19, 29],
+    loading: false,
+    selectMode: false,
 }
 
 const setMatches = (state: MatchesState, action: Action<any[]>): MatchesState => ({

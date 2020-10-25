@@ -1,4 +1,6 @@
 export interface MatchesState {
     matches: any[],
-    loading: boolean
+    selectedIds: any[],
+    selectMode: boolean,
+    loading: boolean,
 }

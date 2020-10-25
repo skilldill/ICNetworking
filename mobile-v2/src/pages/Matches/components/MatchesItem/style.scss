@@ -1,44 +1,83 @@
 .matches-item {
-    display: flex;
-    align-items: center;
+    position: relative;
     padding: 10px 24px;
-
-    p {
-        text-align: start;
-        margin: 0;
-    }
-
-    .fullname {
-        font-size: 16px;
-        color: #222222;
-    }
-
-    .position {
-        font-size: 14px;
-        color: #686868;
-    }
-
-    .avatar {
-        width: 44px;
-        height: 44px;
+    overflow: hidden;
+    height: 65px;
+    
+    &-select {
+        transition: all .3s;
+        margin-top: 12px;
+        width: 20px;
+        height: 20px;
         border-radius: 100%;
-        overflow: hidden;
-        background: #E5EFFD;
+        // background: #E8E8E8;
+        opacity: 0;
+    }
+
+    &-content {
+        transition: all .3s;
+        transform: translateX(0px);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 24px;
+        right: 0;
         display: flex;
         align-items: center;
-        margin-right: 12px;
 
-        img {
+        p {
+            line-height: 19px;
+            text-align: start;
+            margin: 0;
+        }
+    
+        .fullname {
+            font-size: 16px;
+            color: #222222;
+        }
+    
+        .position {
+            font-size: 14px;
+            line-height: 16px;
+            color: #686868;
+        }
+    
+        .avatar {
             width: 44px;
+            height: 44px;
+            border-radius: 100%;
+            overflow: hidden;
+            background: #E5EFFD;
+            display: flex;
+            align-items: center;
+            margin-right: 12px;
+    
+            img {
+                width: 44px;
+            }
+        }
+    
+        .avatar-mock {
+            justify-content: center;
+            background: #E5EFFD;
+    
+            img {
+                width: 17px;
+            }
         }
     }
+}
 
-    .avatar-mock {
-        justify-content: center;
-        background: #E5EFFD;
-
-        img {
-            width: 17px;
-        }
+.matches-item-select-mode {
+    .matches-item-content {
+        transform: translateX(32px);
     }
+
+    .matches-item-select {
+        opacity: 1;
+    }
+}
+
+.matches-item-selected {
+    background: #F5F9FF;
 }
