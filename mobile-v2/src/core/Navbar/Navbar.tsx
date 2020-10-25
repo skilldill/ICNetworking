@@ -1,8 +1,10 @@
-import React, { FC, useMemo, CSSProperties } from "react";
+import React, { FC, useMemo, CSSProperties, useEffect } from "react";
 import "./style.scss";
 
 // ICONS
 import { ArrowBackSVG } from "assets/icons";
+import { useSelector } from "react-redux";
+import { commonModule } from "store/common";
 
 interface NavbarProps {
     title: string,
@@ -15,6 +17,7 @@ interface NavbarProps {
 
 export const Navbar: FC<NavbarProps> = (props) => {
     const { title, onClickBack, onCancel, position, leftButton, rightButton } = props;
+    const { withBrow } = useSelector(commonModule.selector);
 
     const btnBack = useMemo(() => {
         return !!onClickBack ? (
@@ -35,13 +38,18 @@ export const Navbar: FC<NavbarProps> = (props) => {
     const currentLeftButton = useMemo(() => !!leftButton ? <div className="back">{leftButton}</div> : btnBack, [leftButton]);
     const currentRightButton = useMemo(() => !!rightButton ? <div className="cancel">{rightButton}</div> : btnCancel, [rightButton]);
 
-    const style = useMemo(():CSSProperties => ({
+    const style = useMemo((): CSSProperties => ({
         position: !!position ? position : "fixed",
         top: "0px"
     }), [position])
 
+    const styleWithBrow = useMemo((): CSSProperties => withBrow ? 
+        { ...style, paddingTop: "60px" } :
+        style, 
+    [withBrow, style])
+
     return (
-        <div className="navbar" style={style}>
+        <div className="navbar" style={styleWithBrow}>
             {currentLeftButton}
             <h3>{title}</h3>
             {currentRightButton}

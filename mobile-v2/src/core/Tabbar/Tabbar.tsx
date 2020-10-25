@@ -1,10 +1,12 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 import "./style.scss";
 import { TabbarItem } from "./components";
 import { ROUTES } from "shared/constants";
+import { commonModule } from "store/common";
 
 import {
     // ICONS
@@ -24,6 +26,7 @@ import {
 
 export const Tabbar = () => {
     const [activeTab, setActiveTab] = useState(ROUTES.collegues);
+    const { withBrow } = useSelector(commonModule.selector);
 
     const location = useLocation();
 
@@ -33,8 +36,9 @@ export const Tabbar = () => {
 
     const classes = useMemo(() => cn({
         "tabbar": true,
-        "tabbar-hide": isAuthorization || isLoadingPage || isInitialForm
-    }), [isAuthorization, isLoadingPage, isInitialForm])
+        "tabbar-hide": isAuthorization || isLoadingPage || isInitialForm,
+        "tabbar-without-bottom": withBrow
+    }), [isAuthorization, isLoadingPage, isInitialForm, withBrow])
 
     return (
         <div className={classes}>

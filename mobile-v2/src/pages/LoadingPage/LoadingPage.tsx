@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 
 import { Loading } from "core/Loading";
 import { ROUTES, StorageKeys } from "shared/constants";
+import { useDispatch } from "react-redux";
+import { IosUtils } from "shared/utils";
+import { commonModule } from "store/common";
 
 /**
  * Эта страница необходима для прогрузки и проверки
@@ -11,6 +14,7 @@ import { ROUTES, StorageKeys } from "shared/constants";
  */
 export const LoadingPage = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const { Device } = Plugins;
 
     const checkInfo = useCallback(async () => {
@@ -21,6 +25,7 @@ export const LoadingPage = () => {
         // Нужно проверить платформу
         // Для мобильных платформ тип undefined это true
         if (platform === "ios" || platform === "android") {
+            IosUtils.checkBrow((hasBrow) => { dispatch(commonModule.actions.setWithBrow(hasBrow)) });
 
             // Если токен есть то переходим в свайпы
             // Иначе в форму авторизации
@@ -42,7 +47,7 @@ export const LoadingPage = () => {
         }
 
         return;
-    }, [Device])
+    }, [Device, dispatch, IosUtils.checkBrow])
 
     useEffect(() => {
         checkInfo();

@@ -12,21 +12,23 @@ interface PageProps {
 export const Page: FC<PageProps> = (props) => {
     const { children, className } = props;
 
-    const { showKeyboard } = useSelector(commonModule.selector);
+    const { showKeyboard, withBrow } = useSelector(commonModule.selector);
 
     const classes = useMemo(() => {
         if (!!className) {
             return cn({
                 "page": true,
-                "page-without-bottom-padding": showKeyboard
+                "page-with-brow": withBrow,
+                "page-without-bottom-padding": showKeyboard,
             }, [className])
         }
 
         return cn({
             "page": true,
-            "page-without-bottom-padding": showKeyboard
+            "page-with-brow": withBrow,
+            "page-without-bottom-padding": showKeyboard,
         })
-    }, [showKeyboard, className])
+    }, [showKeyboard, className, withBrow])
 
     return <div className={classes}>{children}</div>
 }

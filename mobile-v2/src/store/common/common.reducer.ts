@@ -4,7 +4,8 @@ import { CommonState } from "./common.model";
 
 const initialState: CommonState = {
   showKeyboard: false,
-  showTabbar: true
+  showTabbar: true,
+  withBrow: true
 }
 
 const setShowKeyboard = (state: CommonState, action: Action<any>): CommonState => ({
@@ -17,9 +18,15 @@ const setShowTabbar = (state: CommonState, action: Action<any>): CommonState => 
   showTabbar: action.payload
 })
 
+const setWithBrow = (state: CommonState, action: Action<any>): CommonState => ({
+  ...state,
+  withBrow: action.payload
+})
+
 const mapReducers = {
   [COMMON_ACTION_TYPES.SET_SHOW_KEYBOARD]: setShowKeyboard,
-  [COMMON_ACTION_TYPES.SET_SHOW_TABBAR]: setShowTabbar
+  [COMMON_ACTION_TYPES.SET_SHOW_TABBAR]: setShowTabbar,
+  [COMMON_ACTION_TYPES.SET_WITH_BROW]: setWithBrow
 }
 
 export const commonReducer = handleActions(mapReducers, initialState);
