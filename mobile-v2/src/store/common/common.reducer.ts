@@ -5,7 +5,7 @@ import { CommonState } from "./common.model";
 const initialState: CommonState = {
   showKeyboard: false,
   showTabbar: true,
-  withBrow: true
+  withBrow: false
 }
 
 const setShowKeyboard = (state: CommonState, action: Action<any>): CommonState => ({
