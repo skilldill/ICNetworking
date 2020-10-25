@@ -2,20 +2,16 @@ import React, { useEffect } from "react";
 import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { http } from "shared/http";
+import { useDispatch, useSelector } from "react-redux";
+import { matchesModule } from "store/matches";
 
 export const Matches = () => {
+    const dispatch = useDispatch();
+    const { matches, loading } = useSelector(matchesModule.selector);
 
     // test matches
     useEffect(() => {
-        const getMatches = async () => {
-            try {
-                await http.get('/api/events/matches/');
-            } catch(error) {
-                console.log(error.message);
-            }
-        }
-
-        getMatches();
+        dispatch(matchesModule.actions.fetchMatches());
     },[])
 
     return (

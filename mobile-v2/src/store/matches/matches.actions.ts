@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { createAction } from "redux-actions";
 import { ApiService } from "shared/http";
+import { matchesMapper } from "shared/utils";
 
 export const MATCHES_ACTION_TYPES = {
     SET_MATCHES: "MATCHES.SET_MATCHES",
@@ -16,8 +17,9 @@ class MatchesActions {
 
         try {
             const { data } = await ApiService.getMatches();
+            const profiles = matchesMapper(data.results);
             
-            console.log(data);
+            dispatch(this.setMatches(profiles));
         } catch(error) {
             console.log(error.message);
         } finally {

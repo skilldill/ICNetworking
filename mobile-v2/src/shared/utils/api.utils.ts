@@ -15,3 +15,8 @@ export const profileMapper = (profile: any) => ({
 export const listsNormalizer = (item: { id: number, name: string }) => ({
     
 })
+
+export const matchesMapper = (matches: any[]) => {
+    const profiles = matches.map((match) => match.match_with_user_profile_data);
+    return profiles.map(profileMapper);
+}
