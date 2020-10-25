@@ -22,7 +22,7 @@ export const MatchesList: FC<MatchesListProps> = (props) => {
                 selectMode={selectMode}
             />
         ))
-    ) : <></>, [matches])
+    ) : <></>, [matches, selectMode])
 
     return (
         <Scrollable className="matches-list">

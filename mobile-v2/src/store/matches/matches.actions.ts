@@ -5,12 +5,14 @@ import { matchesMapper } from "shared/utils";
 
 export const MATCHES_ACTION_TYPES = {
     SET_MATCHES: "MATCHES.SET_MATCHES",
-    SET_LOADING: "MATCHES.SET_LOADING"
+    SET_LOADING: "MATCHES.SET_LOADING",
+    SET_SELECT_MODE: "MATCHES.SET_SELECT_MODE"
 }
 
 class MatchesActions {
     setMatches = createAction(MATCHES_ACTION_TYPES.SET_MATCHES);
     setLoading = createAction(MATCHES_ACTION_TYPES.SET_LOADING);
+    setSelectMode = createAction(MATCHES_ACTION_TYPES.SET_SELECT_MODE);
 
     fetchMatches = () => async (dispatch: Dispatch) => {
         dispatch(this.setLoading(true));

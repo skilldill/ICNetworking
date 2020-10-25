@@ -20,9 +20,15 @@ const setLoading = (state: MatchesState, action: Action<any>): MatchesState => (
     loading: action.payload
 })
 
+const setSelectMode = (state: MatchesState, action: Action<any>): MatchesState => ({
+    ...state,
+    selectMode: action.payload
+})
+
 const mapReducers = {
     [MATCHES_ACTION_TYPES.SET_MATCHES]: setMatches,
-    [MATCHES_ACTION_TYPES.SET_LOADING]: setLoading
+    [MATCHES_ACTION_TYPES.SET_LOADING]: setLoading,
+    [MATCHES_ACTION_TYPES.SET_SELECT_MODE]: setSelectMode
 }
 
 export const matchesReducer = handleActions(mapReducers, initialState);
