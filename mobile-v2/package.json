@@ -44,6 +44,8 @@
     "start-ios": "npx cap open ios",
     "sync-android": "npx cap sync android",
     "start-android": "npx cap open android",
+    "add-android": "cap add android",
+    "add-ios": "cap add ios",
     "api-gen": "node swagger-codegen.js"
   },
   "eslintConfig": {
