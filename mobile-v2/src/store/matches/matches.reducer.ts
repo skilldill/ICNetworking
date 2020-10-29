@@ -25,10 +25,24 @@ const setSelectMode = (state: MatchesState, action: Action<any>): MatchesState =
     selectMode: action.payload
 })
 
+const selectMatchId = (state: MatchesState, action: Action<any>): MatchesState => {
+    const includesToSelected = state.selectedIds.includes(action.payload);
+    
+    console.log('SELECT', includesToSelected);
+
+    if (includesToSelected) {
+        const filtredIds = state.selectedIds.filter((id) => id !== action.payload);
+        return { ...state, selectedIds: filtredIds };
+    }
+
+    return { ...state, selectedIds: [...state.selectedIds, action.payload] }
+}
+
 const mapReducers = {
     [MATCHES_ACTION_TYPES.SET_MATCHES]: setMatches,
     [MATCHES_ACTION_TYPES.SET_LOADING]: setLoading,
-    [MATCHES_ACTION_TYPES.SET_SELECT_MODE]: setSelectMode
+    [MATCHES_ACTION_TYPES.SET_SELECT_MODE]: setSelectMode,
+    [MATCHES_ACTION_TYPES.SELECT_MATCH_ID]: selectMatchId
 }
 
 export const matchesReducer = handleActions(mapReducers, initialState);

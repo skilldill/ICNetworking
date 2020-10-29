@@ -1,20 +1,23 @@
-import React, {FC, useMemo} from "react";
+import React, {FC, useCallback, useMemo} from "react";
 import cn from "classnames";
 
 import "./style.scss";
 import Item from "antd/lib/list/Item";
 import { PartBlock } from "shared/components";
 import { ProfileAvatarSVG, SelectListItemActiveSVG, SelectListItemSVG } from "assets/icons";
+import { useDispatch } from "react-redux";
+import { matchesModule } from "store/matches";
 
 interface MacthesItemProps {
     match: any,
     selected: boolean,
-    selectMode: boolean
+    selectMode: boolean,
+    onSelectMatch: (id: number) => void
 }
 
 export const MacthesItem: FC<MacthesItemProps> = (props) => {
-    const { match, selected, selectMode } = props;
-    const { firstName, lastName, positionName, avatars } = match;
+    const { match, selected, selectMode, onSelectMatch } = props;
+    const { firstName, lastName, positionName, avatars, id } = match;
 
     const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
     const position = useMemo(() => !!positionName ? positionName : 'Не указано', [positionName]);
@@ -37,8 +40,12 @@ export const MacthesItem: FC<MacthesItemProps> = (props) => {
 
     const selectIconSvg = useMemo(() => selected ? SelectListItemActiveSVG : SelectListItemSVG, [selected]);
 
+    const handleSelectMatch = useCallback(() => {
+        !!selectMode && onSelectMatch(id);
+    }, [onSelectMatch, selectMode]);
+
     return (
-        <PartBlock className={classes}>
+        <PartBlock className={classes} onClick={handleSelectMatch}>
             <div className="matches-item-select">
                 <img src={selectIconSvg} alt="выбор"/>
             </div>
