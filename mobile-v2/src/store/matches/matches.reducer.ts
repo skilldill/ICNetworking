@@ -5,7 +5,7 @@ import { MATCHES_ACTION_TYPES } from "./matches.actions";
 
 const initialState: MatchesState = {
     matches: [],
-    selectedIds: [19, 29],
+    selectedIds: [],
     loading: false,
     selectMode: false,
 }
@@ -28,8 +28,6 @@ const setSelectMode = (state: MatchesState, action: Action<any>): MatchesState =
 const selectMatchId = (state: MatchesState, action: Action<any>): MatchesState => {
     const includesToSelected = state.selectedIds.includes(action.payload);
     
-    console.log('SELECT', includesToSelected);
-
     if (includesToSelected) {
         const filtredIds = state.selectedIds.filter((id) => id !== action.payload);
         return { ...state, selectedIds: filtredIds };
