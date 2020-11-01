@@ -5,7 +5,7 @@ import { http } from "shared/http";
 import { useDispatch, useSelector } from "react-redux";
 import { matchesModule } from "store/matches";
 import { Page } from "core/Page";
-import { MatchesAdd, MatchesList } from "./components";
+import { ButtonMeeting, MatchesAdd, MatchesList } from "./components";
 
 export const Matches = () => {
     const dispatch = useDispatch();
@@ -21,6 +21,7 @@ export const Matches = () => {
             <Navbar title="Совпадения" />
             <MatchesAdd />
             <MatchesList matches={matches} selectedIds={selectedIds} selectMode={selectMode} />
+            <ButtonMeeting />
         </Page>
     )
 }

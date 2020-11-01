@@ -1,0 +1,15 @@
+.button-meeting-background {
+    position: absolute;
+    bottom: -156px;
+    right: 0;
+    left: 0;
+    backdrop-filter:blur(3px);
+    display: flex;
+    justify-content: center;
+    padding: 20px 24px;
+    transition: all .3;
+}
+
+.button-meeting-background-show {
+    bottom: 56px;
+}
