@@ -40,6 +40,7 @@ import SearchInputSVG from "./search-input.svg";
 import SelectListItemSVG from "./select-list-item.svg";
 import SelectListItemActiveSVG from "./select-list-item-active.svg";
 import PlusWhiteSVG from "./plus-white.svg";
+import SmallCrossWhiteSVG from "./small-cross-white.svg";
 
 export {
   ColleguesSVG,
@@ -71,5 +72,6 @@ export {
   SearchInputSVG,
   SelectListItemSVG,
   SelectListItemActiveSVG,
-  PlusWhiteSVG
+  PlusWhiteSVG,
+  SmallCrossWhiteSVG
 }
