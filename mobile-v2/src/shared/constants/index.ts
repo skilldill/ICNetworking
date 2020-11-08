@@ -58,3 +58,5 @@ export const API_URLS = {
 }
 
 export const DELAY_KEYBOARD = 200;
+
+export const DATE_FORMAT = "DD-MM-YYYY";

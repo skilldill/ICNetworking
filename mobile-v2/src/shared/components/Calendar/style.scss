@@ -47,7 +47,13 @@
             }
         }
 
-        &__tile--now {
+        // &__tile--now {
+        //     background-color: #5295F1 !important;
+        //     color: white;
+        //     max-width: 46px !important;
+        // }
+
+        &__tile--active {
             background-color: #5295F1 !important;
             color: white;
             max-width: 46px !important;
@@ -58,6 +64,7 @@
         }
 
         &__tile {
+            outline: none;
             border-radius: 100%;
             height: 46px;
             border: none;

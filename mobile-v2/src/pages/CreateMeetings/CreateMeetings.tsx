@@ -1,10 +1,12 @@
 import { Navbar } from "core/Navbar";
 import { Page } from "core/Page";
-import React, { FC, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { Calendar } from "shared/components";
+import moment from "moment";
 
 import "./style.scss";
 import { Participants } from "./components";
+import { DATE_FORMAT } from "shared/constants";
 
 interface CreateMeetingsProps {
     onClose: () => void;
@@ -13,6 +15,10 @@ interface CreateMeetingsProps {
 export const CreateMeetings: FC<CreateMeetingsProps> = (props) => {
     const { onClose } = props;
     
+    const handleChangeDate = useCallback((date: any) => {
+        console.log(moment(date).format('DD-MM-YYYY'));
+    }, [])
+
     return (
         <Page>
             <Navbar 
@@ -20,7 +26,7 @@ export const CreateMeetings: FC<CreateMeetingsProps> = (props) => {
                 onClickBack={onClose}
             />
             <Participants />
-            <Calendar />
+            <Calendar onChange={handleChangeDate} />
         </Page>
     )
 }
