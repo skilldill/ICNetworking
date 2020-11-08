@@ -10,7 +10,7 @@ import { FadePage } from "core/FadePage";
 import { CreateMeetings } from "pages/CreateMeetings";
 
 export const Matches = () => {
-    const [showCreateMeetings, setShowCreateMeetings] = useState(false);
+    const [showCreateMeetings, setShowCreateMeetings] = useState(true);
 
     const dispatch = useDispatch();
     const { matches, loading, selectedIds, selectMode } = useSelector(matchesModule.selector);

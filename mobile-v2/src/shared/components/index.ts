@@ -5,6 +5,7 @@ import { Loading } from "./Loading";
 import { PartBlock } from "./PartBlock";
 import { SuggestList } from "./SuggestList";
 import { SelectList } from "./SelectList";
+import { Calendar } from "./Calendar";
 
 export {
   Input,
@@ -13,5 +14,6 @@ export {
   Loading,
   PartBlock,
   SuggestList,
-  SelectList
+  SelectList,
+  Calendar
 }

@@ -1,0 +1,51 @@
+.calendar-events {
+    max-width: 375px;
+    padding: 24px;
+
+    .react-calendar {
+        &__tile--now {
+            background-color: #5295F1 !important;
+            color: white;
+        }
+
+        &__tile {
+            border-radius: 100%;
+            height: 46px;
+            border: none;
+            background-color: white;
+            font-size: 16px;
+            line-height: 19px;
+
+            //override
+            // flex-basis: 33px !important;
+            // max-width: 33px !important;
+            // margin: 8px;
+
+            // &:first-child {
+            //     margin-left: 0;
+            // }
+
+            // &:last-child {
+            //     margin-right: 0;
+            // }
+        }
+
+        &__month-view__days__day--neighboringMonth {
+            color: #B8B8B8;
+        }
+
+        &__month-view__weekdays {
+            .react-calendar__month-view__weekdays__weekday {
+                
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

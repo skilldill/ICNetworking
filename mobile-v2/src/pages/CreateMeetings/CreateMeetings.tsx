@@ -1,6 +1,7 @@
 import { Navbar } from "core/Navbar";
 import { Page } from "core/Page";
 import React, { FC, useMemo } from "react";
+import { Calendar } from "shared/components";
 
 import "./style.scss";
 
@@ -17,6 +18,7 @@ export const CreateMeetings: FC<CreateMeetingsProps> = (props) => {
                 title="Назначить встречу"
                 onClickBack={onClose}
             />
+            <Calendar />
         </Page>
     )
 }
