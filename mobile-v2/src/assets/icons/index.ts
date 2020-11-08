@@ -41,6 +41,9 @@ import SelectListItemSVG from "./select-list-item.svg";
 import SelectListItemActiveSVG from "./select-list-item-active.svg";
 import PlusWhiteSVG from "./plus-white.svg";
 import SmallCrossWhiteSVG from "./small-cross-white.svg";
+import CalendarSVG from "./calendar.svg";
+import ArrowLeftSVG from "./arrow-left.svg";
+import ArrowRightSVG from "./arrow-right.svg";
 
 export {
   ColleguesSVG,
@@ -73,5 +76,8 @@ export {
   SelectListItemSVG,
   SelectListItemActiveSVG,
   PlusWhiteSVG,
-  SmallCrossWhiteSVG
+  SmallCrossWhiteSVG,
+  CalendarSVG,
+  ArrowLeftSVG,
+  ArrowRightSVG
 }

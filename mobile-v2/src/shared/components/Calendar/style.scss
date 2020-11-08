@@ -1,11 +1,60 @@
 .calendar-events {
     max-width: 375px;
-    padding: 24px;
+    // padding: 24px;
 
     .react-calendar {
+        &__navigation {
+            padding: 24px;
+            position: relative;
+            margin-bottom: 28px;
+
+            &__label {
+                border: none;
+                background-color: white;
+                padding: 0;
+
+                .calendar-header {
+                    font-size: 16px;
+                    line-height: 19px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            .react-calendar__navigation__next2-button,
+            .react-calendar__navigation__prev2-button {
+                display: none;
+            }
+
+            .react-calendar__navigation__arrow {
+                position: absolute;
+                right: 0px;
+                top: 20px;
+                background-color: white;
+                border: none;
+            } 
+            
+            .react-calendar__navigation__next-button {
+                right: 24px;
+            }
+
+            .react-calendar__navigation__prev-button {
+                right: 90px;
+            }
+        }
+
         &__tile--now {
             background-color: #5295F1 !important;
             color: white;
+            max-width: 46px !important;
+        }
+
+        &__month-view {
+            padding: 0 9px;
         }
 
         &__tile {
@@ -15,6 +64,9 @@
             background-color: white;
             font-size: 16px;
             line-height: 19px;
+
+            // flex-basis: 10.2857% !important;
+            // max-width: 10.2857% !important;
 
             //override
             // flex-basis: 33px !important;
@@ -35,8 +87,18 @@
         }
 
         &__month-view__weekdays {
+            margin-bottom: 17px;
+
             .react-calendar__month-view__weekdays__weekday {
-                
+                // flex-basis: 10.2857% !important;
+                // max-width: 10.2857% !important;
+                abbr {
+                    text-decoration: none;
+                }
+
+                font-size: 14px;
+                line-height: 16px;
+                color: #949494;
 
                 &:first-child {
                     margin-left: 0;
