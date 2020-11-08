@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import cn from "classnames";
 
@@ -6,7 +6,13 @@ import "./style.scss";
 import { Button } from "shared/components";
 import { matchesModule } from "store/matches";
 
-export const ButtonMeeting = () => {
+interface ButtonMeetingProps {
+    onClick: () => void;
+}
+
+export const ButtonMeeting: FC<ButtonMeetingProps> = (props) => {
+    const { onClick } = props;
+
     const { selectedIds } = useSelector(matchesModule.selector);
     const dispatch = useDispatch();
 
@@ -16,7 +22,7 @@ export const ButtonMeeting = () => {
     }), [selectedIds])
 
     const handleClick = useCallback(() => {
-
+        onClick();
     }, []);
 
     return (
