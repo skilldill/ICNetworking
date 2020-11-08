@@ -1,0 +1,41 @@
+.participants {
+    display: flex;
+    // overflow-x: scroll;
+
+    .member {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 66px;
+        margin-right: 20px;
+        position: relative;
+
+        .circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 100%;
+            overflow: hidden;
+            background: #E5EFFD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .avatar {
+                width: 48px;
+            }
+            
+            .avatar-mock {
+                width: 17px;
+            }
+        }
+
+        p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 2px;
+            text-align: center;
+            color: #222222;
+        }
+    }
+}
