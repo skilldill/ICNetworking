@@ -44,6 +44,7 @@ import SmallCrossWhiteSVG from "./small-cross-white.svg";
 import CalendarSVG from "./calendar.svg";
 import ArrowLeftSVG from "./arrow-left.svg";
 import ArrowRightSVG from "./arrow-right.svg";
+import ClockSVG from "./clock.svg";
 
 export {
   ColleguesSVG,
@@ -79,5 +80,6 @@ export {
   SmallCrossWhiteSVG,
   CalendarSVG,
   ArrowLeftSVG,
-  ArrowRightSVG
+  ArrowRightSVG,
+  ClockSVG
 }

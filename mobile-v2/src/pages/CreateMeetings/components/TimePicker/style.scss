@@ -1,0 +1,30 @@
+.time-picker {
+    border-top: 1px solid #E8E8E8;
+    background-color: white;
+
+    .clock {
+        padding: 15.5px 24px;
+        display: flex;
+        justify-content: space-between;
+
+        &-placeholder {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            line-height: 19px;
+            color: #222222;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+    }
+
+    input[type="time"] {
+        border: none;
+        background-color: white;
+        outline: none;
+        font-size: 16px;
+        color: #222222;
+    }
+}
