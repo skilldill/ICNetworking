@@ -5,6 +5,7 @@ import "./style.scss";
 import { Navbar } from "core/Navbar";
 import { Input, PartBlock } from "shared/components";
 import { TimePicker } from "../TimePicker";
+import { RemovebaleList } from "../RemovebaleList";
 
 interface FinishPageProps {
     onClose: () => void;
@@ -25,6 +26,8 @@ export const FinishPage: FC<FinishPageProps> = (props) => {
             </PartBlock>
 
             <TimePicker />
+
+            <RemovebaleList />
         </Page>
     )
 }

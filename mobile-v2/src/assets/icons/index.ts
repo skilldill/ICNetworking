@@ -45,6 +45,7 @@ import CalendarSVG from "./calendar.svg";
 import ArrowLeftSVG from "./arrow-left.svg";
 import ArrowRightSVG from "./arrow-right.svg";
 import ClockSVG from "./clock.svg";
+import BasketSVG from "./basket.svg";
 
 export {
   ColleguesSVG,
@@ -81,5 +82,6 @@ export {
   CalendarSVG,
   ArrowLeftSVG,
   ArrowRightSVG,
-  ClockSVG
+  ClockSVG,
+  BasketSVG
 }
