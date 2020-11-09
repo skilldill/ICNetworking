@@ -26,4 +26,52 @@
             margin-bottom: 0;
         }
     }
+
+    .member-content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        padding: 10px 24px;
+        align-items: center;
+
+        .circle {
+            width: 44px;
+            height: 44px;
+            overflow: hidden;
+            border-radius: 100%;
+            background: #E5EFFD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+
+            .avatar {
+                width: 44px;
+            }
+            
+            .avatar-mock {
+                width: 14px;
+            }
+        }
+
+        .member-info-name {
+            font-size: 16px;
+            line-height: 19px;
+            color: #222222;
+            margin-bottom: 4px;
+            text-align: start;
+        }
+
+        .member-info-position {
+            font-size: 14px;
+            line-height: 16px;
+            color: #686868;
+            margin: 0;
+            text-align: start;
+        }
+    }
 }

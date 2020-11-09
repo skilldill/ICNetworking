@@ -12,7 +12,7 @@ export const RemovebaleList = () => {
     return (
         <div className="removebale-list">
             {selectedMembers.map((member, i) => 
-                <RemovebaleItem member={member} onRemove={() => {}} />
+                <RemovebaleItem key={i} member={member} onRemove={() => {}} />
             )}
         </div>
     )

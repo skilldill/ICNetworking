@@ -26,7 +26,8 @@ export const FinishPage: FC<FinishPageProps> = (props) => {
             </PartBlock>
 
             <TimePicker />
-
+            
+            <p className="members-title">Участники</p>
             <RemovebaleList />
         </Page>
     )
