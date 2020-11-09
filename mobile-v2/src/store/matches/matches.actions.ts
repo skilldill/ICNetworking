@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { createAction } from "redux-actions";
 import { ApiService } from "shared/http";
-import { matchesMapper } from "shared/utils";
+import { getUniques, matchesMapper } from "shared/utils";
 
 export const MATCHES_ACTION_TYPES = {
     SET_MATCHES: "MATCHES.SET_MATCHES",
@@ -23,7 +23,12 @@ class MatchesActions {
             const { data } = await ApiService.getMatches();
             const profiles = matchesMapper(data.results);
             
-            dispatch(this.setMatches(profiles));
+            // TODO: убрать потом проверку на уникальность
+            const uniquesProfiles = getUniques(profiles);
+
+            console.log(uniquesProfiles);
+
+            dispatch(this.setMatches(uniquesProfiles));
         } catch(error) {
             console.log(error.message);
         } finally {

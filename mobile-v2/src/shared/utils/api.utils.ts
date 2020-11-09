@@ -20,3 +20,17 @@ export const matchesMapper = (matches: any[]) => {
     const profiles = matches.map((match) => match.match_with_user_profile_data);
     return profiles.map(profileMapper);
 }
+
+export const getUniques = (arr: any[]): any[] => {
+    const uniqueIds: any[] = [];
+    const uniques: any[] = [];
+
+    arr.map((item) => {
+        if (!uniqueIds.includes(item.id)) {
+            uniqueIds.push(item.id);
+            uniques.push(item);
+        }
+    })
+
+    return uniques;
+}

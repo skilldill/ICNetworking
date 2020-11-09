@@ -18,7 +18,6 @@ export const MatchesList: FC<MatchesListProps> = (props) => {
     const dispatch = useDispatch();
 
     const hanleSelect = useCallback((id) => {
-        console.log(id);
         dispatch(matchesModule.actions.selectMatchId(id));
     }, [dispatch]);
 
