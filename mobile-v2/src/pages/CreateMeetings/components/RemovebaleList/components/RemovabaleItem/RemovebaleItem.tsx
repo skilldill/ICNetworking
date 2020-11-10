@@ -23,31 +23,39 @@ export const RemovebaleItem: FC<RemovebaleItemProps> = (props) => {
         addTransitionAnimation,
         
         setStateTranslateX,
-        setStateTranslateY,
-        setStateTransition,
-
-        stateStartX,
-        stateStartY,
+        
         stateTranslateX,
-        stateTranslateY,
         stateTransition
     } = useTouch();
 
     const onTouchEnd = () => {
         console.log(stateTranslateX);
 
-        if (Math.abs(stateTranslateX) > 50) {
-            // ADD TRANSITION FOR ANIMATION
-            addTransitionAnimation(undefined, -88);
-        } else {
-            addTransitionAnimation(undefined, 0);
+        // Проверяем что листаем в левую сторону
+        if (stateTranslateX < 0) {
+            if (Math.abs(stateTranslateX) > 50) {
+                // ADD TRANSITION FOR ANIMATION
+                addTransitionAnimation(undefined, -88);
+            } else {
+                addTransitionAnimation(undefined, 0);
+            }
+
+            return;
         }
+
+        setStateTranslateX(0);
     }
 
-    const dragStyle: React.CSSProperties = useMemo(() => ({
-        transform: `translateX(${stateTranslateX}px)`,
-        transition : stateTransition ? "all .3s" : "none"
-    }), [stateTranslateX, stateTransition]);
+    const dragStyle: React.CSSProperties = useMemo(() => {
+        if (stateTranslateX < 0) {
+            return {
+                transform: `translateX(${stateTranslateX}px)`,
+                transition : stateTransition ? "all .3s" : "none"
+            }
+        }
+
+        return {}
+    }, [stateTranslateX, stateTransition]);
 
     return (
         <div className="removebale-item">
