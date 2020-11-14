@@ -1,13 +1,16 @@
-import { BasketSVG, ProfileAvatarSVG } from "assets/icons";
 import React, { FC, useEffect, useMemo } from "react";
-import { useTouch } from "shared/hooks";
+import { Plugins } from '@capacitor/core';
 
 import "./style.scss";
+import { BasketSVG, ProfileAvatarSVG } from "assets/icons";
+import { useTouch } from "shared/hooks";
 
 interface RemovebaleItemProps {
     member: any,
     onRemove: (id: any) => void
 }
+
+const { Haptics } = Plugins;
 
 export const RemovebaleItem: FC<RemovebaleItemProps> = (props) => {
     const { member, onRemove } = props;
@@ -35,6 +38,7 @@ export const RemovebaleItem: FC<RemovebaleItemProps> = (props) => {
         if (stateTranslateX < 0) {
             if (Math.abs(stateTranslateX) > 50) {
                 // ADD TRANSITION FOR ANIMATION
+                Haptics.vibrate();
                 addTransitionAnimation(undefined, -88);
             } else {
                 addTransitionAnimation(undefined, 0);
@@ -57,10 +61,20 @@ export const RemovebaleItem: FC<RemovebaleItemProps> = (props) => {
         return {}
     }, [stateTranslateX, stateTransition]);
 
+    const iconStyle: React.CSSProperties = useMemo(() => {
+        if (stateTranslateX < 0) {
+            return {
+                transform: `scale(1)`,
+            }
+        }
+
+        return {}
+    }, [stateTranslateX]);
+
     return (
         <div className="removebale-item">
             <div className="remove">
-                <img src={BasketSVG} alt="Удалить" />
+                <img style={iconStyle} src={BasketSVG} alt="Удалить" />
                 <p>Удалить</p>
             </div>
 
