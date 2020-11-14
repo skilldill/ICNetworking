@@ -114,4 +114,15 @@ export class ApiService {
     static createDepartment = (value: {name: string}) => {
         return http.post(API_URLS.departments, value);
     }
+
+    // Meetings
+    static createMeeting = (data: { name: string, participants: number[], dateTime: string }) => {
+        const meetingData = {
+            name: data.name,
+            participants: data.participants,
+            "scheduled_for": data.dateTime,
+        }
+
+        return http.post(API_URLS.meetings, meetingData);
+    }
 }

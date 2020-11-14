@@ -54,7 +54,10 @@ export const API_URLS = {
     //SEARCHABLE LISTS
     searchPositions: "/api/users/positions/?name__icontains=",
     searchIntersts: "/api/users/interests/?name__icontains=",
-    searchDepartments: "/api/users/departments/?name__icontains="
+    searchDepartments: "/api/users/departments/?name__icontains=",
+
+    //MEETINGS
+    meetings: "/api/events/meetings"
 }
 
 export const DELAY_KEYBOARD = 200;

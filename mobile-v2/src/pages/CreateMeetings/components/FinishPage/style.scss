@@ -1,6 +1,7 @@
 .finish-page {
     background: #F8F8F8;
     height: 100%;
+    position: relative;
 
     .part-block {
         background-color: white;
@@ -26,5 +27,12 @@
         padding: 20px 24px 13px 24px;
         text-align: start;
         margin-bottom: 0;
+    }
+
+    .btn-create-block {
+        position: absolute;
+        bottom: 50px;
+        left: 0;
+        right: 0;
     }
 }
