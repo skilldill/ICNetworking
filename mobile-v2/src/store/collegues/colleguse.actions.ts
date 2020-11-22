@@ -56,7 +56,7 @@ export class ColleguesActions {
   // WITHOUT DISPATCH
   matching = (profileId: number, collegueProfileId: number) => async (dispatch: Dispatch) => {
     try {
-      await ApiService.matching(profileId, collegueProfileId);
+      await ApiService.createLike(profileId, collegueProfileId);
     } catch (error) {
       console.log(error);
     }

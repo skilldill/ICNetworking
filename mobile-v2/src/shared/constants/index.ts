@@ -46,6 +46,9 @@ export const API_URLS = {
     // EVENTS
     matches: "/api/events/matches/",
 
+    // LIKES
+    likes: "/api/events/likes/",
+
     //LISTS
     positions: "/api/users/positions/",
     interests: "/api/users/interests/",

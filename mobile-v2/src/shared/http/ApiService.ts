@@ -66,6 +66,11 @@ export class ApiService {
         return http.get(API_URLS.matches);
     }
 
+    /**
+     * Deprecated
+     * @param profileId 
+     * @param collegueProfileId 
+     */
     static matching = (profileId: number, collegueProfileId: number) => {
         const params = {
             user_profile: profileId,
@@ -124,5 +129,11 @@ export class ApiService {
         }
 
         return http.post(API_URLS.meetings, meetingData);
+    }
+
+    // Likes
+    static createLike = (profileId: number, collegueProfileId: number) => {
+        const data = { 'user_profile': profileId, 'liked_user_profile': collegueProfileId };
+        return http.post(API_URLS.likes, data);
     }
 }
